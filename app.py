@@ -19,7 +19,7 @@ style_css = """
     }
     
     /* Mengunci warna teks agar tidak memutih akibat dark mode */
-    .stApp p, .stApp li, .stApp span {
+    .stApp p, .stApp li, .stApp span, .stApp label {
         color: #2E5B88 !important;
     }
     
@@ -54,7 +54,7 @@ style_css = """
     }
 </style>
 """
-# Menjalankan fungsi markdown dengan parameter underscore yang benar (_)
+# Menjalankan fungsi markdown dengan parameter underscore (_) yang benar
 st.markdown(style_css, unsafe_allow_html=True)
 
 # --- SIDEBAR NAVIGASI ---
@@ -70,10 +70,8 @@ menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Mate
 
 # --- HALAMAN UTAMA: BERANDA ---
 if menu == "🏠 Beranda":
-    with col_img:
-        st.write("")
-        # Menggunakan use_container_width agar gambar pas dengan kolom kanan
-        st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
+    # KUNCI UTAMA: Kolom didefinisikan LEBIH DULU sebelum dipanggil oleh fungsi with
+    col_text, col_img = st.columns([3, 2])
     
     with col_text:
         st.title("Petualangan Geometri Interaktif 🤩")
@@ -91,7 +89,8 @@ if menu == "🏠 Beranda":
         
     with col_img:
         st.write("")
-        st.image("https://illustrations.popsy.co/amber/back-to-school.svg", width=320, caption="Mari kita belajar bersama!")
+        # Menggunakan tautan PNG yang stabil agar gambar tidak patah/pecah
+        st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
 
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Materi Kubus":
@@ -195,51 +194,4 @@ elif menu == "🧱 Materi Balok":
         st.latex(r"Luas \ Permukaan \ (L) = 2 \times ((p \times l) + (p \times t) + (l \times t))")
         
         st.markdown("### 🧮 Lab Eksperimen Angka")
-        p = st.number_input("Masukkan Panjang (p):", min_value=1.0, value=6.0, step=0.5)
-        l = st.number_input("Masukkan Lebar (l):", min_value=1.0, value=4.0, step=0.5)
-        t = st.number_input("Masukkan Tinggi (t):", min_value=1.0, value=3.0, step=0.5)
-        
-        v_balok = p * l * t
-        lp_balok = 2 * ((p * l) + (p * t) + (l * t))
-        
-        st.info(f"💡 **Hasil Eksperimen Balok:**\n\n"
-                f"🔹 **Volume (V):** {v_balok:.2f} satuan kubik\n\n"
-                f"🔹 **Luas Permukaan (L):** {lp_balok:.2f} satuan persegi")
-
-    with col2:
-        st.markdown("### 🔍 Teropong 3D Interaktif")
-        st.caption("👉 Klik tahan lalu geser untuk melihat bentuk baloknya!")
-        
-        x = [0, p, p, 0, 0, p, p, 0]
-        y = [0, 0, l, l, 0, 0, l, l]
-        z = [0, 0, 0, 0, t, t, t, t]
-        
-        fig = go.Figure(data=[
-            go.Mesh3d(
-                x=x, y=y, z=z,
-                i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
-                j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
-                k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
-                opacity=0.7,
-                color='#FF416C',
-                flatshading=True,
-                name="Balok"
-            )
-        ])
-        
-        fig.update_layout(
-            scene=dict(
-                xaxis=dict(title='Panjang (X)', range=[-1, p+2], backgroundcolor="#f0f0f0"),
-                yaxis=dict(title='Lebar (Y)', range=[-1, l+2], backgroundcolor="#f0f0f0"),
-                zaxis=dict(title='Tinggi (Z)', range=[-1, t+2], backgroundcolor="#f0f0f0")
-            ),
-            margin=dict(l=0, r=0, b=0, t=0),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-# --- FOOTER ---
-st.sidebar.markdown("---")
-st.sidebar.caption("🎨 Dibuat untuk Media Pembelajaran Matematika SMP.")
-st.sidebar.caption("Oleh: Mochammad Rifqi Al Khadziq")
+        p = st
