@@ -85,10 +85,10 @@ if menu == "🏠 Beranda":
         *Silakan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
         """)
         
-    with col_img:
+   with col_img:
         st.write("")
-        # Cukup gunakan SATU perintah st.image ini di halaman beranda
-        st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
+        # Memanggil file lokal yang sudah diunggah di dalam repositori
+        st.image("pngtree-happy-junior-high-school-students-vector-png-image_18401550", use_container_width=True)
 
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Materi Kubus":
