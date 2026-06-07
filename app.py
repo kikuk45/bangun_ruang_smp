@@ -80,16 +80,16 @@ if menu == "🏠 Beranda":
         Selamat datang di ruang belajar matematika yang seru! Di sini kita akan membedah rahasia di balik benda-benda di sekitar kita yang berbentuk **Kubus** dan **Balok**.
         
         **Apa saja yang bisa kamu lakukan di sini🤔?**
-        * 🕵️‍♂️ **Detektif 3D:** Putar, perbesar, dan intip bangun ruang dari sudut mana saja sesukamu!🧐
+        * 🕵️‍♂️ **Detektif 3D:** Putar, perbesar, dan intip bangun ruang dari sudut mana saja sesukamu!
         * 🧮 **Kalkulator Ajaib:** Ketik angka ukurannya, dan simsalabim! Luas dan volumenya langsung terhitung otomatis.
         * 📝 **Catatan Pintar:** Rumus-rumus penting dikemas simpel agar kamu cepat paham.
         
         *Silakan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
         """)
         
-    with col_img:
+   with col_img:
         st.write("")
-        # Menggunakan tautan PNG yang stabil agar gambar tidak patah/pecah
+        # Menggunakan link PNG asli yang stabil dan support full-width kolom
         st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
 
 # --- HALAMAN: KUBUS ---
@@ -133,7 +133,7 @@ elif menu == "🧊 Materi Kubus":
 
     with col2:
         st.markdown("### 🔍 Teropong 3D Interaktif")
-        st.caption("👉 Gunakan mouse-mu untuk memutar kubus di bawah ini!")
+        st.caption("👉 Sentuh atau geser bangun ruang di bawah ini untuk melihatnya dari berbagai sudut!")
         
         s = sisi
         x = [0, s, s, 0, 0, s, s, 0]
@@ -194,4 +194,51 @@ elif menu == "🧱 Materi Balok":
         st.latex(r"Luas \ Permukaan \ (L) = 2 \times ((p \times l) + (p \times t) + (l \times t))")
         
         st.markdown("### 🧮 Lab Eksperimen Angka")
-        p = st
+        p = st.number_input("Masukkan Panjang (p):", min_value=1.0, value=6.0, step=0.5)
+        l = st.number_input("Masukkan Lebar (l):", min_value=1.0, value=4.0, step=0.5)
+        t = st.number_input("Masukkan Tinggi (t):", min_value=1.0, value=3.0, step=0.5)
+        
+        v_balok = p * l * t
+        lp_balok = 2 * ((p * l) + (p * t) + (l * t))
+        
+        st.info(f"💡 **Hasil Eksperimen Balok:**\n\n"
+                f"🔹 **Volume (V):** {v_balok:.2f} satuan kubik\n\n"
+                f"🔹 **Luas Permukaan (L):** {lp_balok:.2f} satuan persegi")
+
+    with col2:
+        st.markdown("### 🔍 Teropong 3D Interaktif")
+        st.caption("👉 Sentuh atau geser bangun ruang di bawah ini untuk melihatnya dari berbagai sudut!")
+        
+        x = [0, p, p, 0, 0, p, p, 0]
+        y = [0, 0, l, l, 0, 0, l, l]
+        z = [0, 0, 0, 0, t, t, t, t]
+        
+        fig = go.Figure(data=[
+            go.Mesh3d(
+                x=x, y=y, z=z,
+                i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
+                j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
+                k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
+                opacity=0.7,
+                color='#FF416C',
+                flatshading=True,
+                name="Balok"
+            )
+        ])
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(title='Panjang (X)', range=[-1, p+2], backgroundcolor="#f0f0f0"),
+                yaxis=dict(title='Lebar (Y)', range=[-1, l+2], backgroundcolor="#f0f0f0"),
+                zaxis=dict(title='Tinggi (Z)', range=[-1, t+2], backgroundcolor="#f0f0f0")
+            ),
+            margin=dict(l=0, r=0, b=0, t=0),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+# --- FOOTER ---
+st.sidebar.markdown("---")
+st.sidebar.caption("🎨 Dibuat untuk Media Pembelajaran Matematika SMP.")
+st.sidebar.caption("Oleh: Mochammad Rifqi Al Khadziq")
