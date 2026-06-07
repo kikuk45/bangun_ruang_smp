@@ -69,8 +69,8 @@ st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Materi Balok"])
 
 # --- HALAMAN UTAMA: BERANDA ---
+i# --- HALAMAN UTAMA: BERANDA ---
 if menu == "🏠 Beranda":
-    # KUNCI UTAMA: Kolom didefinisikan LEBIH DULU sebelum dipanggil oleh fungsi with
     col_text, col_img = st.columns([3, 2])
     
     with col_text:
@@ -80,18 +80,16 @@ if menu == "🏠 Beranda":
         Selamat datang di ruang belajar matematika yang seru! Di sini kita akan membedah rahasia di balik benda-benda di sekitar kita yang berbentuk **Kubus** dan **Balok**.
         
         **Apa saja yang bisa kamu lakukan di sini🤔?**
-        * 🕵️‍♂️ **Detektif 3D:** Putar, perbesar, dan intip bangun ruang dari sudut mana saja sesukamu!
+        * 🕵️‍♂️ **Detektif 3D:** Putar, perbesar, dan intip bangun ruang dari sudut mana saja sesukamu!🧐
         * 🧮 **Kalkulator Ajaib:** Ketik angka ukurannya, dan simsalabim! Luas dan volumenya langsung terhitung otomatis.
         * 📝 **Catatan Pintar:** Rumus-rumus penting dikemas simpel agar kamu cepat paham.
         
         *Silakan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
         """)
         
-   with col_img:
+    with col_img:
         st.write("")
-        # Menggunakan link PNG asli yang stabil dan support full-width kolom
         st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
-
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Materi Kubus":
     st.title("🧊 Ayo Mengenal Si Kotak Sempurna: Kubus")
