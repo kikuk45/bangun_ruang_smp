@@ -111,7 +111,7 @@ elif menu == "🧊 Materi Kubus":
         card_rumus_kubus = """
         <div class="kids-card-blue">
             <h3>📝 Rumus Kilat</h3>
-            <p>Ssst.. ini rahasia menghitung kubus dengan cepat:</p>
+            <p>Ssst.. ini rahasia menghitung kubus dengan cepat🤫:</p>
         </div>
         """
         st.markdown(card_rumus_kubus, unsafe_allow_html=True)
