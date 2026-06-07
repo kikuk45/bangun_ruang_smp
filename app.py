@@ -79,7 +79,7 @@ if menu == "🏠 Beranda":
         Selamat datang di ruang belajar matematika yang seru! Di sini kita akan membedah rahasia di balik benda-benda di sekitar kita yang berbentuk **Kubus** dan **Balok**.
         
         **Apa saja yang bisa kamu lakukan di sini🤔?**
-        * 🕵️‍♂️ **Detektif 3D:** Sentuh atau geser bangun ruang dari sudut mana saja sesukamu!🧐
+        * 🕵️‍♂️ **Detektif 3D:** Sentuh atau geser bangun ruang dari sudut mana saja sesukamu!
         * 🧮 **Kalkulator Ajaib:** Ketik angka ukurannya, dan simsalabim! Luas dan volumenya langsung terhitung otomatis.
         * 📝 **Catatan Pintar:** Rumus-rumus penting dikemas simpel agar kamu cepat paham.
         
