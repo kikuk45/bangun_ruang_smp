@@ -88,7 +88,6 @@ if menu == "🏠 Beranda":
         
     with col_img:
         st.write("")
-        # Ini adalah satu-satunya kode st.image yang kita pakai sekarang (PNG stabil)
         st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Materi Kubus":
