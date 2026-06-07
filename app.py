@@ -66,7 +66,10 @@ menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Mate
 
 # --- HALAMAN UTAMA: BERANDA ---
 if menu == "🏠 Beranda":
-    col_text, col_img = st.columns([3, 2])
+    with col_img:
+        st.write("")
+        # Menggunakan use_container_width agar gambar pas dengan kolom kanan
+        st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
     
     with col_text:
         st.title("Petualangan Geometri Interaktif 🤩")
