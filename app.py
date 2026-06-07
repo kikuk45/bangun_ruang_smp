@@ -11,9 +11,6 @@ st.set_page_config(
 )
 
 # --- DESAIN TAMPILAN CUSTOM (CSS) ---
-# Mengubah background menjadi warna pastel yang fresh, font yang ramah, dan styling card
-# --- DESAIN TAMPILAN CUSTOM (CSS) ---
-# Menyimpan teks CSS ke dalam variabel biasa agar aman dari error indentasi
 style_css = """
 <style>
     /* Mengubah background utama aplikasi */
@@ -53,21 +50,22 @@ style_css = """
 </style>
 """
 
-# Menjalankan fungsi markdown dengan memanggil variabel di atas
+# Menjalankan fungsi markdown dengan parameter underscore yang benar (_)
 st.markdown(style_css, unsafe_allow_html=True)
+
 # --- SIDEBAR NAVIGASI ---
-st.sidebar.markdown("""
-    <div style='text-align: center;'>
-        <h2 style='margin-bottom: 0;'>🎒 Menu Kelas</h2>
-        <p style='color: #718096; font-size: 14px;'>Eksplorasi Bangun Ruang</p>
-    </div>
-""", unsafe_allow_html=True)
+sidebar_html = """
+<div style='text-align: center;'>
+    <h2 style='margin-bottom: 0;'>🎒 Menu Kelas</h2>
+    <p style='color: #718096; font-size: 14px;'>Eksplorasi Bangun Ruang</p>
+</div>
+"""
+st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
 menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Materi Balok"])
 
 # --- HALAMAN UTAMA: BERANDA ---
 if menu == "🏠 Beranda":
-    # Menggunakan layout kolom untuk menaruh teks dan ilustrasi anak sekolah
     col_text, col_img = st.columns([3, 2])
     
     with col_text:
@@ -81,12 +79,11 @@ if menu == "🏠 Beranda":
         * 🧮 **Kalkulator Ajaib:** Ketik angka ukurannya, dan simsalabim! Luas dan volumenya langsung terhitung otomatis.
         * 📝 **Catatan Pintar:** Rumus-rumus penting dikemas simpel agar kamu cepat paham.
         
-        *Silahkan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
+        *Silakan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
         """)
         
     with col_img:
         st.write("")
-        # Gambar ilustrasi anak sekolah kartun yang ceria dari open-source SVG/PNG
         st.image("https://illustrations.popsy.co/amber/back-to-school.svg", width=320, caption="Mari kita belajar bersama!")
 
 # --- HALAMAN: KUBUS ---
@@ -96,7 +93,7 @@ elif menu == "🧊 Materi Kubus":
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.markdown("""
+        card_sifat_kubus = """
         <div class="kids-card">
             <h3>📋 Sifat Seru Kubus</h3>
             <ul>
@@ -105,14 +102,16 @@ elif menu == "🧊 Materi Kubus":
                 <li>Punya <b>8 titik sudut</b> tempat bertemunya para rusuk.</li>
             </ul>
         </div>
-        """, unsafe-allow_html=True)
+        """
+        st.markdown(card_sifat_kubus, unsafe_allow_html=True)
         
-        st.markdown("""
+        card_rumus_kubus = """
         <div class="kids-card-blue">
             <h3>📝 Rumus Kilat</h3>
             <p>Ssst.. ini rahasia menghitung kubus dengan cepat:</p>
         </div>
-        """, unsafe-allow_html=True)
+        """
+        st.markdown(card_rumus_kubus, unsafe_allow_html=True)
         st.latex(r"Volume \ (V) = s \times s \times s = s^3")
         st.latex(r"Luas \ Permukaan \ (L) = 6 \times s^2")
         
@@ -142,7 +141,7 @@ elif menu == "🧊 Materi Kubus":
                 j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
                 k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
                 opacity=0.7,
-                color='#38EF7D', # Warna hijau cerah
+                color='#38EF7D',
                 flatshading=True,
                 name="Kubus"
             )
@@ -167,7 +166,7 @@ elif menu == "🧱 Materi Balok":
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.markdown("""
+        card_sifat_balok = """
         <div class="kids-card">
             <h3>📋 Karakteristik Balok</h3>
             <ul>
@@ -176,13 +175,15 @@ elif menu == "🧱 Materi Balok":
                 <li>Punya 3 ukuran utama: <b>Panjang (p), Lebar (l), dan Tinggi (t)</b>.</li>
             </ul>
         </div>
-        """, unsafe-allow_html=True)
+        """
+        st.markdown(card_sifat_balok, unsafe_allow_html=True)
         
-        st.markdown("""
+        card_rumus_balok = """
         <div class="kids-card-blue">
             <h3>📝 Rumus Kilat</h3>
         </div>
-        """, unsafe-allow_html=True)
+        """
+        st.markdown(card_rumus_balok, unsafe_allow_html=True)
         st.latex(r"Volume \ (V) = p \times l \times t")
         st.latex(r"Luas \ Permukaan \ (L) = 2 \times ((p \times l) + (p \times t) + (l \times t))")
         
@@ -213,7 +214,7 @@ elif menu == "🧱 Materi Balok":
                 j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
                 k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
                 opacity=0.7,
-                color='#FF416C', # Warna pink/merah cerah yang menarik
+                color='#FF416C',
                 flatshading=True,
                 name="Balok"
             )
@@ -233,5 +234,5 @@ elif menu == "🧱 Materi Balok":
 
 # --- FOOTER ---
 st.sidebar.markdown("---")
-st.sidebar.caption("🎨 Selamat Belajar 😇.")
-st.sidebar.captio("Mochammad Rifqi Al Khadziq")
+st.sidebar.caption("🎨 Dibuat untuk Media Pembelajaran Matematika SMP.")
+st.sidebar.caption("Oleh: Mochammad Rifqi Al Khadziq")
