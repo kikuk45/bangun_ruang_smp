@@ -54,7 +54,7 @@ st.markdown("""
         background-color: #EDF2F7 !important;
     }
     </style>
-""", unsafe-gradient=True, unsafe-allow_html=True)
+""", unsafe-allow_html=True)
 
 # --- SIDEBAR NAVIGASI ---
 st.sidebar.markdown("""
