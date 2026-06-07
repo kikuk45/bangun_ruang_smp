@@ -2,137 +2,207 @@ import streamlit as st
 import plotly.graph_objects as go
 import numpy as np
 
-# Konfigurasi Halaman Web
+# --- KONFIGURASI HALAMAN ---
 st.set_page_config(
-    page_title="Media Pembelajaran Geometri SMP", 
+    page_title="Yuk Belajar Geometri!", 
+    page_icon="📐",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# --- HEADER APLIKASI ---
-st.title("📐 Media Pembelajaran Geometri Interaktif")
-st.subheader("Materi: Bangun Ruang Sisi Datar (SMP)")
-st.write("Selamat belajar! Pilih bangun ruang di menu samping untuk mulai mengeksplorasi.")
+# --- DESAIN TAMPILAN CUSTOM (CSS) ---
+# Mengubah background menjadi warna pastel yang fresh, font yang ramah, dan styling card
+st.markdown("""
+    <style>
+    /* Mengubah background utama aplikasi */
+    .stApp {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+    }
+    
+    /* Mengubah warna teks utama */
+    h1 {
+        color: #2E5B88 !important;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    h2, h3 {
+        color: #4A6FA5 !important;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    /* Desain Kotak Info / Card yang Lucu */
+    .kids-card {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-left: 6px solid #FF9F43;
+        margin-bottom: 20px;
+    }
+    .kids-card-blue {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border-left: 6px solid #4A90E2;
+        margin-bottom: 20px;
+    }
+    
+    /* Merapikan Sidebar */
+    .css-1d391kg {
+        background-color: #EDF2F7 !important;
+    }
+    </style>
+""", unsafe-gradient=True, unsafe-allow_html=True)
 
 # --- SIDEBAR NAVIGASI ---
-st.sidebar.header("Menu Pembelajaran")
-menu = st.sidebar.selectbox("Pilih Halaman:", ["Home", "Kubus", "Balok"])
+st.sidebar.markdown("""
+    <div style='text-align: center;'>
+        <h2 style='margin-bottom: 0;'>🎒 Menu Kelas</h2>
+        <p style='color: #718096; font-size: 14px;'>Eksplorasi Bangun Ruang</p>
+    </div>
+""", unsafe-allow_html=True)
 
-# --- HALAMAN UTAMA (HOME) ---
-if menu == "Home":
-    st.markdown("""
-    ### Halo, Selamat Datang! 👋
-    Aplikasi ini dirancang khusus untuk membantu kamu memahami konsep **Bangun Ruang Sisi Datar** dengan lebih mudah, visual, dan interaktif.
-    
-    **Fitur yang bisa kamu coba di aplikasi ini:**
-    * 🧊 **Visualisasi 3D:** Kamu bisa memutar, memperbesar, dan melihat bentuk bangun ruang dari berbagai sudut secara langsung.
-    * 🧮 **Kalkulator Pintar:** Masukkan angka dimensinya, dan aplikasi akan menghitung Luas Permukaan serta Volume secara instan.
-    * 📝 **Rumus Matematika:** Dilengkapi dengan rumus standar yang mudah dipahami.
-    
-    *Silakan pilih materi **Kubus** atau **Balok** pada menu di samping kiri untuk memulai petualangan belajarmu!*
-    """)
+menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Materi Balok"])
 
-# --- HALAMAN KUBUS ---
-elif menu == "Kubus":
-    st.header("🧊 Bangun Ruang: Kubus")
+# --- HALAMAN UTAMA: BERANDA ---
+if menu == "🏠 Beranda":
+    # Menggunakan layout kolom untuk menaruh teks dan ilustrasi anak sekolah
+    col_text, col_img = st.columns([3, 2])
     
-    # Membagi halaman menjadi 2 kolom (Kiri untuk teori/input, Kanan untuk visualisasi 3D)
+    with col_text:
+        st.title("Petualangan Geometri Interaktif 🤩")
+        st.markdown("""
+        ### Halo, Teman-Teman Rasa Ingin Tahu! 👋
+        Selamat datang di ruang belajar matematika yang seru! Di sini kita akan membedah rahasia di balik benda-benda di sekitar kita yang berbentuk **Kubus** dan **Balok**.
+        
+        **Apa saja yang bisa kamu lakukan di sini🤔?**
+        * 🕵️‍♂️ **Detektif 3D:** Putar, perbesar, dan intip bangun ruang dari sudut mana saja sesukamu!🧐
+        * 🧮 **Kalkulator Ajaib:** Ketik angka ukurannya, dan simsalabim! Luas dan volumenya langsung terhitung otomatis.
+        * 📝 **Catatan Pintar:** Rumus-rumus penting dikemas simpel agar kamu cepat paham.
+        
+        *Silahkan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
+        """)
+        
+    with col_img:
+        st.write("")
+        # Gambar ilustrasi anak sekolah kartun yang ceria dari open-source SVG/PNG
+        st.image("https://illustrations.popsy.co/amber/back-to-school.svg", width=320, caption="Mari kita belajar bersama!")
+
+# --- HALAMAN: KUBUS ---
+elif menu == "🧊 Materi Kubus":
+    st.title("🧊 Ayo Mengenal Si Kotak Sempurna: Kubus")
+    
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.markdown("### 📋 Sifat & Karakteristik Kubus")
-        st.write("- Memiliki **6 sisi** berbentuk persegi yang kongruen (sama besar).")
-        st.write("- Memiliki **12 rusuk** yang sama panjang.")
-        st.write("- Memiliki **8 titik sudut**.")
+        st.markdown("""
+        <div class="kids-card">
+            <h3>📋 Sifat Seru Kubus</h3>
+            <ul>
+                <li>Punya <b>6 sisi</b> berbentuk persegi yang semuanya sama besar (kembar!).</li>
+                <li>Punya <b>12 rusuk</b> yang panjangnya sama persis.</li>
+                <li>Punya <b>8 titik sudut</b> tempat bertemunya para rusuk.</li>
+            </ul>
+        </div>
+        """, unsafe-allow_html=True)
         
-        st.markdown("### 📝 Rumus Dasar")
+        st.markdown("""
+        <div class="kids-card-blue">
+            <h3>📝 Rumus Kilat</h3>
+            <p>Ssst.. ini rahasia menghitung kubus dengan cepat:</p>
+        </div>
+        """, unsafe-allow_html=True)
         st.latex(r"Volume \ (V) = s \times s \times s = s^3")
         st.latex(r"Luas \ Permukaan \ (L) = 6 \times s^2")
         
-        st.markdown("### 🧮 Mari Mencoba (Kalkulator Interaktif)")
-        # Input Panjang Sisi (Siswa bisa mengubah nilai ini)
-        sisi = st.number_input("Masukkan panjang sisi kubus (s):", min_value=1.0, value=5.0, step=0.5)
+        st.markdown("### 🧮 Lab Eksperimen Angka")
+        sisi = st.number_input("Geser atau ketik panjang sisi kubus (s):", min_value=1.0, value=5.0, step=0.5)
         
-        # Proses Perhitungan matematika
         volume = sisi ** 3
         luas_permukaan = 6 * (sisi ** 2)
         
-        # Menampilkan Hasil
-        st.success(f"**Hasil Perhitungan untuk Kubus dengan sisi = {sisi}:**")
-        st.write(f"🔹 **Volume (V):** {volume:.2f} satuan kubik")
-        st.write(f"🔹 **Luas Permukaan (L):** {luas_permukaan:.2f} satuan persegi")
+        st.info(f"💡 **Hasil Eksperimen (Sisi = {sisi}):**\n\n"
+                f"🔹 **Volume (V):** {volume:.2f} satuan kubik\n\n"
+                f"🔹 **Luas Permukaan (L):** {luas_permukaan:.2f} satuan persegi")
 
     with col2:
-        st.markdown("### 🔍 Visualisasi 3D Interaktif")
-        st.caption("Sentuh/Klik pada gambar lalu geser untuk memutar objek kubus")
+        st.markdown("### 🔍 Teropong 3D Interaktif")
+        st.caption("👉 Gunakan mouse-mu untuk memutar kubus di bawah ini!")
         
-        # Membuat titik koordinat 3D Kubus berdasarkan input sisi
         s = sisi
         x = [0, s, s, 0, 0, s, s, 0]
         y = [0, 0, s, s, 0, 0, s, s]
         z = [0, 0, 0, 0, s, s, s, s]
         
-        # Membuat jaring-jaring objek 3D menggunakan Plotly Mesh3d
         fig = go.Figure(data=[
             go.Mesh3d(
                 x=x, y=y, z=z,
                 i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
                 j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
                 k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
-                opacity=0.6,
-                color='skyblue',
+                opacity=0.7,
+                color='#38EF7D', # Warna hijau cerah
                 flatshading=True,
                 name="Kubus"
             )
         ])
         
-        # Mengatur tampilan layout kubus
         fig.update_layout(
             scene=dict(
-                xaxis=dict(title='Sumbu X', range=[-1, s+2]),
-                yaxis=dict(title='Sumbu Y', range=[-1, s+2]),
-                zaxis=dict(title='Sumbu Z', range=[-1, s+2])
+                xaxis=dict(title='X', range=[-1, s+2], backgroundcolor="#f0f0f0"),
+                yaxis=dict(title='Y', range=[-1, s+2], backgroundcolor="#f0f0f0"),
+                zaxis=dict(title='Z', range=[-1, s+2], backgroundcolor="#f0f0f0")
             ),
-            margin=dict(l=0, r=0, b=0, t=0)
+            margin=dict(l=0, r=0, b=0, t=0),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
         )
         st.plotly_chart(fig, use_container_width=True)
 
-# --- HALAMAN BALOK ---
-elif menu == "Balok":
-    st.header("🧱 Bangun Ruang: Balok")
+# --- HALAMAN: BALOK ---
+elif menu == "🧱 Materi Balok":
+    st.title("🧱 Ayo Mengenal Si Kotak Panjang: Balok")
     
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        st.markdown("### 📋 Sifat & Karakteristik Balok")
-        st.write("- Memiliki **6 sisi**, di mana sisi yang berhadapan sejajar dan sama besar.")
-        st.write("- Memiliki **12 rusuk** (terdiri dari 4 kelompok panjang, 4 lebar, dan 4 tinggi).")
-        st.write("- Memiliki **8 titik sudut**.")
+        st.markdown("""
+        <div class="kids-card">
+            <h3>📋 Karakteristik Balok</h3>
+            <ul>
+                <li>Mirip kubus, tapi sisinya berbentuk persegi panjang.</li>
+                <li>Sisi yang <b>berhadapan</b> ukurannya sama besar.</li>
+                <li>Punya 3 ukuran utama: <b>Panjang (p), Lebar (l), dan Tinggi (t)</b>.</li>
+            </ul>
+        </div>
+        """, unsafe-allow_html=True)
         
-        st.markdown("### 📝 Rumus Dasar")
+        st.markdown("""
+        <div class="kids-card-blue">
+            <h3>📝 Rumus Kilat</h3>
+        </div>
+        """, unsafe-allow_html=True)
         st.latex(r"Volume \ (V) = p \times l \times t")
         st.latex(r"Luas \ Permukaan \ (L) = 2 \times ((p \times l) + (p \times t) + (l \times t))")
         
-        st.markdown("### 🧮 Mari Mencoba (Kalkulator Interaktif)")
-        # Input Dimensi Balok (Panjang, Lebar, Tinggi)
+        st.markdown("### 🧮 Lab Eksperimen Angka")
         p = st.number_input("Masukkan Panjang (p):", min_value=1.0, value=6.0, step=0.5)
         l = st.number_input("Masukkan Lebar (l):", min_value=1.0, value=4.0, step=0.5)
         t = st.number_input("Masukkan Tinggi (t):", min_value=1.0, value=3.0, step=0.5)
         
-        # Proses Perhitungan matematika
         v_balok = p * l * t
         lp_balok = 2 * ((p * l) + (p * t) + (l * t))
         
-        # Menampilkan Hasil
-        st.success("**Hasil Perhitungan untuk Balok:**")
-        st.write(f"🔹 **Volume (V):** {v_balok:.2f} satuan kubik")
-        st.write(f"🔹 **Luas Permukaan (L):** {lp_balok:.2f} satuan persegi")
+        st.info(f"💡 **Hasil Eksperimen Balok:**\n\n"
+                f"🔹 **Volume (V):** {v_balok:.2f} satuan kubik\n\n"
+                f"🔹 **Luas Permukaan (L):** {lp_balok:.2f} satuan persegi")
 
     with col2:
-        st.markdown("### 🔍 Visualisasi 3D Interaktif")
-        st.caption("Sentuh/Klik pada gambar lalu geser untuk memutar objek balok")
+        st.markdown("### 🔍 Teropong 3D Interaktif")
+        st.caption("👉 Klik tahan lalu geser untuk melihat bentuk baloknya!")
         
-        # Membuat titik koordinat 3D Balok berdasarkan input p, l, t
         x = [0, p, p, 0, 0, p, p, 0]
         y = [0, 0, l, l, 0, 0, l, l]
         z = [0, 0, 0, 0, t, t, t, t]
@@ -143,8 +213,8 @@ elif menu == "Balok":
                 i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
                 j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
                 k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
-                opacity=0.6,
-                color='lightgreen',
+                opacity=0.7,
+                color='#FF416C', # Warna pink/merah cerah yang menarik
                 flatshading=True,
                 name="Balok"
             )
@@ -152,14 +222,17 @@ elif menu == "Balok":
         
         fig.update_layout(
             scene=dict(
-                xaxis=dict(title='Sumbu X', range=[-1, p+2]),
-                yaxis=dict(title='Sumbu Y', range=[-1, l+2]),
-                zaxis=dict(title='Sumbu Z', range=[-1, t+2])
+                xaxis=dict(title='Panjang (X)', range=[-1, p+2], backgroundcolor="#f0f0f0"),
+                yaxis=dict(title='Lebar (Y)', range=[-1, l+2], backgroundcolor="#f0f0f0"),
+                zaxis=dict(title='Tinggi (Z)', range=[-1, t+2], backgroundcolor="#f0f0f0")
             ),
-            margin=dict(l=0, r=0, b=0, t=0)
+            margin=dict(l=0, r=0, b=0, t=0),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
         )
         st.plotly_chart(fig, use_container_width=True)
 
 # --- FOOTER ---
 st.sidebar.markdown("---")
-st.sidebar.caption("Media Pembelajaran Matematika Geometri SMP v1.0")
+st.sidebar.caption("🎨 Selamat Belajar 😇.")
+st.sidebar.captio("Mochammad Rifqi Al Khadziq")
