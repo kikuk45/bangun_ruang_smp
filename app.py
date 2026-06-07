@@ -12,8 +12,10 @@ st.set_page_config(
 
 # --- DESAIN TAMPILAN CUSTOM (CSS) ---
 # Mengubah background menjadi warna pastel yang fresh, font yang ramah, dan styling card
-st.markdown("""
-    <style>
+# --- DESAIN TAMPILAN CUSTOM (CSS) ---
+# Menyimpan teks CSS ke dalam variabel biasa agar aman dari error indentasi
+style_css = """
+<style>
     /* Mengubah background utama aplikasi */
     .stApp {
         background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
@@ -48,14 +50,11 @@ st.markdown("""
         border-left: 6px solid #4A90E2;
         margin-bottom: 20px;
     }
-    
-    /* Merapikan Sidebar */
-    .css-1d391kg {
-        background-color: #EDF2F7 !important;
-    }
-    </style>
-""", unsafe-allow_html=True)
+</style>
+"""
 
+# Menjalankan fungsi markdown dengan memanggil variabel di atas
+st.markdown(style_css, unsafe_allow_html=True)
 # --- SIDEBAR NAVIGASI ---
 st.sidebar.markdown("""
     <div style='text-align: center;'>
