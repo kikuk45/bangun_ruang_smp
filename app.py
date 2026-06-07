@@ -69,7 +69,7 @@ st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Materi Balok"])
 
 # --- HALAMAN UTAMA: BERANDA ---
-i# --- HALAMAN UTAMA: BERANDA ---
+# --- HALAMAN UTAMA: BERANDA ---
 if menu == "🏠 Beranda":
     col_text, col_img = st.columns([3, 2])
     
