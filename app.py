@@ -18,6 +18,11 @@ style_css = """
         background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
     }
     
+    /* Mengunci warna teks agar tidak memutih akibat dark mode */
+    .stApp p, .stApp li, .stApp span {
+        color: #2E5B88 !important;
+    }
+    
     /* Mengubah warna teks utama */
     h1 {
         color: #2E5B88 !important;
@@ -49,7 +54,6 @@ style_css = """
     }
 </style>
 """
-
 # Menjalankan fungsi markdown dengan parameter underscore yang benar (_)
 st.markdown(style_css, unsafe_allow_html=True)
 
