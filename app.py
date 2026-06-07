@@ -54,7 +54,6 @@ style_css = """
     }
 </style>
 """
-# Menjalankan fungsi markdown dengan parameter underscore (_) yang benar
 st.markdown(style_css, unsafe_allow_html=True)
 
 # --- SIDEBAR NAVIGASI ---
@@ -88,7 +87,9 @@ if menu == "🏠 Beranda":
         
     with col_img:
         st.write("")
+        # Cukup gunakan SATU perintah st.image ini di halaman beranda
         st.image("https://raw.githubusercontent.com/SimatupangRaimon/cdn/main/back-to-school.png", use_container_width=True)
+
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Materi Kubus":
     st.title("🧊 Ayo Mengenal Si Kotak Sempurna: Kubus")
