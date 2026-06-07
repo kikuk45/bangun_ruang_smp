@@ -88,7 +88,8 @@ if menu == "🏠 Beranda":
    with col_img:
         st.write("")
         # Memanggil file lokal yang sudah diunggah di dalam repositori
-        st.image("pngtree-happy-junior-high-school-students-vector-png-image_18401550", use_container_width=True)
+        st.image("pngtree-happy-junior-high-school-students-vector-png-image_18401550.png
+", use_container_width=True)
 
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Materi Kubus":
