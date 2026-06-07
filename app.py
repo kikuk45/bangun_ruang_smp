@@ -61,7 +61,7 @@ st.sidebar.markdown("""
         <h2 style='margin-bottom: 0;'>🎒 Menu Kelas</h2>
         <p style='color: #718096; font-size: 14px;'>Eksplorasi Bangun Ruang</p>
     </div>
-""", unsafe-allow_html=True)
+""", unsafe_allow_html=True)
 
 menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Materi Balok"])
 
