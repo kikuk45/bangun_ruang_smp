@@ -85,12 +85,10 @@ if menu == "🏠 Beranda":
         *Silakan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
         """)
         
-   with col_img:
+  with col_img:
         st.write("")
-        # Memanggil file lokal yang sudah diunggah di dalam repositori
-        st.image("pngtree-happy-junior-high-school-students-vector-png-image_18401550.png
-", use_container_width=True)
-
+        # Mengganti dengan nama file aslimu yang ada di GitHub
+        st.image("pngtree-happy-junior-high-school-students-vector-png-image_18401550.png", use_container_width=True)
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Materi Kubus":
     st.title("🧊 Ayo Mengenal Si Kotak Sempurna: Kubus")
