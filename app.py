@@ -4,7 +4,7 @@ import numpy as np
 
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(
-    page_title="Yuk Belajar Geometri!", 
+    page_title="Modul Dimensi Tiga SMK", 
     page_icon="📐",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -13,43 +13,35 @@ st.set_page_config(
 # --- DESAIN TAMPILAN CUSTOM (CSS) ---
 style_css = """
 <style>
-    /* Mengubah background utama aplikasi */
     .stApp {
-        background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     }
-    
-    /* Mengunci warna teks agar tidak memutih akibat dark mode */
     .stApp p, .stApp li, .stApp span, .stApp label {
-        color: #2E5B88 !important;
+        color: #212529 !important;
     }
-    
-    /* Mengubah warna teks utama */
     h1 {
-        color: #2E5B88 !important;
-        font-family: 'Poppins', sans-serif;
+        color: #0d6efd !important;
+        font-family: 'Segoe UI', sans-serif;
         font-weight: 700;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
     h2, h3 {
-        color: #4A6FA5 !important;
-        font-family: 'Poppins', sans-serif;
+        color: #495057 !important;
+        font-family: 'Segoe UI', sans-serif;
     }
-    
-    /* Desain Kotak Info / Card yang Lucu */
-    .kids-card {
+    .smk-card {
         background-color: #ffffff;
         padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border-left: 6px solid #FF9F43;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-left: 6px solid #0d6efd;
         margin-bottom: 20px;
     }
-    .kids-card-blue {
+    .smk-card-tech {
         background-color: #ffffff;
         padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        border-left: 6px solid #4A90E2;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        border-left: 6px solid #198754;
         margin-bottom: 20px;
     }
 </style>
@@ -59,183 +51,158 @@ st.markdown(style_css, unsafe_allow_html=True)
 # --- SIDEBAR NAVIGASI ---
 sidebar_html = """
 <div style='text-align: center;'>
-    <h2 style='margin-bottom: 0;'>🎒 Menu Kelas</h2>
-    <p style='color: #718096; font-size: 14px;'>Eksplorasi Bangun Ruang</p>
+    <h2 style='margin-bottom: 0;'>📐 Lab Dimensi Tiga</h2>
+    <p style='color: #6c757d; font-size: 14px;'>Media Pembelajaran Geometri SMK</p>
 </div>
 """
 st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
-menu = st.sidebar.selectbox("", ["🏠 Beranda", "🧊 Materi Kubus", "🧱 Materi Balok"])
+menu = st.sidebar.selectbox("", ["🏠 Beranda Analisis", "🧊 Analisis Kubus", "🧱 Analisis Balok"])
+
+# --- FUNGSI UNTUK MEMBUAT KERANGKA STRUKTUR (WIREFRAME) ---
+def get_wireframe_data(x, y, z):
+    # Pola garis untuk menghubungkan titik-titik menjadi kerangka kubus/balok
+    lines_idx = [
+        0,1, 1,2, 2,3, 3,0, # Alas
+        4,5, 5,6, 6,7, 7,4, # Tutup
+        0,4, 1,5, 2,6, 3,7  # Tiang tegak
+    ]
+    x_lines, y_lines, z_lines = [], [], []
+    for i in range(0, len(lines_idx), 2):
+        p1, p2 = lines_idx[i], lines_idx[i+1]
+        x_lines.extend([x[p1], x[p2], None])
+        y_lines.extend([y[p1], y[p2], None])
+        z_lines.extend([z[p1], z[p2], None])
+    return x_lines, y_lines, z_lines
 
 # --- HALAMAN UTAMA: BERANDA ---
-# --- HALAMAN UTAMA: BERANDA ---
-if menu == "🏠 Beranda":
+if menu == "🏠 Beranda Analisis":
     col_text, col_img = st.columns([3, 2])
     
     with col_text:
-        st.title("Petualangan Geometri Interaktif 🤩")
+        st.title("Aplikasi Analisis Spasial Dimensi Tiga 🖥️")
         st.markdown("""
-        ### Halo, Teman-Teman Rasa Ingin Tahu! 👋
-        Selamat datang di ruang belajar matematika yang seru! Di sini kita akan membedah rahasia di balik benda-benda di sekitar kita yang berbentuk **Kubus** dan **Balok**.
+        ### Selamat Datang di Modul Geometri Ruang SMK!
+        Aplikasi ini dirancang sebagai alat bantu visualisasi objek 3 dimensi guna mempermudah pemahaman konsep kedudukan titik, garis, dan bidang, serta perhitungan jarak dan sudut pada materi **Dimensi Tiga**.
         
-        **Apa saja yang bisa kamu lakukan di sini🤔?**
-        * 🕵️‍♂️ **Detektif 3D:** Sentuh atau geser bangun ruang dari sudut mana saja sesukamu!
-        * 🧮 **Kalkulator Ajaib:** Ketik angka ukurannya, dan simsalabim! Luas dan volumenya langsung terhitung otomatis.
-        * 📝 **Catatan Pintar:** Rumus-rumus penting dikemas simpel agar kamu cepat paham.
+        **Fitur Utama Laboratorium Virtual:**
+        * 🌐 **Visualisasi Spasial Dinamis:** Manipulasi sudut pandang objek 3D secara *real-time* untuk memperkuat kemampuan spasial (membayangkan ruang).
+        * 📊 **Kalkulator Struktur Geometri:** Analisis otomatis ukuran dasar, luas permukaan, volume, hingga panjang **Diagonal Bidang** dan **Diagonal Ruang**.
+        * 🔍 **Representasi Garis Nyata:** Objek dilengkapi dengan visualisasi rusuk/kerangka transparan untuk mempermudah penarikan garis proyeksi matematika.
         
-        *Silakan pilih materi **Kubus** atau **Balok** di menu samping kiri untuk mulai bertualang!*
+        *Silakan pilih menu objek di sebelah kiri untuk memulai analisis.*
         """)
         
     with col_img:
         st.write("")
-        st.image("pngtree-happy-junior-high-school-students-vector-png-image_18401550.png", use_container_width=True)
+        # Gambar ilustrasi bisa disesuaikan, atau biarkan kosong jika ingin fokus ke materi teknis
+        st.info("💡 **Tips Pembelajaran:** Gunakan fitur *rotate* dan *zoom* pada grafis 3D untuk melihat hubungan antar titik sudut secara lebih presisi.")
+
 # --- HALAMAN: KUBUS ---
-elif menu == "🧊 Materi Kubus":
-    st.title("🧊 Ayo Mengenal Si Kotak Sempurna: Kubus")
+elif menu == "🧊 Analisis Kubus":
+    st.title("🧊 Analisis Geometri Ruang: Kubus (Hexahedron)")
     
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        card_sifat_kubus = """
-        <div class="kids-card">
-            <h3>📋 Sifat Seru Kubus</h3>
+        st.markdown("""<div class="smk-card">
+            <h3>📋 Elemen Struktur Kubus</h3>
             <ul>
-                <li>Punya <b>6 sisi</b> berbentuk persegi yang semuanya sama besar (kembar!).</li>
-                <li>Punya <b>12 rusuk</b> yang panjangnya sama persis.</li>
-                <li>Punya <b>8 titik sudut</b> tempat bertemunya para rusuk.</li>
+                <li><b>6 Sisi (Bidang):</b> Seluruhnya berbentuk persegi kongruen.</li>
+                <li><b>12 Rusuk:</b> Memiliki panjang yang sama besar ($s$).</li>
+                <li><b>8 Titik Sudut:</b> Titik potong antar 3 rusuk yang saling tegak lurus.</li>
+                <li><b>12 Diagonal Bidang & 4 Diagonal Ruang</b></li>
             </ul>
-        </div>
-        """
-        st.markdown(card_sifat_kubus, unsafe_allow_html=True)
+        </div>""", unsafe_allow_html=True)
         
-        card_rumus_kubus = """
-        <div class="kids-card-blue">
-            <h3>📝 Rumus Kilat</h3>
-            <p>Ssst.. ini rahasia menghitung kubus dengan cepat🤫:</p>
-        </div>
-        """
-        st.markdown(card_rumus_kubus, unsafe_allow_html=True)
-        st.latex(r"Volume \ (V) = s \times s \times s = s^3")
-        st.latex(r"Luas \ Permukaan \ (L) = 6 \times s^2")
+        st.markdown("""<div class="smk-card-tech">
+            <h3>📝 Formulasi Metrik & Diagonal</h3>
+        </div>""", unsafe_allow_html=True)
+        st.latex(r"Volume \ (V) = s^3 \quad | \quad Luas \ Permukaan \ (L) = 6s^2")
+        st.latex(r"Diagonal \ Bidang \ (D_b) = s\sqrt{2}")
+        st.latex(r"Diagonal \ Ruang \ (D_r) = s\sqrt{3}")
         
-        st.markdown("### 🧮 Lab Eksperimen Angka")
-        sisi = st.number_input("Geser atau ketik panjang sisi kubus (s):", min_value=1.0, value=5.0, step=0.5)
+        st.markdown("### 🧮 Lab Parameter Digital")
+        sisi = st.number_input("Input Panjang Sisi Kubus (s):", min_value=1.0, value=5.0, step=1.0)
         
+        # Perhitungan Metrik
         volume = sisi ** 3
         luas_permukaan = 6 * (sisi ** 2)
+        diag_bidang = sisi * np.sqrt(2)
+        diag_ruang = sisi * np.sqrt(3)
         
-        st.info(f"💡 **Hasil Eksperimen (Sisi = {sisi}):**\n\n"
-                f"🔹 **Volume (V):** {volume:.2f} satuan kubik\n\n"
-                f"🔹 **Luas Permukaan (L):** {luas_permukaan:.2f} satuan persegi")
+        st.success(f"📊 **Hasil Analisis Struktur (s = {sisi}):**\n\n"
+                   f"🔹 **Volume (V):** {volume:.2f} satuan kubik\n\n"
+                   f"🔹 **Luas Permukaan (L):** {luas_permukaan:.2f} satuan persegi\n\n"
+                   f"◼️ **Panjang Diagonal Bidang ($s\sqrt{{2}}$):** {diag_bidang:.4f} satuan\n\n"
+                   f"🚀 **Panjang Diagonal Ruang ($s\sqrt{{3}}$):** {diag_ruang:.4f} satuan")
 
     with col2:
-        st.markdown("### 🔍 Teropong 3D Interaktif")
-        st.caption("👉 Sentuh atau geser bangun ruang di bawah ini untuk melihatnya dari berbagai sudut!")
+        st.markdown("### 🌐 Model Proyeksi 3D")
+        st.caption("Gunakan kursor untuk memutar, menggeser, atau memperbesar proyeksi kubus.")
         
         s = sisi
         x = [0, s, s, 0, 0, s, s, 0]
         y = [0, 0, s, s, 0, 0, s, s]
         z = [0, 0, 0, 0, s, s, s, s]
         
-        fig = go.Figure(data=[
-            go.Mesh3d(
-                x=x, y=y, z=z,
-                i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
-                j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
-                k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
-                opacity=0.7,
-                color='#38EF7D',
-                flatshading=True,
-                name="Kubus"
-            )
-        ])
+        # Ambil data kerangka garis
+        xl, yl, zl = get_wireframe_data(x, y, z)
+        
+        fig = go.Figure()
+        
+        # Plot Objek 3D (Solid transparan)
+        fig.add_trace(go.Mesh3d(
+            x=x, y=y, z=z,
+            i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
+            j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
+            k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
+            opacity=0.3,
+            color='#0d6efd',
+            flatshading=True,
+            name="Volume"
+        ))
+        
+        # Plot Kerangka (Wireframe agar garis terlihat jelas untuk anak SMK)
+        fig.add_trace(go.Scatter3d(
+            x=xl, y=yl, z=zl,
+            mode='lines',
+            line=dict(color='#0d6efd', width=4),
+            name="Rusuk"
+        ))
+        
+        # Plot Label Titik Sudut
+        labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        fig.add_trace(go.Scatter3d(
+            x=x, y=y, z=z,
+            mode='markers+text',
+            text=labels,
+            textposition="top center",
+            marker=dict(size=6, color='black'),
+            name="Titik Sudut"
+        ))
         
         fig.update_layout(
             scene=dict(
-                xaxis=dict(title='X', range=[-1, s+2], backgroundcolor="#f0f0f0"),
-                yaxis=dict(title='Y', range=[-1, s+2], backgroundcolor="#f0f0f0"),
-                zaxis=dict(title='Z', range=[-1, s+2], backgroundcolor="#f0f0f0")
+                xaxis=dict(title='X (Sisi)', range=[-1, s+2], backgroundcolor="#f8f9fa"),
+                yaxis=dict(title='Y (Sisi)', range=[-1, s+2], backgroundcolor="#f8f9fa"),
+                zaxis=dict(title='Z (Sisi)', range=[-1, s+2], backgroundcolor="#f8f9fa")
             ),
             margin=dict(l=0, r=0, b=0, t=0),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
+            showlegend=False
         )
         st.plotly_chart(fig, use_container_width=True)
 
 # --- HALAMAN: BALOK ---
-elif menu == "🧱 Materi Balok":
-    st.title("🧱 Ayo Mengenal Si Kotak Panjang: Balok")
+elif menu == "🧱 Analisis Balok":
+    st.title("🧱 Analisis Geometri Ruang: Balok (Prisma Tegak Segiempat)")
     
     col1, col2 = st.columns([1, 1])
     
     with col1:
-        card_sifat_balok = """
-        <div class="kids-card">
-            <h3>📋 Karakteristik Balok</h3>
+        st.markdown("""<div class="smk-card">
+            <h3>📋 Karakteristik Struktur Balok</h3>
             <ul>
-                <li>Mirip kubus, tapi sisinya berbentuk persegi panjang.</li>
-                <li>Sisi yang <b>berhadapan</b> ukurannya sama besar.</li>
-                <li>Punya 3 ukuran utama: <b>Panjang (p), Lebar (l), dan Tinggi (t)</b>.</li>
-            </ul>
-        </div>
-        """
-        st.markdown(card_sifat_balok, unsafe_allow_html=True)
-        
-        card_rumus_balok = """
-        <div class="kids-card-blue">
-            <h3>📝 Rumus Kilat</h3>
-        </div>
-        """
-        st.markdown(card_rumus_balok, unsafe_allow_html=True)
-        st.latex(r"Volume \ (V) = p \times l \times t")
-        st.latex(r"Luas \ Permukaan \ (L) = 2 \times ((p \times l) + (p \times t) + (l \times t))")
-        
-        st.markdown("### 🧮 Lab Eksperimen Angka")
-        p = st.number_input("Masukkan Panjang (p):", min_value=1.0, value=6.0, step=0.5)
-        l = st.number_input("Masukkan Lebar (l):", min_value=1.0, value=4.0, step=0.5)
-        t = st.number_input("Masukkan Tinggi (t):", min_value=1.0, value=3.0, step=0.5)
-        
-        v_balok = p * l * t
-        lp_balok = 2 * ((p * l) + (p * t) + (l * t))
-        
-        st.info(f"💡 **Hasil Eksperimen Balok:**\n\n"
-                f"🔹 **Volume (V):** {v_balok:.2f} satuan kubik\n\n"
-                f"🔹 **Luas Permukaan (L):** {lp_balok:.2f} satuan persegi")
-
-    with col2:
-        st.markdown("### 🔍 Teropong 3D Interaktif")
-        st.caption("👉 Sentuh atau geser bangun ruang di bawah ini untuk melihatnya dari berbagai sudut!")
-        
-        x = [0, p, p, 0, 0, p, p, 0]
-        y = [0, 0, l, l, 0, 0, l, l]
-        z = [0, 0, 0, 0, t, t, t, t]
-        
-        fig = go.Figure(data=[
-            go.Mesh3d(
-                x=x, y=y, z=z,
-                i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
-                j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
-                k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
-                opacity=0.7,
-                color='#FF416C',
-                flatshading=True,
-                name="Balok"
-            )
-        ])
-        
-        fig.update_layout(
-            scene=dict(
-                xaxis=dict(title='Panjang (X)', range=[-1, p+2], backgroundcolor="#f0f0f0"),
-                yaxis=dict(title='Lebar (Y)', range=[-1, l+2], backgroundcolor="#f0f0f0"),
-                zaxis=dict(title='Tinggi (Z)', range=[-1, t+2], backgroundcolor="#f0f0f0")
-            ),
-            margin=dict(l=0, r=0, b=0, t=0),
-            paper_bgcolor='rgba(0,0,0,0)',
-            plot_bgcolor='rgba(0,0,0,0)'
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
-# --- FOOTER ---
-st.sidebar.markdown("---")
-st.sidebar.caption("🎨 Dibuat untuk Media Pembelajaran Matematika SMP.")
-st.sidebar.caption("Oleh: Mochammad Rifqi Al Khadziq")
+                <li><b>Sisi:</b> Memiliki 3 pasang bidang berbentuk persegi panjang yang saling berhadapan dan kongruen.</li>
+                <li><b>Dimensi Utama:</b> Ditentukan oleh variabel Panjang ($p$), Lebar ($l$), dan Tinggi ($t$).</li>
+                <li><b>Sifat Tegak Lurus:</b> Setiap rusuk yang bertemu di satu titik sudut saling membentuk sudut $90^\circ$.</li>
