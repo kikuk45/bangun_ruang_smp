@@ -124,4 +124,7 @@ elif menu == "🧊 Analisis Kubus":
         """
         st.markdown(card_rumus_kubus, unsafe_allow_html=True)
         
-        st.latex(r"Volume \ (V)
+        # --- BAGIAN YANG MENYEBABKAN EROR DI FILE ANDA ---
+        st.latex(r"Volume \ (V) = s^3 \quad | \quad Luas \ Permukaan \ (L) = 6s^2")
+        st.latex(r"Diagonal \ Bidang \ (D_b) = s\sqrt{2}")
+        st.latex(r"Diagonal \ Ruang \ (D_r) = s\sqrt{3}")
