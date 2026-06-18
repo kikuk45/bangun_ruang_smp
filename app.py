@@ -83,11 +83,131 @@ if pilihan_menu == "Beranda Analisis":
         st.title("Aplikasi Analisis Spasial Dimensi Tiga 🖥️")
         st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Dibuat oleh Mochammad Rifqi</p>", unsafe_allow_html=True)
         
-        st.markdown("""
-        ### Selamat Datang di Modul Geometri Ruang SMA!
-        Aplikasi ini dirancang sebagai alat bantu visualisasi objek 3 dimensi guna mempermudah pemahaman konsep kedudukan titik, garis, dan bidang, serta perhitungan jarak dan sudut pada materi **Dimensi Tiga**.
+        # Menggunakan format pemisah teks paragraf yang bersih untuk menghindari bug triple quote
+        st.markdown("### Selamat Datang di Modul Geometri Ruang SMA!")
+        st.markdown("Aplikasi ini dirancang sebagai alat bantu visualisasi objek 3 dimensi guna mempermudah pemahaman konsep kedudukan titik, garis, dan bidang, serta perhitungan jarak dan sudut pada materi **Dimensi Tiga**.")
         
-        **Fitur Utama Laboratorium Virtual:**
-        * 🌐 **Visualisasi Spasial Dinamis:** Manipulasi sudut pandang objek 3D secara *real-time* untuk memperkuat kemampuan spasial (membayangkan ruang).
-        * 📊 **Kalkulator Struktur Geometri:** Analisis otomatis ukuran dasar, luas permukaan, dan volume objek.
-        * 🔍 **X-Ray Diagonal Simulator:** Gambar komponen garis diagonal ruang secara interaktif langsung pada
+        st.markdown("**Fitur Utama Laboratorium Virtual:**")
+        st.markdown("* 🌐 **Visualisasi Spasial Dinamis:** Manipulasi sudut pandang objek 3D secara real-time untuk memperkuat kemampuan spasial siswa.")
+        st.markdown("* 📊 **Kalkulator Struktur Geometri:** Analisis otomatis ukuran dasar, luas permukaan, dan volume objek ruang.")
+        st.markdown("* 🔍 **X-Ray Diagonal Simulator:** Gambar komponen garis diagonal ruang secara interaktif untuk simulasi teorema Pythagoras.")
+        st.write("")
+        st.info("Silakan pilih menu objek di sebelah kiri untuk memulai analisis.")
+        
+    with col_img:
+        st.write("")
+        url_gambar_github = "images (2).png"
+        
+        try:
+            st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Dimensi Tiga")
+        except Exception as e:
+            st.info("💡 **Tips Pembelajaran SMA:** Aktifkan fitur garis diagonal pada menu eksperimen untuk membantu visualisasi segitiga siku-siku di dalam ruang saat menghitung jarak titik ke titik.")
+            
+    st.markdown("---")
+    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Dimensi Tiga SMA | Dibuat oleh Mochammad Rifqi</p>", unsafe_allow_html=True)
+
+# --- HALAMAN: KUBUS ---
+elif pilihan_menu == "Analisis Kubus":
+    st.title("🧊 Analisis Geometri Ruang: Kubus")
+    
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        card_sifat_kubus = """
+        <div class="sma-card">
+            <h3>📋 Elemen Struktur Kubus</h3>
+            <ul>
+                <li><b>6 Sisi (Bidang):</b> Seluruhnya berbentuk persegi kongruen (ABCD, EFGH, dst).</li>
+                <li><b>12 Rusuk:</b> Memiliki panjang yang sama besar ($s$).</li>
+                <li><b>8 Titik Sudut:</b> Titik potong standar notasi geometri ruang.</li>
+                <li><b>12 Diagonal Bidang & 4 Diagonal Ruang</b></li>
+            </ul>
+        </div>
+        """
+        st.markdown(card_sifat_kubus, unsafe_allow_html=True)
+        
+        card_rumus_kubus = """
+        <div class="sma-card-tech">
+            <h3>📝 Formulasi Metrik & Diagonal</h3>
+        </div>
+        """
+        st.markdown(card_rumus_kubus, unsafe_allow_html=True)
+        
+        st.latex(r"Volume \ (V) = s^3 \quad | \quad Luas \ Permukaan \ (L) = 6s^2")
+        st.latex(r"Diagonal \ Bidang \ (D_b) = s\sqrt{2}")
+        st.latex(r"Diagonal \ Ruang \ (D_r) = s\sqrt{3}")
+        
+        st.markdown("### 🧮 1. Parameter Dimensi Objek (Alat Bantu)")
+        sisi = st.number_input("Input Panjang Sisi Kubus (s):", min_value=1.0, value=5.0, step=1.0)
+        
+        st.markdown("##### 🔍 Proyeksi Garis Ruang (Interaktif)")
+        show_db = st.checkbox("Tampilkan Diagonal Bidang AC (Alas)")
+        show_dr = st.checkbox("Tampilkan Diagonal Ruang AG")
+        
+        # Perhitungan Metrik internal
+        volume = sisi ** 3
+        luas_permukaan = 6 * (sisi ** 2)
+        diag_bidang = sisi * np.sqrt(2)
+        diag_ruang = sisi * np.sqrt(3)
+        
+        st.success(f"""📊 **Metrik Dasar Otomatis:**
+
+🔹 **Volume (V):** {volume:.2f} satuan kubik
+
+🔹 **Luas Permukaan (L):** {luas_permukaan:.2f} satuan persegi
+
+🔹 **Panjang Diagonal Bidang (AC):** {diag_bidang:.2f} satuan
+
+🔹 **Panjang Diagonal Ruang (AG):** {diag_ruang:.2f} satuan""")
+
+    with col2:
+        st.markdown("### 🌐 Model Proyeksi 3D Interaktif")
+        st.caption("Gunakan mouse/kursor untuk memutar (rotate) kubus guna menganalisis letak garis.")
+        
+        s = sisi
+        x = [0, s, s, 0, 0, s, s, 0]
+        y = [0, 0, s, s, 0, 0, s, s]
+        z = [0, 0, 0, 0, s, s, s, s]
+        
+        xl, yl, zl = get_wireframe_data(x, y, z)
+        fig = go.Figure()
+        
+        fig.add_trace(go.Mesh3d(
+            x=x, y=y, z=z,
+            i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
+            j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
+            k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
+            opacity=0.15, color='#0d6efd', flatshading=True, name="Volume"
+        ))
+        
+        fig.add_trace(go.Scatter3d(
+            x=xl, y=yl, z=zl, mode='lines',
+            line=dict(color='#495057', width=3), name="Rusuk"
+        ))
+        
+        if show_db:
+            fig.add_trace(go.Scatter3d(
+                x=[0, s], y=[0, s], z=[0, 0], mode='lines+markers',
+                line=dict(color='#dc3545', width=5, dash='dash'),
+                marker=dict(size=4), name="Diag. Bidang AC"
+            ))
+            
+        if show_dr:
+            fig.add_trace(go.Scatter3d(
+                x=[0, s], y=[0, s], z=[0, s], mode='lines+markers',
+                line=dict(color='#ffc107', width=6),
+                marker=dict(size=4), name="Diag. Ruang AG"
+            ))
+        
+        labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        fig.add_trace(go.Scatter3d(
+            x=x, y=y, z=z, mode='markers+text',
+            text=labels, textposition="top center",
+            marker=dict(size=6, color='black'), name="Titik"
+        ))
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(title='X', range=[-1, s+2]),
+                yaxis=dict(title='Y', range=[-1, s+2]),
+                zaxis=dict(title='Z', range=
