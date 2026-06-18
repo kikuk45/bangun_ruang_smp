@@ -86,4 +86,18 @@ if menu == "🏠 Beranda Analisis":
         
         **Fitur Utama Laboratorium Virtual:**
         * 🌐 **Visualisasi Spasial Dinamis:** Manipulasi sudut pandang objek 3D secara *real-time* untuk memperkuat kemampuan spasial (membayangkan ruang).
-        * 📊 **Kalkulator Struktur Geometri:** Analisis otomatis ukuran dasar
+        * 📊 **Kalkulator Struktur Geometri:** Analisis otomatis ukuran dasar, luas permukaan, dan volume objek.
+        * 🔍 **X-Ray Diagonal Simulator:** Gambar komponen garis diagonal ruang secara interaktif langsung pada objek untuk simulasi teorema Pythagoras ruang.
+        * 📝 **Lembar Kerja Mandiri:** Fitur verifikasi jawaban untuk menguji hasil perhitungan manual siswa secara mandiri.
+        
+        *Silakan pilih menu objek di sebelah kiri untuk memulai analisis.*
+        """) # <--- PASTIKAN ADA PENUTUP INI SEBELUM STRUTKBUR BERIKUTNYA
+        
+    with col_img:
+        st.write("")
+        url_gambar_github = "images (2).png"
+        
+        try:
+            st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Dimensi Tiga")
+        except Exception as e:
+            st.info("💡 **Tips Pembelajaran SMA:** Aktifkan fitur garis diagonal pada menu eksperimen untuk membantu visualisasi segitiga siku-siku di dalam ruang saat menghitung jarak titik ke titik.")
