@@ -96,7 +96,7 @@ if menu == "🏠 Beranda Analisis":
         st.write("")
         # --- MODIFIKASI DISINI: MENAMPILKAN GAMBAR DARI GITHUB ---
         # Ganti URL di bawah ini dengan tautan RAW gambar GitHub kamu sendiri
-        url_gambar_github = "pngtree-happy-junior-high-school-students-vector-png-image_18401550.png"
+        url_gambar_github = "images (2).png"
         
         try:
             st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Dimensi Tiga")
