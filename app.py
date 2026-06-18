@@ -57,7 +57,8 @@ sidebar_html = """
 """
 st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
-menu = st.sidebar.selectbox("", ["🏠 Beranda Analisis", "🧊 Analisis Kubus", "🧱 Analisis Balok"])
+# Memakai pilihan yang bersih agar logika Python tidak bingung membaca emoji
+pilihan_menu = st.sidebar.selectbox("", ["Beranda Analisis", "Analisis Kubus", "Analisis Balok"])
 
 # --- FUNGSI UNTUK MEMBUAT KERANGKA STRUKTUR (WIREFRAME) ---
 def get_wireframe_data(x, y, z):
@@ -75,11 +76,13 @@ def get_wireframe_data(x, y, z):
     return x_lines, y_lines, z_lines
 
 # --- HALAMAN UTAMA: BERANDA ---
-if menu == "🏠 Beranda Analisis":
+if pilihan_menu == "Beranda Analisis":
     col_text, col_img = st.columns([3, 2])
     
     with col_text:
         st.title("Aplikasi Analisis Spasial Dimensi Tiga 🖥️")
+        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Dibuat oleh Mochammad Rifqi</p>", unsafe_allow_html=True)
+        
         st.markdown("""
         ### Selamat Datang di Modul Geometri Ruang SMA!
         Aplikasi ini dirancang sebagai alat bantu visualisasi objek 3 dimensi guna mempermudah pemahaman konsep kedudukan titik, garis, dan bidang, serta perhitungan jarak dan sudut pada materi **Dimensi Tiga**.
@@ -91,7 +94,7 @@ if menu == "🏠 Beranda Analisis":
         * 📝 **Lembar Kerja Mandiri:** Fitur verifikasi jawaban untuk menguji hasil perhitungan manual siswa secara mandiri.
         
         *Silakan pilih menu objek di sebelah kiri untuk memulai analisis.*
-        """) # <--- PASTIKAN ADA PENUTUP INI SEBELUM STRUTKBUR BERIKUTNYA
+        """)
         
     with col_img:
         st.write("")
@@ -101,4 +104,54 @@ if menu == "🏠 Beranda Analisis":
             st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Dimensi Tiga")
         except Exception as e:
             st.info("💡 **Tips Pembelajaran SMA:** Aktifkan fitur garis diagonal pada menu eksperimen untuk membantu visualisasi segitiga siku-siku di dalam ruang saat menghitung jarak titik ke titik.")
-st.sidebar.caption("Pengembang: Mochammad Rifqi Al Khadziq")
+            
+    st.markdown("---")
+    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Dimensi Tiga SMA | Dibuat oleh Mochammad Rifqi</p>", unsafe_allow_html=True)
+
+# --- HALAMAN: KUBUS ---
+elif pilihan_menu == "Analisis Kubus":
+    st.title("🧊 Analisis Geometri Ruang: Kubus")
+    
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        card_sifat_kubus = """
+        <div class="sma-card">
+            <h3>📋 Elemen Struktur Kubus</h3>
+            <ul>
+                <li><b>6 Sisi (Bidang):</b> Seluruhnya berbentuk persegi kongruen (ABCD, EFGH, dst).</li>
+                <li><b>12 Rusuk:</b> Memiliki panjang yang sama besar ($s$).</li>
+                <li><b>8 Titik Sudut:</b> Titik potong standar notasi geometri ruang.</li>
+                <li><b>12 Diagonal Bidang & 4 Diagonal Ruang</b></li>
+            </ul>
+        </div>
+        """
+        st.markdown(card_sifat_kubus, unsafe_allow_html=True)
+        
+        card_rumus_kubus = """
+        <div class="sma-card-tech">
+            <h3>📝 Formulasi Metrik & Diagonal</h3>
+        </div>
+        """
+        st.markdown(card_rumus_kubus, unsafe_allow_html=True)
+        
+        st.latex(r"Volume \ (V) = s^3 \quad | \quad Luas \ Permukaan \ (L) = 6s^2")
+        st.latex(r"Diagonal \ Bidang \ (D_b) = s\sqrt{2}")
+        st.latex(r"Diagonal \ Ruang \ (D_r) = s\sqrt{3}")
+        
+        st.markdown("### 🧮 1. Parameter Dimensi Objek (Alat Bantu)")
+        sisi = st.number_input("Input Panjang Sisi Kubus (s):", min_value=1.0, value=5.0, step=1.0)
+        
+        st.markdown("##### 🔍 Proyeksi Garis Ruang (Interaktif)")
+        show_db = st.checkbox("Tampilkan Diagonal Bidang AC (Alas)")
+        show_dr = st.checkbox("Tampilkan Diagonal Ruang AG")
+        
+        # Perhitungan Metrik internal
+        volume = sisi ** 3
+        luas_permukaan = 6 * (sisi ** 2)
+        diag_bidang = sisi * np.sqrt(2)
+        diag_ruang = sisi * np.sqrt(3)
+        
+        st.success(f"📊 **Metrik Dasar Otomatis:**\n\n"
+                   f"🔹 **Volume (V):** {volume:.2f} satuan kubik\n\n"
+                   f"🔹 **Luas Permukaan (L):** {luas_permukaan:.
