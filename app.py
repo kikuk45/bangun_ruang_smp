@@ -98,7 +98,7 @@ if menu == "🏠 Beranda Analisis":
 
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Analisis Kubus":
-    st.title("🧊 Analisis Geometri Ruang: Kubus (Hexahedron)")
+    st.title("🧊 Analisis Geometri Ruang: Kubus")
     
     col1, col2 = st.columns([1, 1])
     
