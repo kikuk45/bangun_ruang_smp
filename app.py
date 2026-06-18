@@ -83,7 +83,6 @@ if pilihan_menu == "Beranda Analisis":
         st.title("Aplikasi Analisis Spasial Dimensi Tiga 🖥️")
         st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Dibuat oleh Mochammad Rifqi</p>", unsafe_allow_html=True)
         
-        # Menggunakan format pemisah teks paragraf yang bersih untuk menghindari bug triple quote
         st.markdown("### Selamat Datang di Modul Geometri Ruang SMA!")
         st.markdown("Aplikasi ini dirancang sebagai alat bantu visualisasi objek 3 dimensi guna mempermudah pemahaman konsep kedudukan titik, garis, dan bidang, serta perhitungan jarak dan sudut pada materi **Dimensi Tiga**.")
         
@@ -206,8 +205,11 @@ elif pilihan_menu == "Analisis Kubus":
             marker=dict(size=6, color='black'), name="Titik"
         ))
         
+        # FIX: Penutupan struktur layout dictionary dan kurung zaxis diperbaiki total
         fig.update_layout(
             scene=dict(
                 xaxis=dict(title='X', range=[-1, s+2]),
                 yaxis=dict(title='Y', range=[-1, s+2]),
-                zaxis=dict(title='Z', range=
+                zaxis=dict(title='Z', range=[-1, s+2])
+            ),
+            margin=dict(l=0,
