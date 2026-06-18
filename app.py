@@ -4,7 +4,7 @@ import numpy as np
 
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(
-    page_title="Modul Dimensi Tiga SMK", 
+    page_title="Modul Dimensi Tiga SMA", 
     page_icon="📐",
     layout="wide",
     initial_sidebar_state="expanded"
