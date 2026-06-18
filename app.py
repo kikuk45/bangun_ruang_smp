@@ -94,8 +94,15 @@ if menu == "🏠 Beranda Analisis":
         
     with col_img:
         st.write("")
-        st.info("💡 **Tips Pembelajaran SMK:** Aktifkan fitur garis diagonal pada menu eksperimen untuk membantu visualisasi segitiga siku-siku di dalam ruang saat menghitung jarak titik ke titik.")
-
+        # --- MODIFIKASI DISINI: MENAMPILKAN GAMBAR DARI GITHUB ---
+        # Ganti URL di bawah ini dengan tautan RAW gambar GitHub kamu sendiri
+        url_gambar_github = "https://raw.githubusercontent.com/username_kamu/nama_repository/main/nama_gambar.png"
+        
+        try:
+            st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Dimensi Tiga")
+        except Exception as e:
+            # Sebagai cadangan jika internet bermasalah atau URL salah
+            st.info("💡 **Tips Pembelajaran SMK:** Aktifkan fitur garis diagonal pada menu eksperimen untuk membantu visualisasi segitiga siku-siku di dalam ruang saat menghitung jarak titik ke titik.")
 # --- HALAMAN: KUBUS ---
 elif menu == "🧊 Analisis Kubus":
     st.title("🧊 Analisis Geometri Ruang: Kubus")
