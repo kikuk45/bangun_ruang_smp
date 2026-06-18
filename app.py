@@ -159,4 +159,173 @@ elif pilihan_menu == "Analisis Kubus":
 
 🔹 **Panjang Diagonal Ruang (AG):** {diag_ruang:.2f} satuan""")
 
-    with col
+    # FIX: Menambahkan tanda titik dua (:) yang hilang pada with col2
+    with col2:
+        st.markdown("### 🌐 Model Proyeksi 3D Interaktif")
+        st.caption("Gunakan mouse/kursor untuk memutar (rotate) kubus guna menganalisis letak garis.")
+        
+        s = sisi
+        x = [0, s, s, 0, 0, s, s, 0]
+        y = [0, 0, s, s, 0, 0, s, s]
+        z = [0, 0, 0, 0, s, s, s, s]
+        
+        xl, yl, zl = get_wireframe_data(x, y, z)
+        fig = go.Figure()
+        
+        fig.add_trace(go.Mesh3d(
+            x=x, y=y, z=z,
+            i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
+            j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
+            k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
+            opacity=0.15, color='#0d6efd', flatshading=True, name="Volume"
+        ))
+        
+        fig.add_trace(go.Scatter3d(
+            x=xl, y=yl, z=zl, mode='lines',
+            line=dict(color='#495057', width=3), name="Rusuk"
+        ))
+        
+        if show_db:
+            fig.add_trace(go.Scatter3d(
+                x=[0, s], y=[0, s], z=[0, 0], mode='lines+markers',
+                line=dict(color='#dc3545', width=5, dash='dash'),
+                marker=dict(size=4), name="Diag. Bidang AC"
+            ))
+            
+        if show_dr:
+            fig.add_trace(go.Scatter3d(
+                x=[0, s], y=[0, s], z=[0, s], mode='lines+markers',
+                line=dict(color='#ffc107', width=6),
+                marker=dict(size=4), name="Diag. Ruang AG"
+            ))
+        
+        labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        fig.add_trace(go.Scatter3d(
+            x=x, y=y, z=z, mode='markers+text',
+            text=labels, textposition="top center",
+            marker=dict(size=6, color='black'), name="Titik"
+        ))
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(title='X', range=[-1, s+2]),
+                yaxis=dict(title='Y', range=[-1, s+2]),
+                zaxis=dict(title='Z', range=[-1, s+2])
+            ),
+            margin=dict(l=0, r=0, b=0, t=0), showlegend=True
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+# --- HALAMAN: BALOK ---
+elif pilihan_menu == "Analisis Balok":
+    st.title("🧱 Analisis Geometri Ruang: Balok")
+    
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        card_sifat_balok = """
+        <div class="sma-card">
+            <h3>📋 Karakteristik Struktur Balok</h3>
+            <ul>
+                <li><b>Sisi:</b> Memiliki 3 pasang bidang segiempat berhadapan yang sejajar dan kongruen.</li>
+                <li><b>Dimensi:</b> Ditentukan oleh nilai Panjang ($p$), Lebar ($l$), dan Tinggi ($t$).</li>
+                <li><b>Diagonal Bidang:</b> Bernilai variatif tergantung bidang mana yang ditinjau.</li>
+            </ul>
+        </div>
+        """
+        st.markdown(card_sifat_balok, unsafe_allow_html=True)
+        
+        card_rumus_balok = """
+        <div class="sma-card-tech">
+            <h3>📝 Formulasi Metrik & Diagonal Balok</h3>
+        </div>
+        """
+        st.markdown(card_rumus_balok, unsafe_allow_html=True)
+        
+        st.latex(r"Volume = p \times l \times t \quad | \quad L_p = 2(pl + pt + lt)")
+        st.latex(r"Diag. \ Bidang \ Alas \ (AC) = \sqrt{p^2 + l^2}")
+        st.latex(r"Diagonal \ Ruang \ (AG) = \sqrt{p^2 + l^2 + t^2}")
+        
+        st.markdown("### 🧮 1. Parameter Dimensi Objek (Alat Bantu)")
+        p = st.number_input("Masukkan Panjang (p):", min_value=1.0, value=6.0, step=1.0)
+        l = st.number_input("Masukkan Lebar (l):", min_value=1.0, value=4.0, step=1.0)
+        t = st.number_input("Masukkan Tinggi (t):", min_value=1.0, value=3.0, step=1.0)
+        
+        st.markdown("##### 🔍 Proyeksi Garis Ruang (Interaktif)")
+        show_db_balok = st.checkbox("Tampilkan Diagonal Bidang Alas AC")
+        show_dr_balok = st.checkbox("Tampilkan Diagonal Ruang AG")
+        
+        # Perhitungan Metrik Balok internal
+        v_balok = p * l * t
+        lp_balok = 2 * ((p * l) + (p * t) + (l * t))
+        db_alas = np.sqrt(p**2 + l**2)
+        dr_balok = np.sqrt(p**2 + l**2 + t**2)
+        
+        st.success(f"""📊 **Metrik Dasar Otomatis:**
+
+🔹 **Volume (V):** {v_balok:.2f} satuan kubik
+
+🔹 **Luas Permukaan (L):** {lp_balok:.2f} satuan persegi
+
+🔹 **Panjang Diagonal Bidang Alas (AC):** {db_alas:.2f} satuan
+
+🔹 **Panjang Diagonal Ruang (AG):** {dr_balok:.2f} satuan""")
+
+    with col2:
+        st.markdown("### 🌐 Model Proyeksi 3D Interaktif")
+        st.caption("Gunakan mouse/kursor untuk memutar (rotate) balok guna menganalisis letak garis.")
+        
+        x = [0, p, p, 0, 0, p, p, 0]
+        y = [0, 0, l, l, 0, 0, l, l]
+        z = [0, 0, 0, 0, t, t, t, t]
+        
+        xl, yl, zl = get_wireframe_data(x, y, z)
+        fig = go.Figure()
+        
+        fig.add_trace(go.Mesh3d(
+            x=x, y=y, z=z,
+            i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
+            j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
+            k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
+            opacity=0.15, color='#198754', flatshading=True, name="Volume"
+        ))
+        
+        fig.add_trace(go.Scatter3d(
+            x=xl, y=yl, z=zl, mode='lines',
+            line=dict(color='#495057', width=3), name="Rusuk"
+        ))
+        
+        if show_db_balok:
+            fig.add_trace(go.Scatter3d(
+                x=[0, p], y=[0, l], z=[0, 0], mode='lines+markers',
+                line=dict(color='#dc3545', width=5, dash='dash'),
+                marker=dict(size=4), name="Diag. Bidang AC"
+            ))
+            
+        if show_dr_balok:
+            fig.add_trace(go.Scatter3d(
+                x=[0, p], y=[0, l], z=[0, t], mode='lines+markers',
+                line=dict(color='#ffc107', width=6),
+                marker=dict(size=4), name="Diag. Ruang AG"
+            ))
+        
+        labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+        fig.add_trace(go.Scatter3d(
+            x=x, y=y, z=z, mode='markers+text',
+            text=labels, textposition="top center",
+            marker=dict(size=6, color='black'), name="Titik"
+        ))
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(title='X (Panjang)', range=[-1, p+2]),
+                yaxis=dict(title='Y (Lebar)', range=[-1, l+2]),
+                zaxis=dict(title='Z (Tinggi)', range=[-1, t+2])
+            ),
+            margin=dict(l=0, r=0, b=0, t=0), showlegend=True
+        )
+        st.plotly_chart(fig, use_container_width=True)
+
+# --- FOOTER SIDEBAR ---
+st.sidebar.markdown("---")
+st.sidebar.caption("Pengembang: Mochammad Rifqi Al Khadziq")
