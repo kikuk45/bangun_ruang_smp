@@ -101,3 +101,4 @@ if menu == "🏠 Beranda Analisis":
             st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Dimensi Tiga")
         except Exception as e:
             st.info("💡 **Tips Pembelajaran SMA:** Aktifkan fitur garis diagonal pada menu eksperimen untuk membantu visualisasi segitiga siku-siku di dalam ruang saat menghitung jarak titik ke titik.")
+st.sidebar.caption("Pengembang: Mochammad Rifqi Al Khadziq")
