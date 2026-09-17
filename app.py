@@ -4,7 +4,7 @@ import numpy as np
 
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(
-    page_title="Modul Bangun Ruang SMP", 
+    page_title="Modul Bangun Ruang Kelas 8 SMP", 
     page_icon="📐",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -52,12 +52,12 @@ st.markdown(style_css, unsafe_allow_html=True)
 sidebar_html = """
 <div style='text-align: center;'>
     <h2 style='margin-bottom: 0;'>📐 Lab Bangun Ruang</h2>
-    <p style='color: #6c757d; font-size: 14px;'>Media Pembelajaran Matematika SMP</p>
+    <p style='color: #6c757d; font-size: 14px;'>Kurikulum Merdeka / K-13 Kelas 8 SMP</p>
 </div>
 """
 st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
-pilihan_menu = st.sidebar.selectbox("", ["Beranda Analisis", "Analisis Kubus", "Analisis Balok"])
+pilihan_menu = st.sidebar.selectbox("Pilih Menu Pembelajaran:", ["Beranda Analisis", "Analisis Kubus Kelas 8", "Analisis Balok Kelas 8"])
 
 # --- FUNGSI UNTUK MEMBUAT KERANGKA STRUKTUR (WIREFRAME) ---
 def get_wireframe_data(x, y, z):
@@ -79,43 +79,46 @@ if pilihan_menu == "Beranda Analisis":
     col_text, col_img = st.columns([3, 2])
     
     with col_text:
-        st.title("Aplikasi Bangun Ruang Sisi Datar 🖥️")
-        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
+        st.title("Modul Interaktif Bangun Ruang Sisi Datar 🖥️")
+        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Khusus Materi Matematika SMP Kelas 8</p>", unsafe_allow_html=True)
         
-        st.markdown("### Selamat Datang di Modul Geometri Ruang SMP!")
-        st.markdown("Aplikasi interaktif ini dirancang untuk membantu memahami unsur-unsur, luas permukaan, dan volume bangun ruang sisi datar disertai **tahapan perhitungan langkah demi langkah**.")
+        st.markdown("### Selamat Datang di Laboratorium Geometri Kelas 8!")
+        st.markdown("Aplikasi ini disusun khusus berdasarkan capaian pembelajaran Matematika Kelas 8 SMP, yang berfokus pada pengenalan **unsur-unsur**, **jaring-jaring**, **luas permukaan**, dan **volume** untuk bangun ruang sisi datar (Kubus dan Balok).")
         
-        st.markdown("**Fitur Utama Laboratorium Virtual:**")
-        st.markdown("* 🌐 **Visualisasi Objek 3D Dinamis:** Memutar sudut pandang bangun ruang secara interaktif.")
-        st.markdown("* 📝 **Penjabaran Langkah Kerja:** Membimbing siswa memahami rumus dari proses substitusi nilai hingga hasil akhir.")
-        st.markdown("* 🔍 **Eksplorasi Diagonal:** Mengenal garis diagonal bidang dan ruang.")
+        st.markdown("**Kompetensi yang Dipelajari di Kelas 8:**")
+        st.markdown("* 📋 **Identifikasi Unsur:** Mengenal jumlah sisi, rusuk, titik sudut, dan diagonal sisi/bidang dasar.")
+        st.markdown("* 📦 **Jaring-Jaring Bangun Ruang:** Memahami bagaimana bangun ruang dibentuk dari potongan bidang datarnya.")
+        st.markdown("* 🧮 **Perhitungan Bertahap:** Mempelajari rumus Volume dan Luas Permukaan secara runtut (langkah demi langkah dari substitusi angka hingga hasil akhir berbentuk bilangan bulat).")
+        st.markdown("* 🌐 **Visualisasi 3D Interaktif:** Membantu siswa membayangkan bentuk nyata kubus dan balok dari berbagai sudut.")
         st.write("")
-        st.info("Silakan pilih menu objek di sebelah kiri untuk memulai pembelajaran.")
+        st.info("👉 Silakan pilih menu di sidebar sebelah kiri untuk mulai mengeksplorasi Kubus atau Balok.")
         
     with col_img:
         st.write("")
         try:
-            st.image("images (4).jpg", use_container_width=True, caption="Media Pembelajaran Bangun Ruang")
+            st.image("images (4).jpg", use_container_width=True, caption="Media Belajar Matematika SMP")
         except Exception:
-            st.info("💡 **Tips Belajar SMP:** Perhatikan rincian langkah pengerjaan agar lebih mudah memahami penurunan rumus matematika.")
+            st.info("💡 **Tips Guru/Siswa:** Gunakan rincian langkah pengerjaan di bawah kalkulator untuk menuliskan catatan di buku catatan matematika.")
             
     st.markdown("---")
-    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Bangun Ruang SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Matematika Kelas 8 SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
 
-# --- HALAMAN: KUBUS ---
-elif pilihan_menu == "Analisis Kubus":
-    st.title("🧊 Eksplorasi Bangun Ruang: Kubus")
+# --- HALAMAN: KUBUS KELAS 8 ---
+elif pilihan_menu == "Analisis Kubus Kelas 8":
+    st.title("🧊 Eksplorasi Kubus (Matematika Kelas 8)")
     
     col1, col2 = st.columns([1, 1])
     
     with col1:
         card_sifat_kubus = """
         <div class="smp-card">
-            <h3>📋 Unsur-Unsur Kubus</h3>
+            <h3>📋 Karakteristik & Unsur Kubus (Kelas 8)</h3>
             <ul>
-                <li><b>6 Sisi (Bidang):</b> Berbentuk persegi yang kongruen.</li>
-                <li><b>12 Rusuk:</b> Memiliki panjang yang sama besar (<i>s</i>).</li>
-                <li><b>8 Titik Sudut:</b> Pojok-pojok pertemuan antar rusuk.</li>
+                <li><b>Sisi:</b> Memiliki 6 sisi berbentuk persegi yang kongruen (sama besar). Contoh: Sisi ABCD, EFGH, ABFE, dsb.</li>
+                <li><b>Rusuk:</b> Memiliki 12 rusuk yang sama panjang (dilambangkan dengan huruf <i>s</i>).</li>
+                <li><b>Titik Sudut:</b> Memiliki 8 titik sudut (A, B, C, D, E, F, G, H).</li>
+                <li><b>Diagonal Sisi/Bidang:</b> Memiliki 12 garis diagonal pada sisi-sisinya.</li>
+                <li><b>Jaring-jaring:</b> Terdiri dari 6 buah persegi yang saling terhubung jika dibuka.</li>
             </ul>
         </div>
         """
@@ -123,55 +126,42 @@ elif pilihan_menu == "Analisis Kubus":
         
         card_rumus_kubus = """
         <div class="smp-card-tech">
-            <h3>📝 Rumus Dasar Kubus</h3>
+            <h3>📝 Rumus Utama Kubus Kelas 8</h3>
         </div>
         """
         st.markdown(card_rumus_kubus, unsafe_allow_html=True)
         
-        st.latex(r"Volume \ (V) = s^3")
-        st.latex(r"Luas \ Permukaan \ (L_p) = 6 \times s^2")
+        st.latex(r"Volume \ (V) = sisi \times sisi \times sisi \ (s^3)")
+        st.latex(r"Luas \ Permukaan \ (L_p) = 6 \times (sisi \times sisi)")
         
         st.markdown("### 🧮 Kalkulator & Langkah Pengerjaan Kubus")
-        # Diubah menggunakan integer (min_value=1, step=1, value=5)
         sisi = st.number_input("Masukkan Panjang Sisi Kubus (s):", min_value=1, value=5, step=1, format="%d")
         
-        st.markdown("##### 🔍 Pengayaan Garis Ruang")
-        show_db = st.checkbox("Tampilkan Diagonal Bidang AC (Alas)")
-        show_dr = st.checkbox("Tampilkan Diagonal Ruang AG")
-        
-        # Perhitungan Metrik internal
+        # Perhitungan Metrik Kubus (Bilangan Bulat)
         volume = sisi ** 3
         luas_permukaan = 6 * (sisi ** 2)
-        diag_bidang = sisi * np.sqrt(2)
-        diag_ruang = sisi * np.sqrt(3)
         
-        # Penjabaran Langkah demi Langkah untuk Kubus
-        st.markdown("### 📋 Rincian Langkah Perhitungan:")
+        # Penjabaran Langkah demi Langkah untuk Kelas 8
+        st.markdown("### 📋 Rincian Langkah Pengerjaan (Step-by-Step):")
         
-        with st.expander("1️⃣ Langkah Perhitungan Volume (V)", expanded=True):
+        with st.expander("1️⃣ Langkah Menghitung Volume Kubus", expanded=True):
+            st.markdown(f"* **Konsep Dasar:** Volume adalah kapasitas ruang yang dapat diisi oleh kubus.")
             st.markdown(f"* **Rumus:** $V = s \\times s \\times s$")
-            st.markdown(f"* **Substitusi Nilai:** $V = {sisi} \\times {sisi} \\times {sisi}$")
+            st.markdown(f"* **Langkah Substitusi:** Masukkan nilai panjang sisi $s = {sisi}$, sehingga $V = {sisi} \\times {sisi} \\times {sisi}$")
+            st.markdown(f"* **Proses Perkalian:** $({sisi} \\times {sisi}) = {sisi*sisi}$, lalu dikali {sisi} lagi.")
             st.markdown(f"* **Hasil Akhir:** **{volume}** satuan kubik")
 
-        with st.expander("2️⃣ Langkah Perhitungan Luas Permukaan ($L_p$)", expanded=True):
-            st.markdown(f"* **Rumus:** $L_p = 6 \\times s^2$")
-            st.markdown(f"* **Substitusi Nilai:** $L_p = 6 \\times ({sisi} \\times {sisi})$")
-            st.markdown(f"* **Proses:** $L_p = 6 \\times {sisi**2}$")
+        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Kubus", expanded=True):
+            st.markdown(f"* **Konsep Dasar:** Luas permukaan adalah total luas dari 6 buah sisi persegi yang menyelimuti kubus.")
+            st.markdown(f"* **Rumus:** $L_p = 6 \\times (s \\times s)$")
+            st.markdown(f"* **Langkah Substitusi:** $L_p = 6 \\times ({sisi} \\times {sisi})$")
+            st.markdown(f"* **Proses Hitung Sisi Persegi:** Luas satu sisi = ${sisi} \\times {sisi} = {sisi**2}$")
+            st.markdown(f"* **Proses Perkalian Akhir:** $6 \\times {sisi**2}$")
             st.markdown(f"* **Hasil Akhir:** **{luas_permukaan}** satuan persegi")
 
-        with st.expander("3️⃣ Langkah Perhitungan Diagonal Bidang (AC)", expanded=False):
-            st.markdown(f"* **Rumus:** $D_b = s\\sqrt{{2}}$")
-            st.markdown(f"* **Substitusi Nilai:** $D_b = {sisi}\\sqrt{{2}}$")
-            st.markdown(f"* **Hasil Desimal:** **{diag_bidang:.2f}** satuan")
-
-        with st.expander("4️⃣ Langkah Perhitungan Diagonal Ruang (AG)", expanded=False):
-            st.markdown(f"* **Rumus:** $D_r = s\\sqrt{{3}}$")
-            st.markdown(f"* **Substitusi Nilai:** $D_r = {sisi}\\sqrt{{3}}$")
-            st.markdown(f"* **Hasil Desimal:** **{diag_ruang:.2f}** satuan")
-
     with col2:
-        st.markdown("### 🌐 Model Visualisasi 3D")
-        st.caption("Gunakan kursor untuk memutar (rotate) kubus.")
+        st.markdown("### 🌐 Visualisasi 3D Kubus")
+        st.caption("Putar kursor pada objek untuk melihat bentuk ruang kubus secara nyata.")
         
         s = float(sisi)
         x = [0, s, s, 0, 0, s, s, 0]
@@ -186,58 +176,46 @@ elif pilihan_menu == "Analisis Kubus":
             i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
             j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
             k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
-            opacity=0.15, color='#0d6efd', flatshading=True, name="Volume"
+            opacity=0.20, color='#0d6efd', flatshading=True, name="Ruang Kubus"
         ))
         
         fig.add_trace(go.Scatter3d(
             x=xl, y=yl, z=zl, mode='lines',
-            line=dict(color='#495057', width=3), name="Rusuk"
+            line=dict(color='#343a40', width=4), name="Rusuk Kubus"
         ))
-        
-        if show_db:
-            fig.add_trace(go.Scatter3d(
-                x=[0, s], y=[0, s], z=[0, 0], mode='lines+markers',
-                line=dict(color='#dc3545', width=5, dash='dash'),
-                marker=dict(size=4), name="Diag. Bidang AC"
-            ))
-            
-        if show_dr:
-            fig.add_trace(go.Scatter3d(
-                x=[0, s], y=[0, s], z=[0, s], mode='lines+markers',
-                line=dict(color='#ffc107', width=6),
-                marker=dict(size=4), name="Diag. Ruang AG"
-            ))
         
         labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
         fig.add_trace(go.Scatter3d(
             x=x, y=y, z=z, mode='markers+text',
             text=labels, textposition="top center",
-            marker=dict(size=6, color='black'), name="Titik"
+            marker=dict(size=6, color='black'), name="Titik Sudut"
         ))
         
         fig.update_layout(
             scene=dict(
-                xaxis=dict(title='X', range=[-1, s+2]),
-                yaxis=dict(title='Y', range=[-1, s+2]),
-                zaxis=dict(title='Z', range=[-1, s+2])
+                xaxis=dict(title='Sumbu X', range=[-1, s+2]),
+                yaxis=dict(title='Sumbu Y', range=[-1, s+2]),
+                zaxis=dict(title='Sumbu Z', range=[-1, s+2])
             ),
             margin=dict(l=0, r=0, b=0, t=0), showlegend=True
         )
         st.plotly_chart(fig, use_container_width=True)
 
-# --- HALAMAN: BALOK ---
-elif pilihan_menu == "Analisis Balok":
-    st.title("🧱 Eksplorasi Bangun Ruang: Balok")
+# --- HALAMAN: BALOK KELAS 8 ---
+elif pilihan_menu == "Analisis Balok Kelas 8":
+    st.title("🧱 Eksplorasi Balok (Matematika Kelas 8)")
     
     col1, col2 = st.columns([1, 1])
     
     with col1:
         card_sifat_balok = """
         <div class="smp-card">
-            <h3>📋 Unsur-Unsur Balok</h3>
+            <h3>📋 Karakteristik & Unsur Balok (Kelas 8)</h3>
             <ul>
-                <li><b>Sisi:</b> Memiliki 3 pasang bidang berhadapan sejajar dan sama luas.</li>
-                <li><b>Dimensi:</b> Panjang (<i>p</i>), Lebar (<i>l</i>), dan Tinggi (<i>t</i>).</li>
+                <li><b>Sisi:</b> Memiliki 6 sisi berbentuk persegi panjang, dengan 3 pasang sisi berhadapan yang sejajar dan sama luas (Depan-Belakang, Atas-Bawah, Kiri-Kanan).</li>
+                <li><b>Rusuk:</b> Memiliki 12 rusuk yang dikelompokkan menjadi 3 ukuran: Panjang (<i>p</i>), Lebar (<i>l</i>), dan Tinggi (<i>t</i>).</li>
+                <li><b>Titik Sudut:</b> Memiliki 8 titik sudut (A, B, C, D, E, F, G, H).</li>
+                <li><b>Jaring-jaring:</b> Rangkaian 6 persegi panjang yang dapat membentuk balok jika dilipat.</li>
             </ul>
         </div>
         """
@@ -245,63 +223,51 @@ elif pilihan_menu == "Analisis Balok":
         
         card_rumus_balok = """
         <div class="smp-card-tech">
-            <h3>📝 Rumus Dasar Balok</h3>
+            <h3>📝 Rumus Utama Balok Kelas 8</h3>
         </div>
         """
         st.markdown(card_rumus_balok, unsafe_allow_html=True)
         
-        st.latex(r"Volume = p \times l \times t")
-        st.latex(r"Luas \ Permukaan \ (L_p) = 2 \times (pl + pt + lt)")
+        st.latex(r"Volume \ (V) = p \times l \times t")
+        st.latex(r"Luas \ Permukaan \ (L_p) = 2 \times (p \cdot l + p \cdot t + l \cdot t)")
         
         st.markdown("### 🧮 Kalkulator & Langkah Pengerjaan Balok")
-        # Diubah menggunakan integer (min_value=1, step=1)
         p = st.number_input("Masukkan Panjang (p):", min_value=1, value=6, step=1, format="%d")
         l = st.number_input("Masukkan Lebar (l):", min_value=1, value=4, step=1, format="%d")
         t = st.number_input("Masukkan Tinggi (t):", min_value=1, value=3, step=1, format="%d")
         
-        st.markdown("##### 🔍 Pengayaan Garis Ruang")
-        show_db_balok = st.checkbox("Tampilkan Diagonal Bidang Alas AC")
-        show_dr_balok = st.checkbox("Tampilkan Diagonal Ruang AG")
-        
-        # Perhitungan Metrik Balok internal
+        # Perhitungan Metrik Balok (Bilangan Bulat)
         v_balok = p * l * t
         pl = p * l
         pt = p * t
         lt = l * t
         lp_balok = 2 * (pl + pt + lt)
-        db_alas = np.sqrt(p**2 + l**2)
-        dr_balok = np.sqrt(p**2 + l**2 + t**2)
         
-        # Penjabaran Langkah demi Langkah untuk Balok
-        st.markdown("### 📋 Rincian Langkah Perhitungan:")
+        # Penjabaran Langkah demi Langkah untuk Kelas 8
+        st.markdown("### 📋 Rincian Langkah Pengerjaan (Step-by-Step):")
         
-        with st.expander("1️⃣ Langkah Perhitungan Volume (V)", expanded=True):
+        with st.expander("1️⃣ Langkah Menghitung Volume Balok", expanded=True):
+            st.markdown(f"* **Konsep Dasar:** Volume dihitung dengan mengalikan luas alas dengan tinggi balok ($V = \\text{Luas Alas} \\times t$).")
             st.markdown(f"* **Rumus:** $V = p \\times l \\times t$")
-            st.markdown(f"* **Substitusi Nilai:** $V = {p} \\times {l} \\times {t}$")
+            st.markdown(f"* **Langkah Substitusi:** $V = {p} \\times {l} \\times {t}$")
+            st.markdown(f"* **Proses Hitung Tahap 1:** Hitung perkalian panjang dan lebar dahulu: $({p} \\times {l}) = {p*l}$")
+            st.markdown(f"* **Proses Hitung Tahap 2:** Kalikan hasilnya dengan tinggi: ${p*l} \\times {t}$")
             st.markdown(f"* **Hasil Akhir:** **{v_balok}** satuan kubik")
 
-        with st.expander("2️⃣ Langkah Perhitungan Luas Permukaan ($L_p$)", expanded=True):
+        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Balok", expanded=True):
+            st.markdown(f"* **Konsep Dasar:** Luas permukaan adalah jumlah dari luas seluruh 3 pasang sisi yang saling berhadapan.")
             st.markdown(f"* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
-            st.markdown(f"* **Hitung Luas Sisi:**")
-            st.markdown(f"  * $(p \\times l) = {p} \\times {l} = {pl}$")
-            st.markdown(f"  * $(p \\times t) = {p} \\times {t} = {pt}$")
-            st.markdown(f"  * $(l \\times t) = {l} \\times {t} = {lt}$")
-            st.markdown(f"* **Jumlahkan:** $({pl} + {pt} + {lt}) = {pl + pt + lt}$")
-            st.markdown(f"* **Kalikan 2:** $2 \\times {pl + pt + lt} =$ **{lp_balok}** satuan persegi")
-
-        with st.expander("3️⃣ Langkah Perhitungan Diagonal Alas (AC)", expanded=False):
-            st.markdown(f"* **Rumus:** $AC = \\sqrt{{p^2 + l^2}}$")
-            st.markdown(f"* **Substitusi:** $AC = \\sqrt{{{p}^2 + {l}^2}} = \\sqrt{{{p**2} + {l**2}}} = \\sqrt{{{p**2 + l**2}}}$")
-            st.markdown(f"* **Hasil Desimal:** **{db_alas:.2f}** satuan")
-
-        with st.expander("4️⃣ Langkah Perhitungan Diagonal Ruang (AG)", expanded=False):
-            st.markdown(f"* **Rumus:** $AG = \\sqrt{{p^2 + l^2 + t^2}}$")
-            st.markdown(f"* **Substitusi:** $AG = \\sqrt{{{p}^2 + {l}^2 + {t}^2}} = \\sqrt{{{p**2} + {l**2} + {t**2}}}$")
-            st.markdown(f"* **Hasil Desimal:** **{dr_balok:.2f}** satuan")
+            st.markdown(f"* **Langkah 1 (Hitung Luas Tiap Pasang Sisi):**")
+            st.markdown(f"  * Luas Sisi Alas & Atas $(p \\times l) = {p} \\times {l} = {pl}$")
+            st.markdown(f"  * Luas Sisi Depan & Belakang $(p \\times t) = {p} \\times {t} = {pt}$")
+            st.markdown(f"  * Luas Sisi Samping Kiri & Kanan $(l \\times t) = {l} \\times {t} = {lt}$")
+            st.markdown(f"* **Langkah 2 (Jumlahkan Ketiganya):** $({pl} + {pt} + {lt}) = {pl + pt + lt}$")
+            st.markdown(f"* **Langkah 3 (Kalikan dengan 2):** $2 \\times {pl + pt + lt}$")
+            st.markdown(f"* **Hasil Akhir:** **{lp_balok}** satuan persegi")
 
     with col2:
-        st.markdown("### 🌐 Model Visualisasi 3D")
-        st.caption("Gunakan kursor untuk memutar (rotate) balok.")
+        st.markdown("### 🌐 Visualisasi 3D Balok")
+        st.caption("Putar kursor pada objek untuk melihat bentuk ruang balok secara nyata.")
         
         pf, lf, tf = float(p), float(l), float(t)
         x = [0, pf, pf, 0, 0, pf, pf, 0]
@@ -316,40 +282,26 @@ elif pilihan_menu == "Analisis Balok":
             i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7],
             j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3],
             k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2],
-            opacity=0.15, color='#198754', flatshading=True, name="Volume"
+            opacity=0.20, color='#198754', flatshading=True, name="Ruang Balok"
         ))
         
         fig.add_trace(go.Scatter3d(
             x=xl, y=yl, z=zl, mode='lines',
-            line=dict(color='#495057', width=3), name="Rusuk"
+            line=dict(color='#343a40', width=4), name="Rusuk Balok"
         ))
-        
-        if show_db_balok:
-            fig.add_trace(go.Scatter3d(
-                x=[0, pf], y=[0, lf], z=[0, 0], mode='lines+markers',
-                line=dict(color='#dc3545', width=5, dash='dash'),
-                marker=dict(size=4), name="Diag. Bidang AC"
-            ))
-            
-        if show_dr_balok:
-            fig.add_trace(go.Scatter3d(
-                x=[0, pf], y=[0, lf], z=[0, tf], mode='lines+markers',
-                line=dict(color='#ffc107', width=6),
-                marker=dict(size=4), name="Diag. Ruang AG"
-            ))
         
         labels = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
         fig.add_trace(go.Scatter3d(
             x=x, y=y, z=z, mode='markers+text',
             text=labels, textposition="top center",
-            marker=dict(size=6, color='black'), name="Titik"
+            marker=dict(size=6, color='black'), name="Titik Sudut"
         ))
         
         fig.update_layout(
             scene=dict(
-                xaxis=dict(title='X (Panjang)', range=[-1, pf+2]),
-                yaxis=dict(title='Y (Lebar)', range=[-1, lf+2]),
-                zaxis=dict(title='Z (Tinggi)', range=[-1, tf+2])
+                xaxis=dict(title='Sumbu X (Panjang)', range=[-1, pf+2]),
+                yaxis=dict(title='Sumbu Y (Lebar)', range=[-1, lf+2]),
+                zaxis=dict(title='Sumbu Z (Tinggi)', range=[-1, tf+2])
             ),
             margin=dict(l=0, r=0, b=0, t=0), showlegend=True
         )
