@@ -145,15 +145,15 @@ elif pilihan_menu == "Analisis Kubus Kelas 8":
         st.markdown("### 📋 Rincian Langkah Pengerjaan (Step-by-Step):")
         
         with st.expander("1️⃣ Langkah Menghitung Volume Kubus", expanded=True):
-            st.markdown(f"* **Konsep Dasar:** Volume adalah kapasitas ruang yang dapat diisi oleh kubus.")
-            st.markdown(f"* **Rumus:** $V = s \\times s \\times s$")
+            st.markdown(r"* **Konsep Dasar:** Volume adalah kapasitas ruang yang dapat diisi oleh kubus.")
+            st.markdown(r"* **Rumus:** $V = s \times s \times s$")
             st.markdown(f"* **Langkah Substitusi:** Masukkan nilai panjang sisi $s = {sisi}$, sehingga $V = {sisi} \\times {sisi} \\times {sisi}$")
             st.markdown(f"* **Proses Perkalian:** $({sisi} \\times {sisi}) = {sisi*sisi}$, lalu dikali {sisi} lagi.")
             st.markdown(f"* **Hasil Akhir:** **{volume}** satuan kubik")
 
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Kubus", expanded=True):
-            st.markdown(f"* **Konsep Dasar:** Luas permukaan adalah total luas dari 6 buah sisi persegi yang menyelimuti kubus.")
-            st.markdown(f"* **Rumus:** $L_p = 6 \\times (s \\times s)$")
+            st.markdown(r"* **Konsep Dasar:** Luas permukaan adalah total luas dari 6 buah sisi persegi yang menyelimuti kubus.")
+            st.markdown(r"* **Rumus:** $L_p = 6 \times (s \times s)$")
             st.markdown(f"* **Langkah Substitusi:** $L_p = 6 \\times ({sisi} \\times {sisi})$")
             st.markdown(f"* **Proses Hitung Sisi Persegi:** Luas satu sisi = ${sisi} \\times {sisi} = {sisi**2}$")
             st.markdown(f"* **Proses Perkalian Akhir:** $6 \\times {sisi**2}$")
@@ -247,17 +247,17 @@ elif pilihan_menu == "Analisis Balok Kelas 8":
         st.markdown("### 📋 Rincian Langkah Pengerjaan (Step-by-Step):")
         
         with st.expander("1️⃣ Langkah Menghitung Volume Balok", expanded=True):
-            st.markdown(f"* **Konsep Dasar:** Volume dihitung dengan mengalikan luas alas dengan tinggi balok ($V = \\text{Luas Alas} \\times t$).")
-            st.markdown(f"* **Rumus:** $V = p \\times l \\times t$")
+            st.markdown(r"* **Konsep Dasar:** Volume dihitung dengan mengalikan luas alas dengan tinggi balok ($V = \text{Luas Alas} \times t$).")
+            st.markdown(r"* **Rumus:** $V = p \times l \times t$")
             st.markdown(f"* **Langkah Substitusi:** $V = {p} \\times {l} \\times {t}$")
             st.markdown(f"* **Proses Hitung Tahap 1:** Hitung perkalian panjang dan lebar dahulu: $({p} \\times {l}) = {p*l}$")
             st.markdown(f"* **Proses Hitung Tahap 2:** Kalikan hasilnya dengan tinggi: ${p*l} \\times {t}$")
             st.markdown(f"* **Hasil Akhir:** **{v_balok}** satuan kubik")
 
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Balok", expanded=True):
-            st.markdown(f"* **Konsep Dasar:** Luas permukaan adalah jumlah dari luas seluruh 3 pasang sisi yang saling berhadapan.")
-            st.markdown(f"* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
-            st.markdown(f"* **Langkah 1 (Hitung Luas Tiap Pasang Sisi):**")
+            st.markdown(r"* **Konsep Dasar:** Luas permukaan adalah jumlah dari luas seluruh 3 pasang sisi yang saling berhadapan.")
+            st.markdown(r"* **Rumus:** $L_p = 2 \times (p\cdot l + p\cdot t + l\cdot t)$")
+            st.markdown(r"* **Langkah 1 (Hitung Luas Tiap Pasang Sisi):**")
             st.markdown(f"  * Luas Sisi Alas & Atas $(p \\times l) = {p} \\times {l} = {pl}$")
             st.markdown(f"  * Luas Sisi Depan & Belakang $(p \\times t) = {p} \\times {t} = {pt}$")
             st.markdown(f"  * Luas Sisi Samping Kiri & Kanan $(l \\times t) = {l} \\times {t} = {lt}$")
