@@ -36,14 +36,6 @@ style_css = """
         border-left: 6px solid #0d6efd;
         margin-bottom: 20px;
     }
-    .smp-card-tech {
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        border-left: 6px solid #198754;
-        margin-bottom: 20px;
-    }
 </style>
 """
 st.markdown(style_css, unsafe_allow_html=True)
@@ -62,12 +54,12 @@ pilihan_menu = st.sidebar.selectbox(
     ["Beranda Analisis", "Analisis Kubus", "Analisis Balok", "Proyeksi Jaring-Jaring"]
 )
 
-# --- FUNGSI UNTUK MEMBUAT KERANGKA STRUKTUR (WIREFRAME) ---
+# --- FUNGSI KERANGKA 3D ---
 def get_wireframe_data(x, y, z):
     lines_idx = [
-        0,1, 1,2, 2,3, 3,0, # Alas ABCD
-        4,5, 5,6, 6,7, 7,4, # Tutup EFGH
-        0,4, 1,5, 2,6, 3,7  # Tiang tegak AE, BF, CG, DH
+        0,1, 1,2, 2,3, 3,0, 
+        4,5, 5,6, 6,7, 7,4, 
+        0,4, 1,5, 2,6, 3,7  
     ]
     x_lines, y_lines, z_lines = [], [], []
     for i in range(0, len(lines_idx), 2):
@@ -77,73 +69,48 @@ def get_wireframe_data(x, y, z):
         z_lines.extend([z[p1], z[p2], None])
     return x_lines, y_lines, z_lines
 
-# --- HALAMAN UTAMA: BERANDA ---
+# --- BERANDA ---
 if pilihan_menu == "Beranda Analisis":
     col_text, col_img = st.columns([3, 2])
-    
     with col_text:
         st.title("Modul Interaktif Bangun Ruang Sisi Datar 🖥️")
         st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Mata Pelajaran Matematika SMP Kelas 8</p>", unsafe_allow_html=True)
-        
         st.markdown("### Selamat Datang di LabGo 😉")
-        st.markdown("Aplikasi ini disusun khusus berdasarkan capaian pembelajaran Matematika Kelas 8 SMP, yang berfokus pada pengenalan **unsur-unsur**, **jaring-jaring**, **luas permukaan**, dan **volume** untuk bangun ruang sisi datar (Kubus dan Balok).")
-        
-        st.markdown("**Kompetensi yang Dipelajari di Kelas 8:**")
-        st.markdown("* 📋 **Identifikasi Unsur:** Mengenal jumlah sisi, rusuk, titik sudut, dan diagonal sisi/bidang dasar.")
-        st.markdown("* 📦 **Jaring-Jaring Bangun Ruang:** Memahami berbagai variasi bentuk jaring-jaring kubus dan balok.")
-        st.markdown("* 🧮 **Perhitungan Bertahap:** Mempelajari rumus Volume dan Luas Permukaan secara runtut.")
-        st.markdown("* 🌐 **Visualisasi 3D Interaktif:** Membantu siswa membayangkan bentuk nyata kubus dan balok.")
-        st.write("")
+        st.markdown("Aplikasi pembelajaran interaktif untuk memahami unsur, jaring-jaring, luas permukaan, dan volume kubus serta balok.")
         st.info("👉 Silakan pilih menu di sidebar sebelah kiri untuk mulai mengeksplorasi.")
-        
     with col_img:
         st.write("")
         try:
             st.image("images (4).jpg", use_container_width=True, caption="Media Belajar Matematika SMP")
         except Exception:
-            st.info("💡 **Tips Guru/Siswa:** Gunakan rincian langkah pengerjaan di bawah kalkulator untuk menuliskan catatan matematika.")
-            
+            pass
     st.markdown("---")
     st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Matematika Kelas 8 SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
 
-# --- HALAMAN: KUBUS KELAS 8 ---
+# --- KUBUS ---
 elif pilihan_menu == "Analisis Kubus":
     st.title("🧊 Eksplorasi Kubus (Matematika Kelas 8)")
-    
     col1, col2 = st.columns([1, 1])
-    
     with col1:
-        card_sifat_kubus = """
+        st.markdown("""
         <div class="smp-card">
-            <h3>📋 Karakteristik & Unsur Kubus (Kelas 8)</h3>
+            <h3>📋 Karakteristik & Unsur Kubus</h3>
             <ul>
-                <li><b>Sisi:</b> Memiliki 6 sisi berbentuk persegi yang kongruen (sama besar).</li>
-                <li><b>Rusuk:</b> Memiliki 12 rusuk yang sama panjang (<i>s</i>).</li>
-                <li><b>Titik Sudut:</b> Memiliki 8 titik sudut.</li>
-                <li><b>Jaring-jaring:</b> Terdiri dari 6 buah persegi yang saling terhubung jika dibuka.</li>
+                <li><b>Sisi:</b> 6 buah persegi yang kongruen.</li>
+                <li><b>Rusuk:</b> 12 rusuk sama panjang.</li>
             </ul>
         </div>
-        """
-        st.markdown(card_sifat_kubus, unsafe_allow_html=True)
-        
+        """, unsafe_allow_html=True)
         st.latex(r"Volume \ (V) = s^3")
         st.latex(r"Luas \ Permukaan \ (L_p) = 6 \times s^2")
         
-        st.markdown("### 🧮 Kalkulator Kubus")
         sisi = st.number_input("Masukkan Panjang Sisi Kubus (s):", min_value=1, value=5, step=1, format="%d")
-        
         volume = sisi ** 3
         luas_permukaan = 6 * (sisi ** 2)
         
-        st.markdown("### 📋 Rincian Langkah Pengerjaan:")
-        with st.expander("1️⃣ Langkah Menghitung Volume Kubus", expanded=True):
-            st.markdown(r"* **Konsep Dasar:** Volume adalah kapasitas ruang kubus.")
-            st.markdown(r"* **Rumus:** $V = s \times s \times s$")
+        with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
             st.markdown(f"* **Hasil Akhir:** **{volume}** satuan kubik")
-
-        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Kubus", expanded=True):
-            st.markdown(r"* **Konsep Dasar:** Total luas dari 6 buah sisi persegi.")
-            st.markdown(r"* **Rumus:** $L_p = 6 \times (s \times s)$")
+        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
             st.markdown(f"* **Hasil Akhir:** **{luas_permukaan}** satuan persegi")
 
     with col2:
@@ -152,7 +119,6 @@ elif pilihan_menu == "Analisis Kubus":
         x = [0, s, s, 0, 0, s, s, 0]
         y = [0, 0, s, s, 0, 0, s, s]
         z = [0, 0, 0, 0, s, s, s, s]
-        
         xl, yl, zl = get_wireframe_data(x, y, z)
         fig = go.Figure()
         fig.add_trace(go.Mesh3d(x=x, y=y, z=z, i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7], j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3], k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2], opacity=0.20, color='#0d6efd', flatshading=True))
@@ -160,24 +126,19 @@ elif pilihan_menu == "Analisis Kubus":
         fig.update_layout(scene=dict(xaxis=dict(range=[-1, s+2]), yaxis=dict(range=[-1, s+2]), zaxis=dict(range=[-1, s+2])), margin=dict(l=0, r=0, b=0, t=0))
         st.plotly_chart(fig, use_container_width=True)
 
-# --- HALAMAN: BALOK KELAS 8 ---
+# --- BALOK ---
 elif pilihan_menu == "Analisis Balok":
     st.title("🧱 Eksplorasi Balok (Matematika Kelas 8)")
-    
     col1, col2 = st.columns([1, 1])
-    
     with col1:
-        card_sifat_balok = """
+        st.markdown("""
         <div class="smp-card">
-            <h3>📋 Karakteristik & Unsur Balok (Kelas 8)</h3>
+            <h3>📋 Karakteristik & Unsur Balok</h3>
             <ul>
-                <li><b>Sisi:</b> Memiliki 6 sisi persegi panjang (3 pasang berhadapan sejajar).</li>
-                <li><b>Rusuk:</b> Terdiri dari Panjang (<i>p</i>), Lebar (<i>l</i>), dan Tinggi (<i>t</i>).</li>
+                <li><b>Sisi:</b> 6 sisi persegi panjang (3 pasang berhadapan).</li>
             </ul>
         </div>
-        """
-        st.markdown(card_sifat_balok, unsafe_allow_html=True)
-        
+        """, unsafe_allow_html=True)
         st.latex(r"Volume \ (V) = p \times l \times t")
         st.latex(r"Luas \ Permukaan \ (L_p) = 2 \times (p \cdot l + p \cdot t + l \cdot t)")
         
@@ -188,12 +149,9 @@ elif pilihan_menu == "Analisis Balok":
         v_balok = p * l * t
         lp_balok = 2 * (p*l + p*t + l*t)
         
-        with st.expander("1️⃣ Langkah Menghitung Volume Balok", expanded=True):
-            st.markdown(r"* **Konsep Dasar:** Volume dihitung dengan mengalikan luas alas dengan tinggi balok ($V = \text{Luas Alas} \times t$).")
+        with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
             st.markdown(f"* **Hasil Akhir:** **{v_balok}** satuan kubik")
-
-        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Balok", expanded=True):
-            st.markdown(r"* **Konsep Dasar:** Jumlah dari seluruh 3 pasang sisi berhadapan.")
+        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
             st.markdown(f"* **Hasil Akhir:** **{lp_balok}** satuan persegi")
 
     with col2:
@@ -202,7 +160,6 @@ elif pilihan_menu == "Analisis Balok":
         x = [0, pf, pf, 0, 0, pf, pf, 0]
         y = [0, 0, lf, lf, 0, 0, lf, lf]
         z = [0, 0, 0, 0, tf, tf, tf, tf]
-        
         xl, yl, zl = get_wireframe_data(x, y, z)
         fig = go.Figure()
         fig.add_trace(go.Mesh3d(x=x, y=y, z=z, i=[7, 0, 0, 0, 4, 4, 2, 6, 4, 0, 3, 7], j=[3, 4, 1, 2, 5, 6, 5, 2, 0, 1, 6, 3], k=[0, 7, 2, 3, 6, 7, 1, 1, 5, 5, 7, 2], opacity=0.20, color='#198754', flatshading=True))
@@ -210,12 +167,12 @@ elif pilihan_menu == "Analisis Balok":
         fig.update_layout(scene=dict(xaxis=dict(range=[-1, pf+2]), yaxis=dict(range=[-1, lf+2]), zaxis=dict(range=[-1, tf+2])), margin=dict(l=0, r=0, b=0, t=0))
         st.plotly_chart(fig, use_container_width=True)
 
-# --- HALAMAN BARU: PROYEKSI JARING-JARING DENGAN BERBAGAI VARIASI ---
+# --- PROYEKSI JARING-JARING (DIPERBAIKI AGAR KUBUS MURNI PERSEGI) ---
 elif pilihan_menu == "Proyeksi Jaring-Jaring":
     st.title("📦 Proyeksi Berbagai Variasi Jaring-Jaring")
-    st.markdown("Pilih jenis bangun ruang dan variasi pola jaring-jaring 2 dimensi yang ingin ditampilkan.")
+    st.markdown("Pilih jenis bangun ruang dan variasi pola jaring-jaring 2 dimensi.")
     
-    pilihan_bangun = st.radio("Pilih Bangun Ruang:", ["Jaring-Jaring Kubus (Terdiri dari Persegi)", "Jaring-Jaring Balok (Persegi Panjang)"], horizontal=True)
+    pilihan_bangun = st.radio("Pilih Bangun Ruang:", ["Jaring-Jaring Kubus (Murni Persegi)", "Jaring-Jaring Balok (Persegi Panjang)"], horizontal=True)
     
     fig_net = go.Figure()
     
@@ -231,7 +188,7 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         )
         
         if variasi_kubus == "Variasi 1 (Pola Salib / Cross)":
-            st.info("💡 **Variasi 1:** Pola jaring-jaring kubus berbentuk salib (terdiri dari 6 buah persegi yang identik).")
+            st.info("💡 **Variasi 1:** Pola jaring-jaring kubus berbentuk salib dari 6 buah persegi.")
             shapes_list = [
                 dict(type="rect", x0=1, y0=1, x1=2, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
                 dict(type="rect", x0=1, y0=0, x1=2, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
@@ -271,9 +228,10 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
                 dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
             ]
             
+        # PENTING: scaleanchor='y' dan scaleratio=1 membuat setiap kotak kubus TERKUNCI menjadi persegi sempurna 1:1
         fig_net.update_layout(
             title=f"Proyeksi 2D - {variasi_kubus}",
-            xaxis=dict(range=[-1, 5], showgrid=True, zeroline=False),
+            xaxis=dict(range=[-1, 5], showgrid=True, zeroline=False, scaleanchor="y", scaleratio=1),
             yaxis=dict(range=[-1, 5], showgrid=True, zeroline=False),
             width=500, height=500,
             shapes=shapes_list
@@ -290,14 +248,14 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         )
         
         if variasi_balok == "Variasi 1 (Pola Salib Panjang)":
-            st.info("💡 **Variasi 1 Balok:** Terdiri dari 6 persegi panjang yang saling terhubung memanjang.")
+            st.info("💡 **Variasi 1 Balok:** Terdiri dari persegi panjang yang saling terhubung memanjang.")
             shapes_balok = [
-                dict(type="rect", x0=1, y0=1, x1=3, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), # Depan
-                dict(type="rect", x0=1, y0=0, x1=3, y1=1, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), # Alas
-                dict(type="rect", x0=1, y0=2, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), # Atas
-                dict(type="rect", x0=1, y0=3, x1=3, y1=4, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), # Belakang
-                dict(type="rect", x0=0, y0=1, x1=1, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), # Kiri
-                dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), # Kanan
+                dict(type="rect", x0=1, y0=1, x1=3, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
+                dict(type="rect", x0=1, y0=0, x1=3, y1=1, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
+                dict(type="rect", x0=1, y0=2, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
+                dict(type="rect", x0=1, y0=3, x1=3, y1=4, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
+                dict(type="rect", x0=0, y0=1, x1=1, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
+                dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
             ]
         else:
             st.info("💡 **Variasi 2 Balok:** Pola jaring-jaring alternatif untuk balok.")
