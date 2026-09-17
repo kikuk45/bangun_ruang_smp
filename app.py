@@ -103,7 +103,7 @@ if pilihan_menu == "Beranda Analisis":
             st.info("💡 **Tips Pembelajaran SMA:** Aktifkan fitur garis diagonal pada menu eksperimen untuk membantu visualisasi segitiga siku-siku di dalam ruang saat menghitung jarak titik ke titik.")
             
     st.markdown("---")
-    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Dimensi Tiga SMA | Dibuat oleh Mochammad Rifqi</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Dimensi Tiga SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
 
 # --- HALAMAN: KUBUS ---
 elif pilihan_menu == "Analisis Kubus":
