@@ -52,7 +52,7 @@ st.markdown(style_css, unsafe_allow_html=True)
 sidebar_html = """
 <div style='text-align: center;'>
     <h2 style='margin-bottom: 0;'>📐 Lab Dimensi Tiga</h2>
-    <p style='color: #6c757d; font-size: 14px;'>Media Pembelajaran Geometri SMA</p>
+    <p style='color: #6c757d; font-size: 14px;'>Media Pembelajaran Geometri SMP</p>
 </div>
 """
 st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
@@ -81,9 +81,9 @@ if pilihan_menu == "Beranda Analisis":
     
     with col_text:
         st.title("Aplikasi Analisis Spasial Dimensi Tiga 🖥️")
-        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Dibuat oleh Mochammad Rifqi</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
         
-        st.markdown("### Selamat Datang di Modul Geometri Ruang SMA!")
+        st.markdown("### Selamat Datang di Modul Geometri Ruang SMP!")
         st.markdown("Aplikasi ini dirancang sebagai alat bantu visualisasi objek 3 dimensi guna mempermudah pemahaman konsep kedudukan titik, garis, dan bidang, serta perhitungan jarak dan sudut pada materi **Dimensi Tiga**.")
         
         st.markdown("**Fitur Utama Laboratorium Virtual:**")
