@@ -587,20 +587,20 @@ elif pilihan_menu == "Analisis Perubahan Ukuran":
     st.title("📈 Analisis Pengaruh Perubahan Skala/Ukuran")
     st.markdown("Sesuai CP Fase D: Menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/atau volume.")
     
-    skala = st.slider("Pilih Faktor Skala Perubahan ($k$):", min_value=1.0, max_value=5.0, value=2.0, step=0.5)
+    skala = st.slider("Pilih Faktor Skala Perubahan (k):", min_value=1.0, max_value=5.0, value=2.0, step=0.5)
     
     st.markdown(f"""
     <div class="smp-card">
         <h3>🔍 Aturan Perubahan Skala (Faktor Skala = {skala})</h3>
         <ul>
-            <li><b>Panjang/Rusuk/Jari-jari:</b> Berubah sebesar $\\times {skala}$ ($k = {skala}$)</li>
-            <li><b>Luas Permukaan:</b> Berubah sebesar $\\times {skala**2}$ ($k^2 = {skala**2}$)</li>
-            <li><b>Volume:</b> Berubah sebesar $\\times {skala**3:.1f}$ ($k^3 = {skala**3:.1f}$)</li>
+            <li><b>Panjang/Rusuk/Jari-jari:</b> Berubah sebesar &times; {skala} (k = {skala})</li>
+            <li><b>Luas Permukaan:</b> Berubah sebesar &times; {skala**2} (k² = {skala**2})</li>
+            <li><b>Volume:</b> Berubah sebesar &times; {skala**3:.1f} (k³ = {skala**3:.1f})</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("#### 💡 Contoh Kasus pada Kubus:")
+    st.markdown(f"#### 💡 Contoh Kasus pada Kubus (Skala = {skala}):")
     s_awal = 3
     v_awal = s_awal**3
     lp_awal = 6 * (s_awal**2)
@@ -611,11 +611,11 @@ elif pilihan_menu == "Analisis Perubahan Ukuran":
     
     col1, col2 = st.columns(2)
     with col1:
-        st.markdown(f"**Sebelum Skala ($s = {s_awal}$):**")
+        st.markdown(f"**Sebelum Skala (s = {s_awal}):**")
         st.write(f"- Luas Permukaan: {lp_awal}")
         st.write(f"- Volume: {v_awal}")
     with col2:
-        st.markdown(f"**Sesudah Diperbesar ($s = {s_akhir}$):**")
+        st.markdown(f"**Sesudah Diperbesar (s = {s_akhir}):**")
         st.write(f"- Luas Permukaan: {lp_akhir} (Naik {skala**2} kali)")
         st.write(f"- Volume: {v_akhir} (Naik {skala**3:.1f} kali)")
 
