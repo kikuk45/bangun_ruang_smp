@@ -117,7 +117,7 @@ elif pilihan_menu == "Analisis Kubus":
             <h3>📋 Elemen Struktur Kubus</h3>
             <ul>
                 <li><b>6 Sisi (Bidang):</b> Seluruhnya berbentuk persegi kongruen (ABCD, EFGH, dst).</li>
-                <li><b>12 Rusuk:</b> Memiliki panjang yang sama besar ($s$).</li>
+                <li><b>12 Rusuk:</b> Memiliki panjang yang sama besar (<i>s</i>).</li>
                 <li><b>8 Titik Sudut:</b> Titik potong standar notasi geometri ruang.</li>
                 <li><b>12 Diagonal Bidang & 4 Diagonal Ruang</b></li>
             </ul>
@@ -159,7 +159,6 @@ elif pilihan_menu == "Analisis Kubus":
 
 🔹 **Panjang Diagonal Ruang (AG):** {diag_ruang:.2f} satuan""")
 
-    # FIX: Menambahkan tanda titik dua (:) yang hilang pada with col2
     with col2:
         st.markdown("### 🌐 Model Proyeksi 3D Interaktif")
         st.caption("Gunakan mouse/kursor untuk memutar (rotate) kubus guna menganalisis letak garis.")
@@ -228,7 +227,7 @@ elif pilihan_menu == "Analisis Balok":
             <h3>📋 Karakteristik Struktur Balok</h3>
             <ul>
                 <li><b>Sisi:</b> Memiliki 3 pasang bidang segiempat berhadapan yang sejajar dan kongruen.</li>
-                <li><b>Dimensi:</b> Ditentukan oleh nilai Panjang ($p$), Lebar ($l$), dan Tinggi ($t$).</li>
+                <li><b>Dimensi:</b> Ditentukan oleh nilai Panjang (<i>p</i>), Lebar (<i>l</i>), dan Tinggi (<i>t</i>).</li>
                 <li><b>Diagonal Bidang:</b> Bernilai variatif tergantung bidang mana yang ditinjau.</li>
             </ul>
         </div>
