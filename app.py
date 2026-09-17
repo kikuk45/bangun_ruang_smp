@@ -89,7 +89,7 @@ if pilihan_menu == "Beranda Analisis":
 
 # --- KUBUS ---
 elif pilihan_menu == "Analisis Kubus":
-    st.title("🧊 Eksplorasi Kubus (Matematika Kelas 8)")
+    st.title("🧊 Eksplorasi Kubus")
     col1, col2 = st.columns([1, 1])
     with col1:
         st.markdown("""
@@ -133,7 +133,7 @@ elif pilihan_menu == "Analisis Kubus":
 
 # --- BALOK ---
 elif pilihan_menu == "Analisis Balok":
-    st.title("🧱 Eksplorasi Balok (Matematika Kelas 8)")
+    st.title("🧱 Eksplorasi Balok")
     col1, col2 = st.columns([1, 1])
     with col1:
         st.markdown("""
