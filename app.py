@@ -235,46 +235,49 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         <div class="smp-card">
             <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
             <ul>
-                <li><b>Alas & Atap:</b> Berbentuk segitiga (ABC di bawah dan DEF di atas).</li>
-                <li><b>Sisi Tegak:</b> Berbentuk 3 buah persegi panjang.</li>
+                <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
+                <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
         
         st.latex(r"Volume \ (V) = \text{Luas Alas} \times \text{Tinggi Prisma}")
-        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
+        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \text{ \times Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
         
-        AB = st.number_input("Panjang Sisi Alas AB:", min_value=1, value=4, step=1)
-        BC = st.number_input("Panjang Sisi Alas BC:", min_value=1, value=3, step=1)
+        # Parameter input sesuai orientasi segitiga di alas (bidang XY) dan tinggi memanjang ke sumbu Z
+        alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1, value=4, step=1)
         tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1, value=3, step=1)
-        tinggi_pris = st.number_input("Tinggi Prisma (AD/BE/CF):", min_value=1, value=6, step=1)
+        sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga (jika siku-siku) / Sisi Lainnya:", min_value=1, value=5, step=1)
+        tinggi_pris = st.number_input("Tinggi Prisma (t_prisma):", min_value=1, value=6, step=1)
         
-        luas_alas = 0.5 * AB * tinggi_tri
-        keliling_alas = AB + BC + np.sqrt(AB**2 + BC**2)
+        luas_alas = 0.5 * alas_tri * tinggi_tri
+        keliling_alas = alas_tri + tinggi_tri + sisi_miring_alas
         v_prisma = luas_alas * tinggi_pris
         lp_prisma = (2 * luas_alas) + (keliling_alas * tinggi_pris)
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
             st.markdown("* **Rumus:** $V = \\text{Luas Alas} \\times \\text{Tinggi Prisma}$")
-            st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t = \\frac{{1}}{{2}} \\times {AB} \\times {tinggi_tri} = {luas_alas}$")
+            st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t = \\frac{{1}}{{2}} \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
             st.markdown(f"* **Hitung Volume:** ${luas_alas} \\times {tinggi_pris} = {v_prisma}$ satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown("* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi})$")
-            st.markdown(f"* **Komponen Luas 2 Alas:** $2 \\times {luas_alas} = {2 * luas_alas}$")
-            st.markdown(f"* **Komponen Selimut Tegak:** $\\text{{Keliling}} \\times {tinggi_pris}$")
+            st.markdown("* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi Prisma})$")
+            st.markdown(f"* **Keliling Alas:** ${alas_tri} + {tinggi_tri} + {sisi_miring_alas} = {keliling_alas}$")
             st.markdown(f"* **Hasil Akhir Luas Permukaan:** {lp_prisma:.1f} satuan persegi")
 
     with col2:
-        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga (Sesuai Orientasi Foto)")
+        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga (Orientasi Standar DetikEdu)")
         
-        xa, ya, za = 0.0, 0.0, 0.0                      # A
-        xb, yb, zb = float(AB), 0.0, 0.0                # B
-        xc, yc, zc = float(AB)/2, float(tinggi_tri), 0.0  # C
+        # Titik-titik segitiga alas bawah (Z = 0)
+        # Titik A, B, C membentuk segitiga di bidang XY
+        xa, ya, za = 0.0, 0.0, 0.0               # Titik sudut A
+        xb, yb, zb = float(alas_tri), 0.0, 0.0     # Titik sudut B
+        xc, yc, zc = 0.0, float(tinggi_tri), 0.0   # Titik sudut C (siku-siku di A)
         
-        xd, yd, zd = 0.0, 0.0, float(tinggi_pris)                     # D
-        xe, ye, ze = float(AB), 0.0, float(tinggi_pris)               # E
-        xf, yf, zf = float(AB)/2, float(tinggi_tri), float(tinggi_pris) # F
+        # Titik-titik segitiga atap atas (Z = tinggi_pris)
+        xd, yd, zd = 0.0, 0.0, float(tinggi_pris)               # Titik sudut D
+        xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)     # Titik sudut E
+        xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   # Titik sudut F
         
         x_pts = [xa, xb, xc, xd, xe, xf]
         y_pts = [ya, yb, yc, yd, ye, yf]
@@ -283,10 +286,11 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         fig = go.Figure(data=[
             go.Mesh3d(
                 x=x_pts, y=y_pts, z=z_pts,
-                i=[0, 0, 0, 3, 3],
-                j=[1, 2, 3, 4, 5],
-                k=[2, 3, 4, 5, 4],
-                color='#ffc107', opacity=0.3, flatshading=True
+                # Indeks mesh untuk prisma segitiga 3D
+                i=[0, 0, 0, 3, 3, 1],
+                j=[1, 2, 3, 4, 5, 2],
+                k=[2, 3, 4, 5, 4, 5],
+                color='#ffc107', opacity=0.35, flatshading=True
             ),
             go.Scatter3d(
                 x=[xa, xb, xc, xa, xd, xe, xf, xd, xa, xd, xb, xe, xc, xf],
@@ -299,7 +303,7 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         
         fig.update_layout(
             scene=dict(
-                xaxis=dict(range=[-1, AB+2], title='X'),
+                xaxis=dict(range=[-1, alas_tri+2], title='X'),
                 yaxis=dict(range=[-1, tinggi_tri+2], title='Y'),
                 zaxis=dict(range=[-1, tinggi_pris+2], title='Z')
             ), 
