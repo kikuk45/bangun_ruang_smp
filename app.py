@@ -158,12 +158,12 @@ elif pilihan_menu == "Analisis Kubus":
         luas_permukaan = 6 * (sisi ** 2)
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
-            st.markdown(f"* **Rumus:** $V = s \\times s \\times s$")
+            st.markdown("* **Rumus:** $V = s \\times s \\times s$")
             st.markdown(f"* **Penyelesaian:** $V = {sisi} \\times {sisi} \\times {sisi}$")
             st.markdown(f"* **Hasil Akhir:** {volume} satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown(f"* **Rumus:** $L_p = 6 \\times (s \\times s)$")
+            st.markdown("* **Rumus:** $L_p = 6 \\times (s \\times s)$")
             st.markdown(f"* **Penyelesaian:** $L_p = 6 \\times ({sisi} \\times {sisi}) = 6 \\times {sisi**2}$")
             st.markdown(f"* **Hasil Akhir:** {luas_permukaan} satuan persegi")
 
@@ -204,12 +204,12 @@ elif pilihan_menu == "Analisis Balok":
         lp_balok = 2 * (p*l + p*t + l*t)
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
-            st.markdown(f"* **Rumus:** $V = p \\times l \\times t$")
+            st.markdown("* **Rumus:** $V = p \\times l \\times t$")
             st.markdown(f"* **Penyelesaian:** $V = {p} \\times {l} \\times {t}$")
             st.markdown(f"* **Hasil Akhir:** {v_balok} satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown(f"* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
+            st.markdown("* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
             st.markdown(f"* **Penyelesaian:** $L_p = 2 \\times (({p}\\times{l}) + ({p}\\times{t}) + ({l}\\times{t}))$")
             st.markdown(f"* **Hasil Akhir:** {lp_balok} satuan persegi")
 
@@ -255,12 +255,12 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         lp_prisma = (2 * luas_alas) + (keliling_alas * tinggi_pris)
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
-            st.markdown(f"* **Rumus:** $V = \\text{Luas Alas} \\times \\text{Tinggi Prisma}$")
+            st.markdown("* **Rumus:** $V = \\text{Luas Alas} \\times \\text{Tinggi Prisma}$")
             st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t = \\frac{{1}}{{2}} \\times {AB} \\times {tinggi_tri} = {luas_alas}$")
             st.markdown(f"* **Hitung Volume:** ${luas_alas} \\times {tinggi_pris} = {v_prisma}$ satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown(f"* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi})$")
+            st.markdown("* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi})$")
             st.markdown(f"* **Komponen Luas 2 Alas:** $2 \\times {luas_alas} = {2 * luas_alas}$")
             st.markdown(f"* **Komponen Selimut Tegak:** $\\text{{Keliling}} \\times {tinggi_pris}$")
             st.markdown(f"* **Hasil Akhir Luas Permukaan:** {lp_prisma:.1f} satuan persegi")
