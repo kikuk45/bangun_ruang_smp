@@ -51,7 +51,7 @@ st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
 pilihan_menu = st.sidebar.selectbox(
     "Pilih Menu Pembelajaran:", 
-    ["Beranda Analisis", "Analisis Kubus", "Analisis Balok", "Proyeksi Jaring-Jaring"]
+    ["Beranda Analisis", "Capaian & Alur (CP & ATP)", "Analisis Kubus", "Analisis Balok", "Proyeksi Jaring-Jaring"]
 )
 
 # --- FUNGSI KERANGKA 3D ---
@@ -75,7 +75,7 @@ if pilihan_menu == "Beranda Analisis":
     with col_text:
         st.title("Modul Interaktif Bangun Ruang Sisi Datar 🖥️")
         st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Mata Pelajaran Matematika SMP Kelas 8</p>", unsafe_allow_html=True)
-        st.markdown("### Selamat Datang di LabGo 😉")
+        st.markdown("### Selamat Datang di Lab-Go 😉")
         st.markdown("Aplikasi pembelajaran interaktif untuk memahami unsur, jaring-jaring, luas permukaan, dan volume kubus serta balok.")
         st.info("👉 Silakan pilih menu di sidebar sebelah kiri untuk mulai mengeksplorasi.")
     with col_img:
@@ -86,6 +86,44 @@ if pilihan_menu == "Beranda Analisis":
             pass
     st.markdown("---")
     st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Matematika Kelas 8 SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
+
+# --- CAPAIAN & ALUR TUJUAN (CP & ATP) ---
+elif pilihan_menu == "Capaian & Alur (CP & ATP)":
+    st.title("🎯 Capaian Pembelajaran & Alur Tujuan Pembelajaran")
+    st.markdown("Berikut adalah landasan kurikulum yang digunakan dalam pengembangan modul interaktif ini.")
+    
+    st.markdown("""
+    <div class="smp-card">
+        <h3>📌 Capaian Pembelajaran (CP) - Elemen Geometri (Fase D)</h3>
+        <p>Peserta didik dapat menjelaskan cara untuk menentukan luas permukaan dan volume bangun ruang (prisma, tabung, limas, kerucut, dan bola) serta dapat menyelesaikan masalah kontekstual yang berkaitan. Peserta didik juga dapat menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/atau volume.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### 🗺️ Alur Tujuan Pembelajaran (ATP)")
+    
+    tab1, tab2, tab3, tab4 = st.tabs(["1️⃣ Sisi Datar", "2️⃣ Luas & Volume Sisi Datar", "3️⃣ Sisi Lengkung", "4️⃣ Analisis Perubahan"])
+    
+    with tab1:
+        st.markdown("#### Mengenal Bangun Ruang Sisi Datar")
+        st.markdown("1. Mengidentifikasi unsur-unsur kubus, balok, prisma, dan limas (titik sudut, rusuk, sisi, diagonal bidang, dan bidang diagonal).")
+        st.markdown("2. Membuat jaring-jaring kubus, balok, prisma, dan limas.")
+        
+    with tab2:
+        st.markdown("#### Menghitung Luas Permukaan dan Volume Bangun Ruang Sisi Datar")
+        st.markdown("1. Menurunkan rumus luas permukaan kubus, balok, prisma, dan limas.")
+        st.markdown("2. Menghitung luas permukaan gabungan atau bangun ruang sisi datar tunggal.")
+        st.markdown("3. Menurunkan rumus volume kubus, balok, prisma, dan limas.")
+        st.markdown("4. Menghitung volume bangun ruang sisi datar.")
+        
+    with tab3:
+        st.markdown("#### Mengenal Bangun Ruang Sisi Lengkung")
+        st.markdown("1. Mengidentifikasi unsur-unsur tabung, kerucut, dan bola.")
+        st.markdown("2. Membuat jaring-jaring tabung dan kerucut.")
+        
+    with tab4:
+        st.markdown("#### Analisis Perubahan Ukuran & Luas/Volume")
+        st.markdown("1. Menjelaskan pengaruh perubahan ukuran panjang (skala) terhadap luas permukaan dan volume bangun ruang.")
+        st.markdown("2. Menyelesaikan masalah kontekstual terkait gabungan bangun ruang sisi lengkung.")
 
 # --- KUBUS ---
 elif pilihan_menu == "Analisis Kubus":
