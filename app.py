@@ -104,7 +104,7 @@ if pilihan_menu == "Beranda Analisis":
     st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Matematika Kelas 8 SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
 
 # --- HALAMAN: KUBUS KELAS 8 ---
-elif pilihan_menu == "Analisis Kubus Kelas 8":
+elif pilihan_menu == "Analisis Kubus":
     st.title("🧊 Eksplorasi Kubus (Matematika Kelas 8)")
     
     col1, col2 = st.columns([1, 1])
@@ -202,7 +202,7 @@ elif pilihan_menu == "Analisis Kubus Kelas 8":
         st.plotly_chart(fig, use_container_width=True)
 
 # --- HALAMAN: BALOK KELAS 8 ---
-elif pilihan_menu == "Analisis Balok Kelas 8":
+elif pilihan_menu == "Analisis Balok":
     st.title("🧱 Eksplorasi Balok (Matematika Kelas 8)")
     
     col1, col2 = st.columns([1, 1])
