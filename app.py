@@ -641,15 +641,15 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         st.markdown("Berikut adalah proyeksi jaring-jaring **Limas Segi Empat**, terdiri dari 1 persegi di bagian tengah sebagai alas dan 4 segitiga sama kaki di setiap sisi luarnya.")
         shapes_limas = [
             dict(type="rect", x0=1, y0=1, x1=3, y1=3, line=dict(color="#d63384", width=2), fillcolor="#f8d7da", opacity=0.8),
-            dict(type="path", path="M 1 3 L 3 3 L 2 5.2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
-            dict(type="path", path="M 1 1 L 3 1 L 2 -1.2 Z", line=dict(color="d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
-            dict(type="path", path="M 1 1 L 1 3 L -1.2 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
-            dict(type="path", path="M 3 1 L 3 3 L 5.2 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+            dict(type="path", path="M 1 3 L 3 3 L 2 5.5 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+            dict(type="path", path="M 1 1 L 3 1 L 2 -1.5 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+            dict(type="path", path="M 1 1 L 1 3 L -1.5 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+            dict(type="path", path="M 3 1 L 3 3 L 5.5 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
         ]
         fig_net.update_layout(
             title="Proyeksi 2D - Jaring-Jaring Limas Segi Empat",
-            xaxis=dict(range=[-2, 6], showgrid=True, zeroline=False),
-            yaxis=dict(range=[-2, 6], showgrid=True, zeroline=False),
+            xaxis=dict(range=[-2.5, 6.5], showgrid=True, zeroline=False),
+            yaxis=dict(range=[-2.5, 6.5], showgrid=True, zeroline=False),
             width=500, height=500,
             shapes=shapes_limas
         )
@@ -672,14 +672,7 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         st.plotly_chart(fig_net, use_container_width=True)
 
     else:
-        st.markdown("Berikut adalah proyeksi jaring-jaring **Kerucut** (terdiri dari juring selimut besar menghadap ke atas dan lingkaran alas tepat di bawahnya, menyerupai pola cetak kertas/peraga).")
-        
-        # Membuat juring selimut kerucut menghadap ke atas (puncak di atas, alas melengkung di bawah)
-        # Menggunakan koordinat path SVG agar bentuknya presisi seperti gambar referensi
-        fig_net = go.Figure()
-        
-        # Sisi Selimut Kerucut (Juring menghadap ke atas)
-        # Puncak di (0, 4), titik sudut kiri bawah di (-3, 0), titik sudut kanan bawah di (3, 0) dengan lengkungan busur
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Kerucut** (terdiri dari juring selimut besar menghadap ke atas dan lingkaran alas tepat di bawahnya, menyerupai pola peraga kertas).")
         shapes_kerucut = [
             dict(
                 type="path", 
@@ -688,7 +681,6 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
                 fillcolor="#0dcaf0", 
                 opacity=0.5
             ),
-            # Lingkaran Alas di bawah juring selimut
             dict(
                 type="circle", 
                 x0=-1.1, 
@@ -700,7 +692,6 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
                 opacity=0.6
             )
         ]
-        
         fig_net.update_layout(
             title="Proyeksi 2D - Jaring-Jaring Kerucut",
             xaxis=dict(range=[-4, 4], showgrid=True, zeroline=False, scaleanchor="y", scaleratio=1),
