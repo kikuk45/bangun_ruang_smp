@@ -244,7 +244,6 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         st.latex(r"Volume \ (V) = \text{Luas Alas} \times \text{Tinggi Prisma}")
         st.latex(r"Luas \ Permukaan \ (L_p) = (2 \text{ \times Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
         
-        # Parameter input sesuai orientasi segitiga di alas (bidang XY) dan tinggi memanjang ke sumbu Z
         alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1, value=4, step=1)
         tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1, value=3, step=1)
         sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga (jika siku-siku) / Sisi Lainnya:", min_value=1, value=5, step=1)
@@ -268,16 +267,13 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
     with col2:
         st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga (Orientasi Standar DetikEdu)")
         
-        # Titik-titik segitiga alas bawah (Z = 0)
-        # Titik A, B, C membentuk segitiga di bidang XY
-        xa, ya, za = 0.0, 0.0, 0.0               # Titik sudut A
-        xb, yb, zb = float(alas_tri), 0.0, 0.0     # Titik sudut B
-        xc, yc, zc = 0.0, float(tinggi_tri), 0.0   # Titik sudut C (siku-siku di A)
+        xa, ya, za = 0.0, 0.0, 0.0               
+        xb, yb, zb = float(alas_tri), 0.0, 0.0     
+        xc, yc, zc = 0.0, float(tinggi_tri), 0.0   
         
-        # Titik-titik segitiga atap atas (Z = tinggi_pris)
-        xd, yd, zd = 0.0, 0.0, float(tinggi_pris)               # Titik sudut D
-        xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)     # Titik sudut E
-        xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   # Titik sudut F
+        xd, yd, zd = 0.0, 0.0, float(tinggi_pris)               
+        xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)     
+        xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   
         
         x_pts = [xa, xb, xc, xd, xe, xf]
         y_pts = [ya, yb, yc, yd, ye, yf]
@@ -286,7 +282,6 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         fig = go.Figure(data=[
             go.Mesh3d(
                 x=x_pts, y=y_pts, z=z_pts,
-                # Indeks mesh untuk prisma segitiga 3D
                 i=[0, 0, 0, 3, 3, 1],
                 j=[1, 2, 3, 4, 5, 2],
                 k=[2, 3, 4, 5, 4, 5],
@@ -433,14 +428,13 @@ elif pilihan_menu == "Analisis Bola":
         fig.update_layout(scene=dict(xaxis=dict(range=[-10, 10]), yaxis=dict(range=[-10, 10]), zaxis=dict(range=[-10, 10])), margin=dict(l=0, r=0, b=0, t=0))
         st.plotly_chart(fig, use_container_width=True)
 
-# --- ANALISIS PERUBAHAN UKURAN ---
+# --- ANALISIS PERUBAHAN UKURAN (SUDAH DIPERBAIKI) ---
 elif pilihan_menu == "Analisis Perubahan Ukuran":
     st.title("📈 Analisis Pengaruh Perubahan Skala/Ukuran")
     st.markdown("Sesuai CP Fase D: Menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/atau volume.")
     
     skala = st.slider("Pilih Faktor Skala Perubahan ($k$):", min_value=1.0, max_value=5.0, value=2.0, step=0.5)
     
-    # Menggunakan st.markdown dengan formula LaTeX yang benar
     st.markdown(f"""
     <div class="smp-card">
         <h3>🔍 Aturan Perubahan Skala (Faktor Skala = {skala})</h3>
@@ -470,6 +464,7 @@ elif pilihan_menu == "Analisis Perubahan Ukuran":
         st.markdown(f"**Sesudah Diperbesar ($s = {s_akhir}$):**")
         st.write(f"- Luas Permukaan: {lp_akhir} (Naik {skala**2} kali)")
         st.write(f"- Volume: {v_akhir} (Naik {skala**3:.1f} kali)")
+
 # --- PROYEKSI JARING-JARING ---
 elif pilihan_menu == "Proyeksi Jaring-Jaring":
     st.title("📦 Proyeksi Berbagai Variasi Jaring-Jaring")
