@@ -95,7 +95,7 @@ if pilihan_menu == "Beranda Analisis":
         
     with col_img:
         st.write("")
-        url_gambar_github = "images (2).png"
+        url_gambar_github = "images (4).jpg"
         
         try:
             st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Dimensi Tiga")
