@@ -183,7 +183,7 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
     st.title("📦 Proyeksi Berbagai Variasi Jaring-Jaring")
     st.markdown("Pilih jenis bangun ruang dan variasi pola jaring-jaring 2 dimensi.")
     
-    pilihan_bangun = st.radio("Pilih Bangun Ruang:", ["Jaring-Jaring Kubus (Murni Persegi)", "Jaring-Jaring Balok (Persegi Panjang)"], horizontal=True)
+    pilihan_bangun = st.radio("Pilih Bangun Ruang:", ["Jaring-Jaring Kubus (Persegi)", "Jaring-Jaring Balok (Persegi Panjang)"], horizontal=True)
     
     fig_net = go.Figure()
     
