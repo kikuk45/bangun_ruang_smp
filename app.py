@@ -88,7 +88,7 @@ if pilihan_menu == "Beranda Analisis":
         st.markdown("**Fitur Utama Laboratorium Virtual:**")
         st.markdown("* 🌐 **Visualisasi Objek 3D Dinamis:** Memutar sudut pandang bangun ruang secara interaktif.")
         st.markdown("* 📝 **Penjabaran Langkah Kerja:** Membimbing siswa memahami rumus dari proses substitusi nilai hingga hasil akhir.")
-        st.markdown("* 🔍 **Eksplorasi Diagonal (Pengayaan):** Mengenal garis diagonal bidang dan ruang.")
+        st.markdown("* 🔍 **Eksplorasi Diagonal:** Mengenal garis diagonal bidang dan ruang.")
         st.write("")
         st.info("Silakan pilih menu objek di sebelah kiri untuk memulai pembelajaran.")
         
@@ -132,7 +132,8 @@ elif pilihan_menu == "Analisis Kubus":
         st.latex(r"Luas \ Permukaan \ (L_p) = 6 \times s^2")
         
         st.markdown("### 🧮 Kalkulator & Langkah Pengerjaan Kubus")
-        sisi = st.number_input("Masukkan Panjang Sisi Kubus (s):", min_value=1.0, value=5.0, step=1.0)
+        # Diubah menggunakan integer (min_value=1, step=1, value=5)
+        sisi = st.number_input("Masukkan Panjang Sisi Kubus (s):", min_value=1, value=5, step=1, format="%d")
         
         st.markdown("##### 🔍 Pengayaan Garis Ruang")
         show_db = st.checkbox("Tampilkan Diagonal Bidang AC (Alas)")
@@ -150,29 +151,29 @@ elif pilihan_menu == "Analisis Kubus":
         with st.expander("1️⃣ Langkah Perhitungan Volume (V)", expanded=True):
             st.markdown(f"* **Rumus:** $V = s \\times s \\times s$")
             st.markdown(f"* **Substitusi Nilai:** $V = {sisi} \\times {sisi} \\times {sisi}$")
-            st.markdown(f"* **Hasil Akhir:** **{volume:.2f}** satuan kubik")
+            st.markdown(f"* **Hasil Akhir:** **{volume}** satuan kubik")
 
         with st.expander("2️⃣ Langkah Perhitungan Luas Permukaan ($L_p$)", expanded=True):
             st.markdown(f"* **Rumus:** $L_p = 6 \\times s^2$")
             st.markdown(f"* **Substitusi Nilai:** $L_p = 6 \\times ({sisi} \\times {sisi})$")
             st.markdown(f"* **Proses:** $L_p = 6 \\times {sisi**2}$")
-            st.markdown(f"* **Hasil Akhir:** **{luas_permukaan:.2f}** satuan persegi")
+            st.markdown(f"* **Hasil Akhir:** **{luas_permukaan}** satuan persegi")
 
         with st.expander("3️⃣ Langkah Perhitungan Diagonal Bidang (AC)", expanded=False):
             st.markdown(f"* **Rumus:** $D_b = s\\sqrt{{2}}$")
             st.markdown(f"* **Substitusi Nilai:** $D_b = {sisi}\\sqrt{{2}}$")
-            st.markdown(f"* **Hasil Akhir:** **{diag_bidang:.2f}** satuan")
+            st.markdown(f"* **Hasil Desimal:** **{diag_bidang:.2f}** satuan")
 
         with st.expander("4️⃣ Langkah Perhitungan Diagonal Ruang (AG)", expanded=False):
             st.markdown(f"* **Rumus:** $D_r = s\\sqrt{{3}}$")
             st.markdown(f"* **Substitusi Nilai:** $D_r = {sisi}\\sqrt{{3}}$")
-            st.markdown(f"* **Hasil Akhir:** **{diag_ruang:.2f}** satuan")
+            st.markdown(f"* **Hasil Desimal:** **{diag_ruang:.2f}** satuan")
 
     with col2:
         st.markdown("### 🌐 Model Visualisasi 3D")
         st.caption("Gunakan kursor untuk memutar (rotate) kubus.")
         
-        s = sisi
+        s = float(sisi)
         x = [0, s, s, 0, 0, s, s, 0]
         y = [0, 0, s, s, 0, 0, s, s]
         z = [0, 0, 0, 0, s, s, s, s]
@@ -253,9 +254,10 @@ elif pilihan_menu == "Analisis Balok":
         st.latex(r"Luas \ Permukaan \ (L_p) = 2 \times (pl + pt + lt)")
         
         st.markdown("### 🧮 Kalkulator & Langkah Pengerjaan Balok")
-        p = st.number_input("Masukkan Panjang (p):", min_value=1.0, value=6.0, step=1.0)
-        l = st.number_input("Masukkan Lebar (l):", min_value=1.0, value=4.0, step=1.0)
-        t = st.number_input("Masukkan Tinggi (t):", min_value=1.0, value=3.0, step=1.0)
+        # Diubah menggunakan integer (min_value=1, step=1)
+        p = st.number_input("Masukkan Panjang (p):", min_value=1, value=6, step=1, format="%d")
+        l = st.number_input("Masukkan Lebar (l):", min_value=1, value=4, step=1, format="%d")
+        t = st.number_input("Masukkan Tinggi (t):", min_value=1, value=3, step=1, format="%d")
         
         st.markdown("##### 🔍 Pengayaan Garis Ruang")
         show_db_balok = st.checkbox("Tampilkan Diagonal Bidang Alas AC")
@@ -276,7 +278,7 @@ elif pilihan_menu == "Analisis Balok":
         with st.expander("1️⃣ Langkah Perhitungan Volume (V)", expanded=True):
             st.markdown(f"* **Rumus:** $V = p \\times l \\times t$")
             st.markdown(f"* **Substitusi Nilai:** $V = {p} \\times {l} \\times {t}$")
-            st.markdown(f"* **Hasil Akhir:** **{v_balok:.2f}** satuan kubik")
+            st.markdown(f"* **Hasil Akhir:** **{v_balok}** satuan kubik")
 
         with st.expander("2️⃣ Langkah Perhitungan Luas Permukaan ($L_p$)", expanded=True):
             st.markdown(f"* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
@@ -285,25 +287,26 @@ elif pilihan_menu == "Analisis Balok":
             st.markdown(f"  * $(p \\times t) = {p} \\times {t} = {pt}$")
             st.markdown(f"  * $(l \\times t) = {l} \\times {t} = {lt}$")
             st.markdown(f"* **Jumlahkan:** $({pl} + {pt} + {lt}) = {pl + pt + lt}$")
-            st.markdown(f"* **Kalikan 2:** $2 \\times {pl + pt + lt} =$ **{lp_balok:.2f}** satuan persegi")
+            st.markdown(f"* **Kalikan 2:** $2 \\times {pl + pt + lt} =$ **{lp_balok}** satuan persegi")
 
         with st.expander("3️⃣ Langkah Perhitungan Diagonal Alas (AC)", expanded=False):
             st.markdown(f"* **Rumus:** $AC = \\sqrt{{p^2 + l^2}}$")
             st.markdown(f"* **Substitusi:** $AC = \\sqrt{{{p}^2 + {l}^2}} = \\sqrt{{{p**2} + {l**2}}} = \\sqrt{{{p**2 + l**2}}}$")
-            st.markdown(f"* **Hasil Akhir:** **{db_alas:.2f}** satuan")
+            st.markdown(f"* **Hasil Desimal:** **{db_alas:.2f}** satuan")
 
         with st.expander("4️⃣ Langkah Perhitungan Diagonal Ruang (AG)", expanded=False):
             st.markdown(f"* **Rumus:** $AG = \\sqrt{{p^2 + l^2 + t^2}}$")
             st.markdown(f"* **Substitusi:** $AG = \\sqrt{{{p}^2 + {l}^2 + {t}^2}} = \\sqrt{{{p**2} + {l**2} + {t**2}}}$")
-            st.markdown(f"* **Hasil Akhir:** **{dr_balok:.2f}** satuan")
+            st.markdown(f"* **Hasil Desimal:** **{dr_balok:.2f}** satuan")
 
     with col2:
         st.markdown("### 🌐 Model Visualisasi 3D")
         st.caption("Gunakan kursor untuk memutar (rotate) balok.")
         
-        x = [0, p, p, 0, 0, p, p, 0]
-        y = [0, 0, l, l, 0, 0, l, l]
-        z = [0, 0, 0, 0, t, t, t, t]
+        pf, lf, tf = float(p), float(l), float(t)
+        x = [0, pf, pf, 0, 0, pf, pf, 0]
+        y = [0, 0, lf, lf, 0, 0, lf, lf]
+        z = [0, 0, 0, 0, tf, tf, tf, tf]
         
         xl, yl, zl = get_wireframe_data(x, y, z)
         fig = go.Figure()
@@ -323,14 +326,14 @@ elif pilihan_menu == "Analisis Balok":
         
         if show_db_balok:
             fig.add_trace(go.Scatter3d(
-                x=[0, p], y=[0, l], z=[0, 0], mode='lines+markers',
+                x=[0, pf], y=[0, lf], z=[0, 0], mode='lines+markers',
                 line=dict(color='#dc3545', width=5, dash='dash'),
                 marker=dict(size=4), name="Diag. Bidang AC"
             ))
             
         if show_dr_balok:
             fig.add_trace(go.Scatter3d(
-                x=[0, p], y=[0, l], z=[0, t], mode='lines+markers',
+                x=[0, pf], y=[0, lf], z=[0, tf], mode='lines+markers',
                 line=dict(color='#ffc107', width=6),
                 marker=dict(size=4), name="Diag. Ruang AG"
             ))
@@ -344,9 +347,9 @@ elif pilihan_menu == "Analisis Balok":
         
         fig.update_layout(
             scene=dict(
-                xaxis=dict(title='X (Panjang)', range=[-1, p+2]),
-                yaxis=dict(title='Y (Lebar)', range=[-1, l+2]),
-                zaxis=dict(title='Z (Tinggi)', range=[-1, t+2])
+                xaxis=dict(title='X (Panjang)', range=[-1, pf+2]),
+                yaxis=dict(title='Y (Lebar)', range=[-1, lf+2]),
+                zaxis=dict(title='Z (Tinggi)', range=[-1, tf+2])
             ),
             margin=dict(l=0, r=0, b=0, t=0), showlegend=True
         )
