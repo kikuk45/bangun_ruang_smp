@@ -167,7 +167,7 @@ elif pilihan_menu == "Analisis Balok":
         fig.update_layout(scene=dict(xaxis=dict(range=[-1, pf+2]), yaxis=dict(range=[-1, lf+2]), zaxis=dict(range=[-1, tf+2])), margin=dict(l=0, r=0, b=0, t=0))
         st.plotly_chart(fig, use_container_width=True)
 
-# --- PROYEKSI JARING-JARING (DIPERBAIKI AGAR KUBUS MURNI PERSEGI) ---
+# --- PROYEKSI JARING-JARING ---
 elif pilihan_menu == "Proyeksi Jaring-Jaring":
     st.title("📦 Proyeksi Berbagai Variasi Jaring-Jaring")
     st.markdown("Pilih jenis bangun ruang dan variasi pola jaring-jaring 2 dimensi.")
@@ -228,7 +228,6 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
                 dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
             ]
             
-        # PENTING: scaleanchor='y' dan scaleratio=1 membuat setiap kotak kubus TERKUNCI menjadi persegi sempurna 1:1
         fig_net.update_layout(
             title=f"Proyeksi 2D - {variasi_kubus}",
             xaxis=dict(range=[-1, 5], showgrid=True, zeroline=False, scaleanchor="y", scaleratio=1),
@@ -243,35 +242,38 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
             "Pilih Variasi Pola Jaring-Jaring Balok:",
             [
                 "Variasi 1 (Pola Salib Panjang)", 
-                "Variasi 2 (Pola Terpusat / T-Shape)"
+                "Variasi 2 (Pola T-Shape / Terpusat)"
             ]
         )
         
         if variasi_balok == "Variasi 1 (Pola Salib Panjang)":
-            st.info("💡 **Variasi 1 Balok:** Terdiri dari persegi panjang yang saling terhubung memanjang.")
+            st.info("💡 **Variasi 1 Balok:** Jaring-jaring balok dengan sisi panjang dan pendek yang bersesuaian.")
             shapes_balok = [
-                dict(type="rect", x0=1, y0=1, x1=3, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
-                dict(type="rect", x0=1, y0=0, x1=3, y1=1, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
-                dict(type="rect", x0=1, y0=2, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
-                dict(type="rect", x0=1, y0=3, x1=3, y1=4, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
-                dict(type="rect", x0=0, y0=1, x1=1, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
-                dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8),
+                dict(type="rect", x0=1, y0=1.5, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=1, y0=0, x1=3, y1=1.5, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=1, y0=3, x1=3, y1=4.5, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=1, y0=4.5, x1=3, y1=6, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=0, y0=1.5, x1=1, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=3, y0=1.5, x1=4, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
             ]
+            x_range, y_range = [-1, 5], [-1, 7]
         else:
-            st.info("💡 **Variasi 2 Balok:** Pola jaring-jaring alternatif untuk balok.")
+            st.info("💡 **Variasi 2 Balok (T-Shape):** Pola jaring-jaring alternatif balok yang membentuk T.")
             shapes_balok = [
-                dict(type="rect", x0=1, y0=1, x1=3, y1=2, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8),
-                dict(type="rect", x0=1, y0=0, x1=3, y1=1, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8),
-                dict(type="rect", x0=1, y0=2, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8),
-                dict(type="rect", x0=3, y0=1, x1=5, y1=2, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8),
-                dict(type="rect", x0=0, y0=2, x1=1, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8),
+                dict(type="rect", x0=1, y0=1.5, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=1, y0=0, x1=3, y1=1.5, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=1, y0=3, x1=3, y1=4.5, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=3, y0=1.5, x1=5, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=5, y0=1.5, x1=7, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=-1, y0=1.5, x1=1, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
             ]
+            x_range, y_range = [-2, 8], [-1, 5]
             
         fig_net.update_layout(
             title=f"Proyeksi 2D - {variasi_balok}",
-            xaxis=dict(range=[-1, 6], showgrid=True, zeroline=False),
-            yaxis=dict(range=[-1, 5], showgrid=True, zeroline=False),
-            width=500, height=500,
+            xaxis=dict(range=x_range, showgrid=True, zeroline=False),
+            yaxis=dict(range=y_range, showgrid=True, zeroline=False),
+            width=550, height=500,
             shapes=shapes_balok
         )
         st.plotly_chart(fig_net, use_container_width=True)
