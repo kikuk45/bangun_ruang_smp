@@ -620,19 +620,22 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         st.plotly_chart(fig_net, use_container_width=True)
 
     elif "Prisma Segitiga" in pilihan_bangun:
-        st.markdown("Berikut adalah proyeksi jaring-jaring **Prisma Segitiga**, yang terdiri dari 3 persegi panjang sebagai selimut tegak dan 2 segitiga sebagai alas dan tutup.")
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Prisma Segitiga**, terdiri dari 3 persegi panjang berdampingan sebagai selimut tegak serta 2 segitiga pada sisi atas dan bawah persegi panjang tengah.")
         shapes_prisma = [
-            dict(type="rect", x0=0, y0=0, x1=2, y1=4, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
-            dict(type="rect", x0=2, y0=0, x1=5, y1=4, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
-            dict(type="rect", x0=5, y0=0, x1=7, y1=4, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
-            dict(type="path", path="M 2 0 L 3.5 -1.5 L 5 0 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
-            dict(type="path", path="M 2 4 L 3.5 5.5 L 5 4 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
+            # Tiga persegi panjang selimut tegak berjajar mendatar
+            dict(type="rect", x0=0, y0=0, x1=2, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
+            dict(type="rect", x0=2, y0=0, x1=4, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
+            dict(type="rect", x0=4, y0=0, x1=6, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
+            # Segitiga Atas (di atas persegi panjang tengah)
+            dict(type="path", path="M 2 3 L 3 4.5 L 4 3 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
+            # Segitiga Bawah (di bawah persegi panjang tengah)
+            dict(type="path", path="M 2 0 L 3 -1.5 L 4 0 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
         ]
         fig_net.update_layout(
             title="Proyeksi 2D - Jaring-Jaring Prisma Segitiga",
-            xaxis=dict(range=[-1, 8], showgrid=True, zeroline=False),
-            yaxis=dict(range=[-2.5, 6.5], showgrid=True, zeroline=False),
-            width=550, height=500,
+            xaxis=dict(range=[-1, 7], showgrid=True, zeroline=False),
+            yaxis=dict(range=[-2.5, 5.5], showgrid=True, zeroline=False),
+            width=500, height=500,
             shapes=shapes_prisma
         )
         st.plotly_chart(fig_net, use_container_width=True)
