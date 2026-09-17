@@ -57,7 +57,7 @@ sidebar_html = """
 """
 st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
-pilihan_menu = st.sidebar.selectbox("Pilih Menu Pembelajaran:", ["Beranda Analisis", "Analisis Kubus Kelas 8", "Analisis Balok Kelas 8"])
+pilihan_menu = st.sidebar.selectbox("Pilih Menu Pembelajaran:", ["Beranda Analisis", "Analisis Kubus", "Analisis Balok"])
 
 # --- FUNGSI UNTUK MEMBUAT KERANGKA STRUKTUR (WIREFRAME) ---
 def get_wireframe_data(x, y, z):
@@ -80,9 +80,9 @@ if pilihan_menu == "Beranda Analisis":
     
     with col_text:
         st.title("Modul Interaktif Bangun Ruang Sisi Datar 🖥️")
-        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Khusus Materi Matematika SMP Kelas 8</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Mata Pelajaran Matematika SMP Kelas 8</p>", unsafe_allow_html=True)
         
-        st.markdown("### Selamat Datang di Laboratorium Geometri Kelas 8!")
+        st.markdown("### Selamat Datang di LabGo 😉")
         st.markdown("Aplikasi ini disusun khusus berdasarkan capaian pembelajaran Matematika Kelas 8 SMP, yang berfokus pada pengenalan **unsur-unsur**, **jaring-jaring**, **luas permukaan**, dan **volume** untuk bangun ruang sisi datar (Kubus dan Balok).")
         
         st.markdown("**Kompetensi yang Dipelajari di Kelas 8:**")
