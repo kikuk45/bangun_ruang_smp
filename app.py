@@ -346,20 +346,56 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
             st.markdown(f"* **Hasil Akhir:** {lp_limas:.2f} satuan persegi")
 
     with col2:
-        st.markdown("### 🌐 Visualisasi 3D Limas")
+        st.markdown("### 🌐 Visualisasi 3D Limas Segi Empat (Garis Putus-Putus Belakang)")
         sf = float(s_alas)
         tf = float(t_limas)
+        
+        # Titik alas dan puncak limas
+        # Alas: (0,0,0), (sf,0,0), (sf,sf,0), (0,sf,0), Puncak: (sf/2, sf/2, tf)
+        apex = [sf/2, sf/2, tf]
+        
+        # Mesh transparan untuk bodi limas
         xlm = [0, sf, sf, 0, sf/2]
         ylm = [0, 0, sf, sf, sf/2]
         zlm = [0, 0, 0, 0, tf]
-        fig = go.Figure(data=[go.Mesh3d(
+        
+        fig = go.Figure()
+        fig.add_trace(go.Mesh3d(
             x=xlm, y=ylm, z=zlm,
             i=[0, 0, 0, 1, 1],
             j=[1, 2, 4, 2, 4],
             k=[2, 3, 4, 3, 2],
-            color='#dc3545', opacity=0.6, flatshading=True
-        )])
-        fig.update_layout(scene=dict(xaxis=dict(range=[-1, sf+1]), yaxis=dict(range=[-1, sf+1]), zaxis=dict(range=[-1, tf+1])), margin=dict(l=0, r=0, b=0, t=0))
+            color='#ffc107', opacity=0.15, flatshading=True
+        ))
+        
+        # Garis Solid (Depan): Alas depan & rusuk tegak depan
+        fig.add_trace(go.Scatter3d(
+            x=[0, sf, sf, apex[0], sf, 0, apex[0]],
+            y=[0, 0, sf, apex[1], sf, sf, apex[1]],
+            z=[0, 0, 0, apex[2], 0, 0, apex[2]],
+            mode='lines',
+            line=dict(color='#212529', width=4),
+            name='Rusuk Solid'
+        ))
+        
+        # Garis Putus-Putus (Belakang): Sisi alas belakang & rusuk tegak belakang
+        fig.add_trace(go.Scatter3d(
+            x=[0, 0, 0, apex[0]],
+            y=[0, sf, 0, apex[1]],
+            z=[0, 0, 0, apex[2]],
+            mode='lines',
+            line=dict(color='#6c757d', width=4, dash='dash'),
+            name='Rusuk Belakang (Garis Tersembunyi)'
+        ))
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(range=[-1, sf+1], title='X'),
+                yaxis=dict(range=[-1, sf+1], title='Y'),
+                zaxis=dict(range=[-1, tf+1], title='Z')
+            ), 
+            margin=dict(l=0, r=0, b=0, t=0)
+        )
         st.plotly_chart(fig, use_container_width=True)
 
 # --- TABUNG & KERUCUT ---
@@ -391,9 +427,43 @@ elif pilihan_menu == "Analisis Tabung & Kerucut":
                 st.markdown(f"* **Hasil Akhir:** {lp_tab:.2f} satuan persegi")
                 
         with col2:
-            st.markdown("### 💡 Catatan Unsur Tabung")
-            st.markdown("* Memiliki 2 buah rusuk lengkung.")
-            st.markdown("* Sisi alas dan tutup berbentuk lingkaran yang kongruen.")
+            st.markdown("### 🌐 Visualisasi 3D Tabung")
+            rf = float(r_tab)
+            tf_tab = float(t_tab)
+            
+            # Membuat permukaan tabung
+            theta = np.linspace(0, 2 * np.pi, 50)
+            z_vals = np.linspace(0, tf_tab, 30)
+            Theta, Z_vals = np.meshgrid(theta, z_vals)
+            X_cyl = rf * np.cos(Theta)
+            Y_cyl = rf * np.sin(Theta)
+            
+            fig_tab = go.Figure()
+            # Bodi tabung transparan
+            fig_tab.add_trace(go.Surface(x=X_cyl, y=Y_cyl, z=Z_vals, colorscale='Blues', opacity=0.3, showscale=False))
+            
+            # Tutup atas dan alas bawah lingkaran
+            x_circle = rf * np.cos(theta)
+            y_circle = rf * np.sin(theta)
+            
+            # Alas bawah (z=0)
+            fig_tab.add_trace(go.Scatter3d(x=x_circle, y=y_circle, z=np.zeros_like(theta), mode='lines', line=dict(color='#0d6efd', width=4)))
+            # Tutup atas (z=tf_tab)
+            fig_tab.add_trace(go.Scatter3d(x=x_circle, y=y_circle, z=np.full_like(theta, tf_tab), mode='lines', line=dict(color='#0d6efd', width=4)))
+            
+            # Garis pelukis tepi kiri dan kanan
+            fig_tab.add_trace(go.Scatter3d(x=[-rf, -rf], y=[0, 0], z=[0, tf_tab], mode='lines', line=dict(color='#0d6efd', width=4)))
+            fig_tab.add_trace(go.Scatter3d(x=[rf, rf], y=[0, 0], z=[0, tf_tab], mode='lines', line=dict(color='#0d6efd', width=4)))
+            
+            fig_tab.update_layout(
+                scene=dict(
+                    xaxis=dict(range=[-rf-2, rf+2], title='X'),
+                    yaxis=dict(range=[-rf-2, rf+2], title='Y'),
+                    zaxis=dict(range=[-1, tf_tab+2], title='Z')
+                ),
+                margin=dict(l=0, r=0, b=0, t=0)
+            )
+            st.plotly_chart(fig_tab, use_container_width=True)
             
     else:
         col1, col2 = st.columns(2)
@@ -421,9 +491,54 @@ elif pilihan_menu == "Analisis Tabung & Kerucut":
                 st.markdown(f"* **Hasil Akhir:** {lp_ker:.2f} satuan persegi")
                 
         with col2:
-            st.markdown("### 💡 Catatan Unsur Kerucut")
-            st.markdown("* Memiliki 1 buah sisi alas berbentuk lingkaran dan 1 sisi selimut.")
-            st.markdown("* Garis pelukis ($s$) dihitung dengan teorema Pythagoras.")
+            st.markdown("### 🌐 Visualisasi 3D Kerucut (Garis Putus-Putus Tinggi & Jari-jari)")
+            rf_k = float(r_ker)
+            tf_k = float(t_ker)
+            
+            # Permukaan kerucut
+            theta = np.linspace(0, 2 * np.pi, 50)
+            h_vals = np.linspace(0, tf_k, 30)
+            Theta_k, H_vals = np.meshgrid(theta, h_vals)
+            R_scaled = rf_k * (1 - H_vals / tf_k)
+            X_cone = R_scaled * np.cos(Theta_k)
+            Y_cone = R_scaled * np.sin(Theta_k)
+            Z_cone = H_vals
+            
+            fig_ker = go.Figure()
+            fig_ker.add_trace(go.Surface(x=X_cone, y=Y_cone, z=Z_cone, colorscale='Oranges', opacity=0.3, showscale=False))
+            
+            # Alas lingkaran bawah (z=0)
+            x_circ = rf_k * np.cos(theta)
+            y_circ = rf_k * np.sin(theta)
+            fig_ker.add_trace(go.Scatter3d(x=x_circ, y=y_circ, z=np.zeros_like(theta), mode='lines', line=dict(color='#fd7e14', width=4)))
+            
+            # Garis pelukis luar (solid) dari alas ke puncak (0,0,tf_k)
+            fig_ker.add_trace(go.Scatter3d(x=[-rf_k, 0], y=[0, 0], z=[0, tf_k], mode='lines', line=dict(color='#fd7e14', width=4)))
+            fig_ker.add_trace(go.Scatter3d(x=[rf_k, 0], y=[0, 0], z=[0, tf_k], mode='lines', line=dict(color='#fd7e14', width=4)))
+            
+            # Garis tinggi (sumbu vertikal dari pusat alas ke puncak) dan jari-jari alas dengan garis putus-putus (dash)
+            fig_ker.add_trace(go.Scatter3d(
+                x=[0, 0], y=[0, 0], z=[0, tf_k],
+                mode='lines',
+                line=dict(color='#6f42c1', width=4, dash='dash'),
+                name='Tinggi Kerucut (t)'
+            ))
+            fig_ker.add_trace(go.Scatter3d(
+                x=[0, rf_k], y=[0, 0], z=[0, 0],
+                mode='lines',
+                line=dict(color='#6f42c1', width=4, dash='dash'),
+                name='Jari-jari (r)'
+            ))
+            
+            fig_ker.update_layout(
+                scene=dict(
+                    xaxis=dict(range=[-rf_k-2, rf_k+2], title='X'),
+                    yaxis=dict(range=[-rf_k-2, rf_k+2], title='Y'),
+                    zaxis=dict(range=[-1, tf_k+2], title='Z')
+                ),
+                margin=dict(l=0, r=0, b=0, t=0)
+            )
+            st.plotly_chart(fig_ker, use_container_width=True)
 
 # --- BOLA ---
 elif pilihan_menu == "Analisis Bola":
@@ -622,13 +737,10 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
     elif "Prisma Segitiga" in pilihan_bangun:
         st.markdown("Berikut adalah proyeksi jaring-jaring **Prisma Segitiga**, terdiri dari 3 persegi panjang berdampingan sebagai selimut tegak serta 2 segitiga pada sisi atas dan bawah persegi panjang tengah.")
         shapes_prisma = [
-            # Tiga persegi panjang selimut tegak berjajar mendatar
             dict(type="rect", x0=0, y0=0, x1=2, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
             dict(type="rect", x0=2, y0=0, x1=4, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
             dict(type="rect", x0=4, y0=0, x1=6, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
-            # Segitiga Atas (di atas persegi panjang tengah)
             dict(type="path", path="M 2 3 L 3 4.5 L 4 3 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
-            # Segitiga Bawah (di bawah persegi panjang tengah)
             dict(type="path", path="M 2 0 L 3 -1.5 L 4 0 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
         ]
         fig_net.update_layout(
