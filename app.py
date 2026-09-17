@@ -160,12 +160,12 @@ elif pilihan_menu == "Analisis Kubus":
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
             st.markdown(f"* **Rumus:** $V = s \\times s \\times s$")
             st.markdown(f"* **Penyelesaian:** $V = {sisi} \\times {sisi} \\times {sisi}$")
-            st.markdown(f"* **Hasil Akhir:** **{volume}** satuan kubik")
+            st.markdown(f"* **Hasil Akhir:** {volume} satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
             st.markdown(f"* **Rumus:** $L_p = 6 \\times (s \\times s)$")
             st.markdown(f"* **Penyelesaian:** $L_p = 6 \\times ({sisi} \\times {sisi}) = 6 \\times {sisi**2}$")
-            st.markdown(f"* **Hasil Akhir:** **{luas_permukaan}** satuan persegi")
+            st.markdown(f"* **Hasil Akhir:** {luas_permukaan} satuan persegi")
 
     with col2:
         st.markdown("### 🌐 Visualisasi 3D Kubus")
@@ -206,12 +206,12 @@ elif pilihan_menu == "Analisis Balok":
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
             st.markdown(f"* **Rumus:** $V = p \\times l \\times t$")
             st.markdown(f"* **Penyelesaian:** $V = {p} \\times {l} \\times {t}$")
-            st.markdown(f"* **Hasil Akhir:** **{v_balok}** satuan kubik")
+            st.markdown(f"* **Hasil Akhir:** {v_balok} satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
             st.markdown(f"* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
             st.markdown(f"* **Penyelesaian:** $L_p = 2 \\times (({p}\\times{l}) + ({p}\\times{t}) + ({l}\\times{t}))$")
-            st.markdown(f"* **Hasil Akhir:** **{lp_balok}** satuan persegi")
+            st.markdown(f"* **Hasil Akhir:** {lp_balok} satuan persegi")
 
     with col2:
         st.markdown("### 🌐 Visualisasi 3D Balok")
@@ -233,52 +233,83 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
     with col1:
         st.markdown("""
         <div class="smp-card">
-            <h3>📋 Karakteristik Prisma Segitiga</h3>
+            <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
             <ul>
-                <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
+                <li><b>Alas & Atap:</b> Berbentuk segitiga (ABC di bawah dan DEF di atas).</li>
                 <li><b>Sisi Tegak:</b> Berbentuk 3 buah persegi panjang.</li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
+        
         st.latex(r"Volume \ (V) = \text{Luas Alas} \times \text{Tinggi Prisma}")
-        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi})")
+        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
         
-        alas_tri = st.number_input("Alas Segitiga (a):", min_value=1, value=4, step=1)
-        tinggi_tri = st.number_input("Tinggi Segitiga (t_alas):", min_value=1, value=3, step=1)
-        tinggi_pris = st.number_input("Tinggi Prisma (T):", min_value=1, value=6, step=1)
+        AB = st.number_input("Panjang Sisi Alas AB:", min_value=1, value=4, step=1)
+        BC = st.number_input("Panjang Sisi Alas BC:", min_value=1, value=3, step=1)
+        tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1, value=3, step=1)
+        tinggi_pris = st.number_input("Tinggi Prisma (AD/BE/CF):", min_value=1, value=6, step=1)
         
-        luas_alas = 0.5 * alas_tri * tinggi_tri
+        luas_alas = 0.5 * AB * tinggi_tri
+        keliling_alas = AB + BC + np.sqrt(AB**2 + BC**2)
         v_prisma = luas_alas * tinggi_pris
-        # Asumsi segitiga sama kaki/siku sederhana untuk keliling
-        sisi_miring = np.sqrt((alas_tri/2)**2 + tinggi_tri**2) * 2 + alas_tri
-        lp_prisma = (2 * luas_alas) + (sisi_miring * tinggi_pris)
+        lp_prisma = (2 * luas_alas) + (keliling_alas * tinggi_pris)
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
-            st.markdown(f"* **Luas Alas:** $0.5 \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
-            st.markdown(f"* **Volume:** ${luas_alas} \\times {tinggi_pris} = **{v_prisma}**$ satuan kubik")
+            st.markdown(f"* **Rumus:** $V = \\text{Luas Alas} \\times \\text{Tinggi Prisma}$")
+            st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t = \\frac{{1}}{{2}} \\times {AB} \\times {tinggi_tri} = {luas_alas}$")
+            st.markdown(f"* **Hitung Volume:** ${luas_alas} \\times {tinggi_pris} = {v_prisma}$ satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown(f"* **Luas Permukaan Total:** **{lp_prisma:.1f}** satuan persegi")
+            st.markdown(f"* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi})$")
+            st.markdown(f"* **Komponen Luas 2 Alas:** $2 \\times {luas_alas} = {2 * luas_alas}$")
+            st.markdown(f"* **Komponen Selimut Tegak:** $\\text{{Keliling}} \\times {tinggi_pris}$")
+            st.markdown(f"* **Hasil Akhir Luas Permukaan:** {lp_prisma:.1f} satuan persegi")
 
     with col2:
-        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
-        # Koordinat titik prisma segitiga
-        xt = [0, float(alas_tri), float(alas_tri)/2, 0, float(alas_tri), float(alas_tri)/2]
-        yt = [0, 0, float(tinggi_tri), 0, 0, float(tinggi_tri)]
-        zt = [0, 0, 0, float(tinggi_pris), float(tinggi_pris), float(tinggi_pris)]
-        fig = go.Figure(data=[go.Mesh3d(
-            x=xt, y=yt, z=zt,
-            i=[0, 0, 1, 3, 3, 4],
-            j=[1, 2, 2, 4, 5, 5],
-            k=[2, 3, 3, 5, 3, 3],
-            color='#ffc107', opacity=0.5, alphahull=0
-        )])
-        fig.update_layout(scene=dict(xaxis=dict(range=[-1, 8]), yaxis=dict(range=[-1, 8]), zaxis=dict(range=[-1, 8])), margin=dict(l=0, r=0, b=0, t=0))
+        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga (Sesuai Orientasi Foto)")
+        
+        xa, ya, za = 0.0, 0.0, 0.0                      # A
+        xb, yb, zb = float(AB), 0.0, 0.0                # B
+        xc, yc, zc = float(AB)/2, float(tinggi_tri), 0.0  # C
+        
+        xd, yd, zd = 0.0, 0.0, float(tinggi_pris)                     # D
+        xe, ye, ze = float(AB), 0.0, float(tinggi_pris)               # E
+        xf, yf, zf = float(AB)/2, float(tinggi_tri), float(tinggi_pris) # F
+        
+        x_pts = [xa, xb, xc, xd, xe, xf]
+        y_pts = [ya, yb, yc, yd, ye, yf]
+        z_pts = [za, zb, zc, zd, ze, zf]
+        
+        fig = go.Figure(data=[
+            go.Mesh3d(
+                x=x_pts, y=y_pts, z=z_pts,
+                i=[0, 0, 0, 3, 3],
+                j=[1, 2, 3, 4, 5],
+                k=[2, 3, 4, 5, 4],
+                color='#ffc107', opacity=0.3, flatshading=True
+            ),
+            go.Scatter3d(
+                x=[xa, xb, xc, xa, xd, xe, xf, xd, xa, xd, xb, xe, xc, xf],
+                y=[ya, yb, yc, ya, yd, ye, yf, yd, ya, yd, yb, ye, yc, yf],
+                z=[za, zb, zc, za, zd, ze, zf, zd, za, zd, zb, ze, zc, zf],
+                mode='lines',
+                line=dict(color='black', width=4)
+            )
+        ])
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(range=[-1, AB+2], title='X'),
+                yaxis=dict(range=[-1, tinggi_tri+2], title='Y'),
+                zaxis=dict(range=[-1, tinggi_pris+2], title='Z')
+            ), 
+            margin=dict(l=0, r=0, b=0, t=0)
+        )
         st.plotly_chart(fig, use_container_width=True)
 
 # --- LIMAS SEGI EMPAT ---
 elif pilihan_menu == "Analisis Limas Segi Empat":
-    st.title(" Pyramid 📐 Eksplorasi Limas Segi Empat")
+    st.title("📐 Eksplorasi Limas Segi Empat")
     col1, col2 = st.columns([1, 1])
     with col1:
         st.markdown("""
@@ -303,10 +334,10 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
             st.markdown(f"* **Penyelesaian:** $V = \\frac{{1}}{{3}} \\times ({s_alas} \\times {s_alas}) \\times {t_limas}$")
-            st.markdown(f"* **Hasil Akhir:** **{v_limas:.1f}** satuan kubik")
+            st.markdown(f"* **Hasil Akhir:** {v_limas:.1f} satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown(f"* **Hasil Akhir:** **{lp_limas:.1f}** satuan persegi")
+            st.markdown(f"* **Hasil Akhir:** {lp_limas:.1f} satuan persegi")
 
     with col2:
         st.markdown("### 🌐 Visualisasi 3D Limas")
@@ -401,7 +432,7 @@ elif pilihan_menu == "Analisis Bola":
 # --- ANALISIS PERUBAHAN UKURAN ---
 elif pilihan_menu == "Analisis Perubahan Ukuran":
     st.title("📈 Analisis Pengaruh Perubahan Skala/Ukuran")
-    st.markdown("Sesuai CP Fase D: Menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/v volume.")
+    st.markdown("Sesuai CP Fase D: Menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/volume.")
     
     skala = st.slider("Pilih Faktor Skala Perubahan ($k$):", min_value=1.0, max_value=5.0, value=2.0, step=0.5)
     
@@ -409,9 +440,9 @@ elif pilihan_menu == "Analisis Perubahan Ukuran":
     <div class="smp-card">
         <h3>🔍 Aturan Perubahan Skala (Faktor Skala = {skala})</h3>
         <ul>
-            <li><b>Panjang/Rusuk/Jari-jari:</b> Berubah sebesar $\\times k$ ($$k = {skala}$$)</li>
-            <li><b>Luas Permukaan:</b> Berubah sebesar $\\times k^2$ ($$k^2 = {skala**2}$$)</li>
-            <li><b>Volume:</b> Berubah sebesar $\\times k^3$ ($$k^3 = {skala**3:.1f}$$)</li>
+            <li><b>Panjang/Rusuk/Jari-jari:</b> Berubah sebesar $\\times k$ (k = {skala})</li>
+            <li><b>Luas Permukaan:</b> Berubah sebesar $\\times k^2$ ($k^2$ = {skala**2})</li>
+            <li><b>Volume:</b> Berubah sebesar $\\times k^3$ ($k^3$ = {skala**3:.1f})</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
