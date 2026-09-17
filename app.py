@@ -242,12 +242,12 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         """, unsafe_allow_html=True)
         
         st.latex(r"Volume \ (V) = \text{Luas Alas} \times \text{Tinggi Prisma}")
-        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \text{ \times Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
+        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
         
-        alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1, value=4, step=1)
-        tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1, value=3, step=1)
-        sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga (jika siku-siku) / Sisi Lainnya:", min_value=1, value=5, step=1)
-        tinggi_pris = st.number_input("Tinggi Prisma (t_prisma):", min_value=1, value=6, step=1)
+        alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1.0, value=4.0, step=1.0)
+        tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1.0, value=3.0, step=1.0)
+        sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga / Sisi Lainnya:", min_value=1.0, value=5.0, step=1.0)
+        tinggi_pris = st.number_input("Tinggi Prisma (t_prisma):", min_value=1.0, value=6.0, step=1.0)
         
         luas_alas = 0.5 * alas_tri * tinggi_tri
         keliling_alas = alas_tri + tinggi_tri + sisi_miring_alas
@@ -256,23 +256,23 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
             st.markdown("* **Rumus:** $V = \\text{Luas Alas} \\times \\text{Tinggi Prisma}$")
-            st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t = \\frac{{1}}{{2}} \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
-            st.markdown(f"* **Hitung Volume:** ${luas_alas} \\times {tinggi_pris} = {v_prisma}$ satuan kubik")
+            st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t_{{alas}} = \\frac{{1}}{{2}} \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
+            st.markdown(f"* **Penyelesaian:** $V = {luas_alas} \\times {tinggi_pris}$")
+            st.markdown(f"* **Hasil Akhir:** {v_prisma:.2f} satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
             st.markdown("* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi Prisma})$")
-            st.markdown(f"* **Keliling Alas:** ${alas_tri} + {tinggi_tri} + {sisi_miring_alas} = {keliling_alas}$")
-            st.markdown(f"* **Hasil Akhir Luas Permukaan:** {lp_prisma:.1f} satuan persegi")
+            st.markdown(f"* **Hitung Keliling Alas:** ${alas_tri} + {tinggi_tri} + {sisi_miring_alas} = {keliling_alas}$")
+            st.markdown(f"* **Penyelesaian:** $L_p = (2 \\times {luas_alas}) + ({keliling_alas} \\times {tinggi_pris})$")
+            st.markdown(f"* **Hasil Akhir:** {lp_prisma:.2f} satuan persegi")
 
     with col2:
-        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga (Orientasi Standar DetikEdu)")
-        
+        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
         xa, ya, za = 0.0, 0.0, 0.0               
-        xb, yb, zb = float(alas_tri), 0.0, 0.0     
+        xb, yb, zb = float(alas_tri), 0.0, 0.0      
         xc, yc, zc = 0.0, float(tinggi_tri), 0.0   
-        
         xd, yd, zd = 0.0, 0.0, float(tinggi_pris)               
-        xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)     
+        xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)      
         xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   
         
         x_pts = [xa, xb, xc, xd, xe, xf]
@@ -320,23 +320,30 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
             </ul>
         </div>
         """, unsafe_allow_html=True)
+        
         st.latex(r"Volume \ (V) = \frac{1}{3} \times \text{Luas Alas} \times \text{Tinggi}")
         st.latex(r"Luas \ Permukaan = \text{Luas Alas} + \text{Jumlah Luas Sisi Tegak}")
         
-        s_alas = st.number_input("Sisi Alas Persegi (s):", min_value=1, value=4, step=1)
-        t_limas = st.number_input("Tinggi Limas (t):", min_value=1, value=6, step=1)
+        s_alas = st.number_input("Sisi Alas Persegi (s):", min_value=1.0, value=4.0, step=1.0)
+        t_limas = st.number_input("Tinggi Limas (t):", min_value=1.0, value=6.0, step=1.0)
         
-        v_limas = (1/3) * (s_alas**2) * t_limas
-        sisi_tegak_t = np.sqrt((s_alas/2)**2 + t_limas**2)
+        luas_alas = s_alas ** 2
+        v_limas = (1/3) * luas_alas * t_limas
+        sisi_tegak_t = np.sqrt((s_alas / 2)**2 + t_limas**2)
         luas_sisi_tegak = 4 * (0.5 * s_alas * sisi_tegak_t)
-        lp_limas = (s_alas**2) + luas_sisi_tegak
+        lp_limas = luas_alas + luas_sisi_tegak
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
-            st.markdown(f"* **Penyelesaian:** $V = \\frac{{1}}{{3}} \\times ({s_alas} \\times {s_alas}) \\times {t_limas}$")
-            st.markdown(f"* **Hasil Akhir:** {v_limas:.1f} satuan kubik")
+            st.markdown("* **Rumus:** $V = \\frac{1}{3} \\times \\text{Luas Alas} \\times \\text{Tinggi}$")
+            st.markdown(f"* **Hitung Luas Alas:** ${s_alas} \\times {s_alas} = {luas_alas}$")
+            st.markdown(f"* **Penyelesaian:** $V = \\frac{{1}}{{3}} \\times {luas_alas} \\times {t_limas}$")
+            st.markdown(f"* **Hasil Akhir:** {v_limas:.2f} satuan kubik")
             
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown(f"* **Hasil Akhir:** {lp_limas:.1f} satuan persegi")
+            st.markdown("* **Rumus:** $L_p = \\text{Luas Alas} + (4 \\times \\text{Luas Segitiga Sisi Tegak})$")
+            st.markdown(f"* **Tinggi Sisi Tegak ($t_s$):** $\\sqrt{{({s_alas}/2)^2 + {t_limas}^2}} = {sisi_tegak_t:.2f}$")
+            st.markdown(f"* **Penyelesaian:** $L_p = {luas_alas} + (4 \\times \\frac{{1}}{{2}} \\times {s_alas} \\times {sisi_tegak_t:.2f})$")
+            st.markdown(f"* **Hasil Akhir:** {lp_limas:.2f} satuan persegi")
 
     with col2:
         st.markdown("### 🌐 Visualisasi 3D Limas")
@@ -350,9 +357,9 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
             i=[0, 0, 0, 1, 1],
             j=[1, 2, 4, 2, 4],
             k=[2, 3, 4, 3, 2],
-            color='#dc3545', opacity=0.6
+            color='#dc3545', opacity=0.6, flatshading=True
         )])
-        fig.update_layout(scene=dict(xaxis=dict(range=[-1, 6]), yaxis=dict(range=[-1, 6]), zaxis=dict(range=[-1, 8])), margin=dict(l=0, r=0, b=0, t=0))
+        fig.update_layout(scene=dict(xaxis=dict(range=[-1, sf+1]), yaxis=dict(range=[-1, sf+1]), zaxis=dict(range=[-1, tf+1])), margin=dict(l=0, r=0, b=0, t=0))
         st.plotly_chart(fig, use_container_width=True)
 
 # --- TABUNG & KERUCUT ---
@@ -366,29 +373,53 @@ elif pilihan_menu == "Analisis Tabung & Kerucut":
             st.markdown("### Tabung (Cylinder)")
             st.latex(r"V = \pi \times r^2 \times t")
             st.latex(r"L_p = 2 \times \pi \times r \times (r + t)")
-            r_tab = st.number_input("Jari-jari (r):", min_value=1, value=7, step=1)
-            t_tab = st.number_input("Tinggi Tabung (t):", min_value=1, value=10, step=1)
+            
+            r_tab = st.number_input("Jari-jari (r):", min_value=1.0, value=7.0, step=1.0)
+            t_tab = st.number_input("Tinggi Tabung (t):", min_value=1.0, value=10.0, step=1.0)
             
             v_tab = np.pi * (r_tab**2) * t_tab
             lp_tab = 2 * np.pi * r_tab * (r_tab + t_tab)
-            st.success(f"**Volume:** {v_tab:.2f} | **Luas Permukaan:** {lp_tab:.2f}")
+            
+            with st.expander("1️⃣ Langkah Menghitung Volume Tabung", expanded=True):
+                st.markdown("* **Rumus:** $V = \\pi \\times r^2 \\times t$")
+                st.markdown(f"* **Penyelesaian:** $V = \\frac{{22}}{{7}} \\times {r_tab}^2 \\times {t_tab}$")
+                st.markdown(f"* **Hasil Akhir:** {v_tab:.2f} satuan kubik")
+                
+            with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Tabung", expanded=True):
+                st.markdown("* **Rumus:** $L_p = 2 \\times \\pi \\times r \\times (r + t)$")
+                st.markdown(f"* **Penyelesaian:** $L_p = 2 \\times \\frac{{22}}{{7}} \\times {r_tab} \\times ({r_tab} + {t_tab})$")
+                st.markdown(f"* **Hasil Akhir:** {lp_tab:.2f} satuan persegi")
+                
         with col2:
             st.markdown("### 💡 Catatan Unsur Tabung")
             st.markdown("* Memiliki 2 buah rusuk lengkung.")
             st.markdown("* Sisi alas dan tutup berbentuk lingkaran yang kongruen.")
+            
     else:
         col1, col2 = st.columns(2)
         with col1:
             st.markdown("### Kerucut (Cone)")
             st.latex(r"V = \frac{1}{3} \times \pi \times r^2 \times t")
             st.latex(r"L_p = \pi \times r \times (r + s)")
-            r_ker = st.number_input("Jari-jari Alas (r):", min_value=1, value=3, step=1)
-            t_ker = st.number_input("Tinggi Kerucut (t):", min_value=1, value=4, step=1)
-            s_pelukis = np.sqrt(r_ker**2 + t_ker**2)
             
+            r_ker = st.number_input("Jari-jari Alas (r):", min_value=1.0, value=3.0, step=1.0)
+            t_ker = st.number_input("Tinggi Kerucut (t):", min_value=1.0, value=4.0, step=1.0)
+            
+            s_pelukis = np.sqrt(r_ker**2 + t_ker**2)
             v_ker = (1/3) * np.pi * (r_ker**2) * t_ker
             lp_ker = np.pi * r_ker * (r_ker + s_pelukis)
-            st.success(f"**Volume:** {v_ker:.2f} | **Luas Permukaan:** {lp_ker:.2f}")
+            
+            with st.expander("1️⃣ Langkah Menghitung Volume Kerucut", expanded=True):
+                st.markdown("* **Rumus:** $V = \\frac{1}{3} \\times \\pi \\times r^2 \\times t$")
+                st.markdown(f"* **Penyelesaian:** $V = \\frac{{1}}{{3}} \\times \\pi \\times {r_ker}^2 \\times {t_ker}$")
+                st.markdown(f"* **Hasil Akhir:** {v_ker:.2f} satuan kubik")
+                
+            with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Kerucut", expanded=True):
+                st.markdown("* **Rumus:** $L_p = \\pi \\times r \\times (r + s)$")
+                st.markdown(f"* **Cari Garis Pelukis ($s$):** $\\sqrt{{r^2 + t^2}} = \\sqrt{{{r_ker}^2 + {t_ker}^2}} = {s_pelukis:.2f}$")
+                st.markdown(f"* **Penyelesaian:** $L_p = \\pi \\times {r_ker} \\times ({r_ker} + {s_pelukis:.2f})$")
+                st.markdown(f"* **Hasil Akhir:** {lp_ker:.2f} satuan persegi")
+                
         with col2:
             st.markdown("### 💡 Catatan Unsur Kerucut")
             st.markdown("* Memiliki 1 buah sisi alas berbentuk lingkaran dan 1 sisi selimut.")
@@ -411,12 +442,20 @@ elif pilihan_menu == "Analisis Bola":
         st.latex(r"V = \frac{4}{3} \times \pi \times r^3")
         st.latex(r"L_p = 4 \times \pi \times r^2")
         
-        r_bol = st.number_input("Jari-jari Bola (r):", min_value=1, value=7, step=1)
+        r_bol = st.number_input("Jari-jari Bola (r):", min_value=1.0, value=7.0, step=1.0)
         v_bol = (4/3) * np.pi * (r_bol**3)
         lp_bol = 4 * np.pi * (r_bol**2)
         
-        st.info(f"**Volume Bola:** {v_bol:.2f} satuan kubik")
-        st.info(f"**Luas Permukaan Bola:** {lp_bol:.2f} satuan persegi")
+        with st.expander("1️⃣ Langkah Menghitung Volume Bola", expanded=True):
+            st.markdown("* **Rumus:** $V = \\frac{4}{3} \\times \\pi \\times r^3$")
+            st.markdown(f"* **Penyelesaian:** $V = \\frac{{4}}{{3}} \\times \\pi \\times {r_bol}^3$")
+            st.markdown(f"* **Hasil Akhir:** {v_bol:.2f} satuan kubik")
+            
+        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan Bola", expanded=True):
+            st.markdown("* **Rumus:** $L_p = 4 \\times \\pi \\times r^2$")
+            st.markdown(f"* **Penyelesaian:** $L_p = 4 \\times \\pi \\times {r_bol}^2$")
+            st.markdown(f"* **Hasil Akhir:** {lp_bol:.2f} satuan persegi")
+
     with col2:
         st.markdown("### 🌐 Visualisasi 3D Bola")
         u = np.linspace(0, 2 * np.pi, 30)
@@ -428,7 +467,7 @@ elif pilihan_menu == "Analisis Bola":
         fig.update_layout(scene=dict(xaxis=dict(range=[-10, 10]), yaxis=dict(range=[-10, 10]), zaxis=dict(range=[-10, 10])), margin=dict(l=0, r=0, b=0, t=0))
         st.plotly_chart(fig, use_container_width=True)
 
-# --- ANALISIS PERUBAHAN UKURAN (SUDAH DIPERBAIKI) ---
+# --- ANALISIS PERUBAHAN UKURAN ---
 elif pilihan_menu == "Analisis Perubahan Ukuran":
     st.title("📈 Analisis Pengaruh Perubahan Skala/Ukuran")
     st.markdown("Sesuai CP Fase D: Menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/atau volume.")
