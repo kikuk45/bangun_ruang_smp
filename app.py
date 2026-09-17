@@ -109,8 +109,13 @@ elif pilihan_menu == "Analisis Kubus":
         luas_permukaan = 6 * (sisi ** 2)
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
+            st.markdown(f"* **Rumus:** $V = s \\times s \\times s$")
+            st.markdown(f"* **Penyelesaian:** $V = {sisi} \\times {sisi} \\times {sisi}$")
             st.markdown(f"* **Hasil Akhir:** **{volume}** satuan kubik")
+            
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
+            st.markdown(f"* **Rumus:** $L_p = 6 \\times (s \\times s)$")
+            st.markdown(f"* **Penyelesaian:** $L_p = 6 \\times ({sisi} \\times {sisi}) = 6 \\times {sisi**2}$")
             st.markdown(f"* **Hasil Akhir:** **{luas_permukaan}** satuan persegi")
 
     with col2:
@@ -150,8 +155,14 @@ elif pilihan_menu == "Analisis Balok":
         lp_balok = 2 * (p*l + p*t + l*t)
         
         with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
+            st.markdown(f"* **Rumus:** $V = p \\times l \\times t$")
+            st.markdown(f"* **Penyelesaian:** $V = {p} \\times {l} \\times {t}$")
             st.markdown(f"* **Hasil Akhir:** **{v_balok}** satuan kubik")
+            
         with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
+            st.markdown(f"* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
+            st.markdown(f"* **Penyelesaian:** $L_p = 2 \\times (({p}\\times{l}) + ({p}\\times{t}) + ({l}\\times{t}))$")
+            st.markdown(f"* **Penjabaran:** $L_p = 2 \\times ({p*l} + {p*t} + {l*t}) = 2 \\times {p*l + p*t + l*t}$")
             st.markdown(f"* **Hasil Akhir:** **{lp_balok}** satuan persegi")
 
     with col2:
