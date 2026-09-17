@@ -436,17 +436,18 @@ elif pilihan_menu == "Analisis Bola":
 # --- ANALISIS PERUBAHAN UKURAN ---
 elif pilihan_menu == "Analisis Perubahan Ukuran":
     st.title("📈 Analisis Pengaruh Perubahan Skala/Ukuran")
-    st.markdown("Sesuai CP Fase D: Menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/volume.")
+    st.markdown("Sesuai CP Fase D: Menjelaskan pengaruh perubahan secara proporsional dari bangun ruang terhadap ukuran panjang, luas, dan/atau volume.")
     
     skala = st.slider("Pilih Faktor Skala Perubahan ($k$):", min_value=1.0, max_value=5.0, value=2.0, step=0.5)
     
+    # Menggunakan st.markdown dengan formula LaTeX yang benar
     st.markdown(f"""
     <div class="smp-card">
         <h3>🔍 Aturan Perubahan Skala (Faktor Skala = {skala})</h3>
         <ul>
-            <li><b>Panjang/Rusuk/Jari-jari:</b> Berubah sebesar $\\times k$ (k = {skala})</li>
-            <li><b>Luas Permukaan:</b> Berubah sebesar $\\times k^2$ ($k^2$ = {skala**2})</li>
-            <li><b>Volume:</b> Berubah sebesar $\\times k^3$ ($k^3$ = {skala**3:.1f})</li>
+            <li><b>Panjang/Rusuk/Jari-jari:</b> Berubah sebesar $\\times {skala}$ ($k = {skala}$)</li>
+            <li><b>Luas Permukaan:</b> Berubah sebesar $\\times {skala**2}$ ($k^2 = {skala**2}$)</li>
+            <li><b>Volume:</b> Berubah sebesar $\\times {skala**3:.1f}$ ($k^3 = {skala**3:.1f}$)</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -469,7 +470,6 @@ elif pilihan_menu == "Analisis Perubahan Ukuran":
         st.markdown(f"**Sesudah Diperbesar ($s = {s_akhir}$):**")
         st.write(f"- Luas Permukaan: {lp_akhir} (Naik {skala**2} kali)")
         st.write(f"- Volume: {v_akhir} (Naik {skala**3:.1f} kali)")
-
 # --- PROYEKSI JARING-JARING ---
 elif pilihan_menu == "Proyeksi Jaring-Jaring":
     st.title("📦 Proyeksi Berbagai Variasi Jaring-Jaring")
