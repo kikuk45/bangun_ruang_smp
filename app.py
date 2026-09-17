@@ -57,7 +57,6 @@ sidebar_html = """
 """
 st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
 
-# Menggunakan seleksi teks bersih tanpa emoji agar pencocokan logika Python stabil
 pilihan_menu = st.sidebar.selectbox("", ["Beranda Analisis", "Analisis Kubus", "Analisis Balok"])
 
 # --- FUNGSI UNTUK MEMBUAT KERANGKA STRUKTUR (WIREFRAME) ---
@@ -84,23 +83,21 @@ if pilihan_menu == "Beranda Analisis":
         st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
         
         st.markdown("### Selamat Datang di Modul Geometri Ruang SMP!")
-        st.markdown("Aplikasi ini dirancang sebagai alat bantu visualisasi objek 3 dimensi guna mempermudah pemahaman konsep unsur-unsur, luas permukaan, dan volume pada materi **Bangun Ruang Sisi Datar** tingkat SMP.")
+        st.markdown("Aplikasi interaktif ini dirancang untuk membantu memahami unsur-unsur, luas permukaan, dan volume bangun ruang sisi datar disertai **tahapan perhitungan langkah demi langkah**.")
         
         st.markdown("**Fitur Utama Laboratorium Virtual:**")
         st.markdown("* 🌐 **Visualisasi Objek 3D Dinamis:** Memutar sudut pandang bangun ruang secara interaktif.")
-        st.markdown("* 📊 **Kalkulator Otomatis:** Menghitung volume dan luas permukaan kubus serta balok secara instan.")
-        st.markdown("* 🔍 **Eksplorasi Diagonal (Pengayaan):** Mengenal garis diagonal bidang dan ruang sebagai pengayaan konsep.")
+        st.markdown("* 📝 **Penjabaran Langkah Kerja:** Membimbing siswa memahami rumus dari proses substitusi nilai hingga hasil akhir.")
+        st.markdown("* 🔍 **Eksplorasi Diagonal (Pengayaan):** Mengenal garis diagonal bidang dan ruang.")
         st.write("")
         st.info("Silakan pilih menu objek di sebelah kiri untuk memulai pembelajaran.")
         
     with col_img:
         st.write("")
-        url_gambar_github = "images (4).jpg"
-        
         try:
-            st.image(url_gambar_github, use_container_width=True, caption="Media Pembelajaran Bangun Ruang")
-        except Exception as e:
-            st.info("💡 **Tips Belajar SMP:** Perhatikan ukuran panjang, lebar, dan tinggi pada balok untuk memahami bagaimana rumus luas permukaan dan volume diturunkan.")
+            st.image("images (4).jpg", use_container_width=True, caption="Media Pembelajaran Bangun Ruang")
+        except Exception:
+            st.info("💡 **Tips Belajar SMP:** Perhatikan rincian langkah pengerjaan agar lebih mudah memahami penurunan rumus matematika.")
             
     st.markdown("---")
     st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Bangun Ruang SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
@@ -116,10 +113,9 @@ elif pilihan_menu == "Analisis Kubus":
         <div class="smp-card">
             <h3>📋 Unsur-Unsur Kubus</h3>
             <ul>
-                <li><b>6 Sisi (Bidang):</b> Berbentuk persegi yang kongruen (sama besar).</li>
+                <li><b>6 Sisi (Bidang):</b> Berbentuk persegi yang kongruen.</li>
                 <li><b>12 Rusuk:</b> Memiliki panjang yang sama besar (<i>s</i>).</li>
                 <li><b>8 Titik Sudut:</b> Pojok-pojok pertemuan antar rusuk.</li>
-                <li><b>12 Diagonal Bidang & 4 Diagonal Ruang</b> (Materi Pengayaan SMP)</li>
             </ul>
         </div>
         """
@@ -127,16 +123,15 @@ elif pilihan_menu == "Analisis Kubus":
         
         card_rumus_kubus = """
         <div class="smp-card-tech">
-            <h3>📝 Rumus Kubus (Matematika Kelas 8)</h3>
+            <h3>📝 Rumus Dasar Kubus</h3>
         </div>
         """
         st.markdown(card_rumus_kubus, unsafe_allow_html=True)
         
-        st.latex(r"Volume \ (V) = s \times s \times s = s^3")
+        st.latex(r"Volume \ (V) = s^3")
         st.latex(r"Luas \ Permukaan \ (L_p) = 6 \times s^2")
-        st.latex(r"Diagonal \ Bidang = s\sqrt{2} \quad | \quad Diagonal \ Ruang = s\sqrt{3}")
         
-        st.markdown("### 🧮 Kalkulator Kubus")
+        st.markdown("### 🧮 Kalkulator & Langkah Pengerjaan Kubus")
         sisi = st.number_input("Masukkan Panjang Sisi Kubus (s):", min_value=1.0, value=5.0, step=1.0)
         
         st.markdown("##### 🔍 Pengayaan Garis Ruang")
@@ -149,15 +144,29 @@ elif pilihan_menu == "Analisis Kubus":
         diag_bidang = sisi * np.sqrt(2)
         diag_ruang = sisi * np.sqrt(3)
         
-        st.success(f"""📊 **Hasil Perhitungan Otomatis:**
+        # Penjabaran Langkah demi Langkah untuk Kubus
+        st.markdown("### 📋 Rincian Langkah Perhitungan:")
+        
+        with st.expander("1️⃣ Langkah Perhitungan Volume (V)", expanded=True):
+            st.markdown(f"* **Rumus:** $V = s \\times s \\times s$")
+            st.markdown(f"* **Substitusi Nilai:** $V = {sisi} \\times {sisi} \\times {sisi}$")
+            st.markdown(f"* **Hasil Akhir:** **{volume:.2f}** satuan kubik")
 
-🔹 **Volume (V):** {volume:.2f} satuan kubik
+        with st.expander("2️⃣ Langkah Perhitungan Luas Permukaan ($L_p$)", expanded=True):
+            st.markdown(f"* **Rumus:** $L_p = 6 \\times s^2$")
+            st.markdown(f"* **Substitusi Nilai:** $L_p = 6 \\times ({sisi} \\times {sisi})$")
+            st.markdown(f"* **Proses:** $L_p = 6 \\times {sisi**2}$")
+            st.markdown(f"* **Hasil Akhir:** **{luas_permukaan:.2f}** satuan persegi")
 
-🔹 **Luas Permukaan (L_p):** {luas_permukaan:.2f} satuan persegi
+        with st.expander("3️⃣ Langkah Perhitungan Diagonal Bidang (AC)", expanded=False):
+            st.markdown(f"* **Rumus:** $D_b = s\\sqrt{{2}}$")
+            st.markdown(f"* **Substitusi Nilai:** $D_b = {sisi}\\sqrt{{2}}$")
+            st.markdown(f"* **Hasil Akhir:** **{diag_bidang:.2f}** satuan")
 
-🔹 **Panjang Diagonal Bidang (AC):** {diag_bidang:.2f} satuan
-
-🔹 **Panjang Diagonal Ruang (AG):** {diag_ruang:.2f} satuan""")
+        with st.expander("4️⃣ Langkah Perhitungan Diagonal Ruang (AG)", expanded=False):
+            st.markdown(f"* **Rumus:** $D_r = s\\sqrt{{3}}$")
+            st.markdown(f"* **Substitusi Nilai:** $D_r = {sisi}\\sqrt{{3}}$")
+            st.markdown(f"* **Hasil Akhir:** **{diag_ruang:.2f}** satuan")
 
     with col2:
         st.markdown("### 🌐 Model Visualisasi 3D")
@@ -226,9 +235,8 @@ elif pilihan_menu == "Analisis Balok":
         <div class="smp-card">
             <h3>📋 Unsur-Unsur Balok</h3>
             <ul>
-                <li><b>Sisi:</b> Memiliki 3 pasang bidang berhadapan yang sejajar dan sama luas.</li>
-                <li><b>Dimensi:</b> Dibentuk dari ukuran Panjang (<i>p</i>), Lebar (<i>l</i>), dan Tinggi (<i>t</i>).</li>
-                <li><b>Rusuk & Titik Sudut:</b> Sama seperti kubus (12 rusuk dan 8 titik sudut).</li>
+                <li><b>Sisi:</b> Memiliki 3 pasang bidang berhadapan sejajar dan sama luas.</li>
+                <li><b>Dimensi:</b> Panjang (<i>p</i>), Lebar (<i>l</i>), dan Tinggi (<i>t</i>).</li>
             </ul>
         </div>
         """
@@ -236,16 +244,15 @@ elif pilihan_menu == "Analisis Balok":
         
         card_rumus_balok = """
         <div class="smp-card-tech">
-            <h3>📝 Rumus Balok (Matematika Kelas 8)</h3>
+            <h3>📝 Rumus Dasar Balok</h3>
         </div>
         """
         st.markdown(card_rumus_balok, unsafe_allow_html=True)
         
         st.latex(r"Volume = p \times l \times t")
         st.latex(r"Luas \ Permukaan \ (L_p) = 2 \times (pl + pt + lt)")
-        st.latex(r"Diagonal \ Ruang = \sqrt{p^2 + l^2 + t^2}")
         
-        st.markdown("### 🧮 Kalkulator Balok")
+        st.markdown("### 🧮 Kalkulator & Langkah Pengerjaan Balok")
         p = st.number_input("Masukkan Panjang (p):", min_value=1.0, value=6.0, step=1.0)
         l = st.number_input("Masukkan Lebar (l):", min_value=1.0, value=4.0, step=1.0)
         t = st.number_input("Masukkan Tinggi (t):", min_value=1.0, value=3.0, step=1.0)
@@ -256,19 +263,39 @@ elif pilihan_menu == "Analisis Balok":
         
         # Perhitungan Metrik Balok internal
         v_balok = p * l * t
-        lp_balok = 2 * ((p * l) + (p * t) + (l * t))
+        pl = p * l
+        pt = p * t
+        lt = l * t
+        lp_balok = 2 * (pl + pt + lt)
         db_alas = np.sqrt(p**2 + l**2)
         dr_balok = np.sqrt(p**2 + l**2 + t**2)
         
-        st.success(f"""📊 **Hasil Perhitungan Otomatis:**
+        # Penjabaran Langkah demi Langkah untuk Balok
+        st.markdown("### 📋 Rincian Langkah Perhitungan:")
+        
+        with st.expander("1️⃣ Langkah Perhitungan Volume (V)", expanded=True):
+            st.markdown(f"* **Rumus:** $V = p \\times l \\times t$")
+            st.markdown(f"* **Substitusi Nilai:** $V = {p} \\times {l} \\times {t}$")
+            st.markdown(f"* **Hasil Akhir:** **{v_balok:.2f}** satuan kubik")
 
-🔹 **Volume (V):** {v_balok:.2f} satuan kubik
+        with st.expander("2️⃣ Langkah Perhitungan Luas Permukaan ($L_p$)", expanded=True):
+            st.markdown(f"* **Rumus:** $L_p = 2 \\times (p\\cdot l + p\\cdot t + l\\cdot t)$")
+            st.markdown(f"* **Hitung Luas Sisi:**")
+            st.markdown(f"  * $(p \\times l) = {p} \\times {l} = {pl}$")
+            st.markdown(f"  * $(p \\times t) = {p} \\times {t} = {pt}$")
+            st.markdown(f"  * $(l \\times t) = {l} \\times {t} = {lt}$")
+            st.markdown(f"* **Jumlahkan:** $({pl} + {pt} + {lt}) = {pl + pt + lt}$")
+            st.markdown(f"* **Kalikan 2:** $2 \\times {pl + pt + lt} =$ **{lp_balok:.2f}** satuan persegi")
 
-🔹 **Luas Permukaan (L_p):** {lp_balok:.2f} satuan persegi
+        with st.expander("3️⃣ Langkah Perhitungan Diagonal Alas (AC)", expanded=False):
+            st.markdown(f"* **Rumus:** $AC = \\sqrt{{p^2 + l^2}}$")
+            st.markdown(f"* **Substitusi:** $AC = \\sqrt{{{p}^2 + {l}^2}} = \\sqrt{{{p**2} + {l**2}}} = \\sqrt{{{p**2 + l**2}}}$")
+            st.markdown(f"* **Hasil Akhir:** **{db_alas:.2f}** satuan")
 
-🔹 **Panjang Diagonal Bidang Alas (AC):** {db_alas:.2f} satuan
-
-🔹 **Panjang Diagonal Ruang (AG):** {dr_balok:.2f} satuan""")
+        with st.expander("4️⃣ Langkah Perhitungan Diagonal Ruang (AG)", expanded=False):
+            st.markdown(f"* **Rumus:** $AG = \\sqrt{{p^2 + l^2 + t^2}}$")
+            st.markdown(f"* **Substitusi:** $AG = \\sqrt{{{p}^2 + {l}^2 + {t}^2}} = \\sqrt{{{p**2} + {l**2} + {t**2}}}$")
+            st.markdown(f"* **Hasil Akhir:** **{dr_balok:.2f}** satuan")
 
     with col2:
         st.markdown("### 🌐 Model Visualisasi 3D")
