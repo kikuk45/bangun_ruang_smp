@@ -517,8 +517,7 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
             "Jaring-Jaring Prisma Segitiga", 
             "Jaring-Jaring Limas Segi Empat", 
             "Jaring-Jaring Tabung", 
-            "Jaring-Jaring Kerucut", 
-            "Proyeksi Jaring/Kulit Bola (Goode / Selimut Bola)"
+            "Jaring-Jaring Kerucut"
         ]
     )
     
@@ -621,18 +620,12 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         st.plotly_chart(fig_net, use_container_width=True)
 
     elif "Prisma Segitiga" in pilihan_bangun:
-        st.markdown("Berikut adalah proyeksi jaring-jaring **Prisma Segitiga**, yang terdiri dari 3 persegi panjang sebagai selimut tegak dan 2 segitiga siku-siku/sama kaki sebagai alas dan tutup.")
-        # Menggunakan bentuk path/polygon untuk segitiga dan persegi panjang
-        fig_net = go.Figure()
-        
-        # Sisi Tegak (3 Persegi Panjang berjejer)
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Prisma Segitiga**, yang terdiri dari 3 persegi panjang sebagai selimut tegak dan 2 segitiga sebagai alas dan tutup.")
         shapes_prisma = [
             dict(type="rect", x0=0, y0=0, x1=2, y1=4, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
             dict(type="rect", x0=2, y0=0, x1=5, y1=4, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
             dict(type="rect", x0=5, y0=0, x1=7, y1=4, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
-            # Alas Segitiga di bawah persegi panjang tengah
             dict(type="path", path="M 2 0 L 3.5 -1.5 L 5 0 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
-            # Tutup Segitiga di atas persegi panjang tengah
             dict(type="path", path="M 2 4 L 3.5 5.5 L 5 4 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
         ]
         fig_net.update_layout(
@@ -646,17 +639,11 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
 
     elif "Limas Segi Empat" in pilihan_bangun:
         st.markdown("Berikut adalah proyeksi jaring-jaring **Limas Segi Empat**, terdiri dari 1 persegi di bagian tengah sebagai alas dan 4 segitiga sama kaki di setiap sisi luarnya.")
-        
         shapes_limas = [
-            # Alas Persegi di tengah
             dict(type="rect", x0=1, y0=1, x1=3, y1=3, line=dict(color="#d63384", width=2), fillcolor="#f8d7da", opacity=0.8),
-            # Segitiga Atas
             dict(type="path", path="M 1 3 L 3 3 L 2 5.2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
-            # Segitiga Bawah
-            dict(type="path", path="M 1 1 L 3 1 L 2 -1.2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
-            # Segitiga Kiri
+            dict(type="path", path="M 1 1 L 3 1 L 2 -1.2 Z", line=dict(color="d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
             dict(type="path", path="M 1 1 L 1 3 L -1.2 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
-            # Segitiga Kanan
             dict(type="path", path="M 3 1 L 3 3 L 5.2 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
         ]
         fig_net.update_layout(
@@ -670,13 +657,9 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
 
     elif "Tabung" in pilihan_bangun:
         st.markdown("Berikut adalah proyeksi jaring-jaring **Tabung**, yang terdiri dari 1 buah persegi panjang besar sebagai selimut tabung serta 2 buah lingkaran sebagai tutup dan alas.")
-        
         shapes_tabung = [
-            # Selimut Tabung (Persegi Panjang)
             dict(type="rect", x0=0, y0=0, x1=6, y1=3, line=dict(color="#0dcaf0", width=2), fillcolor="#cff4fc", opacity=0.8),
-            # Tutup Atas (Lingkaran diganti representasi oval/lingkaran via shape/circle)
             dict(type="circle", x0=1.5, y0=3, x1=3.5, y1=4.5, line=dict(color="#0dcaf0", width=2), fillcolor="#9eeaf9", opacity=0.8),
-            # Alas Bawah (Lingkaran)
             dict(type="circle", x0=1.5, y0=-1.5, x1=3.5, y1=0, line=dict(color="#0dcaf0", width=2), fillcolor="#9eeaf9", opacity=0.8),
         ]
         fig_net.update_layout(
@@ -688,75 +671,42 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         )
         st.plotly_chart(fig_net, use_container_width=True)
 
-    elif "Kerucut" in pilihan_bangun:
-        st.markdown("Berikut adalah proyeksi jaring-jaring **Kerucut**, yang terdiri dari juring lingkaran (sektor juring selimut kerucut) dan 1 lingkaran kecil sebagai alas.")
-        
-        # Menggunakan scatter untuk menggambar ilustrasi juring sektor juring lingkaran selimut kerucut
-        theta = np.linspace(0, np.pi * 1.2, 100)
-        R_juring = 4
-        x_juring_arc = R_juring * np.cos(theta)
-        y_juring_arc = R_juring * np.sin(theta)
-        
-        fig_net = go.Figure()
-        # Sisi Selimut Kerucut (Juring)
-        fig_net.add_trace(go.Scatter(
-            x=np.concatenate([[0], x_juring_arc, [0]]),
-            y=np.concatenate([[0], y_juring_arc, [0]]),
-            fill='toself',
-            fillcolor='rgba(111, 66, 193, 0.3)',
-            line=dict(color='#6f42c1', width=2),
-            name='Selimut Kerucut'
-        ))
-        
-        # Tambahkan lingkaran alas terpisah di samping
-        theta_lingkaran = np.linspace(0, 2*np.pi, 50)
-        r_alas_k = 1.2
-        x_alas = 6 + r_alas_k * np.cos(theta_lingkaran)
-        y_alas = 2 + r_alas_k * np.sin(theta_lingkaran)
-        fig_net.add_trace(go.Scatter(
-            x=x_alas, y=y_alas,
-            fill='toself',
-            fillcolor='rgba(214, 51, 132, 0.3)',
-            line=dict(color='#d63384', width=2),
-            name='Alas Kerucut'
-        ))
-        
-        fig_net.update_layout(
-            title="Proyeksi 2D - Jaring-Jaring/Juring Kerucut",
-            xaxis=dict(range=[-1, 8], showgrid=True, zeroline=False),
-            yaxis=dict(range=[-1, 5], showgrid=True, zeroline=False),
-            width=550, height=450,
-        )
-        st.plotly_chart(fig_net, use_container_width=True)
-
     else:
-        st.markdown("Secara teknis geometris murni, **Bola tidak memiliki jaring-jaring datar sempurna** tanpa mengalami distorsi/regangan (karena permukaannya melengkung positif/Gaussian curvature $> 0$). Namun, dalam praktiknya, permukaan bola dapat diproyeksikan menjadi beberapa lajur atau irisan melengkung (seperti irisan jeruk atau proyeksi peta Goode/lajur kulit bola). Berikut adalah visualisasi proyeksi lajur kulit bola:")
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Kerucut** (terdiri dari juring selimut besar menghadap ke atas dan lingkaran alas tepat di bawahnya, menyerupai pola cetak kertas/peraga).")
         
+        # Membuat juring selimut kerucut menghadap ke atas (puncak di atas, alas melengkung di bawah)
+        # Menggunakan koordinat path SVG agar bentuknya presisi seperti gambar referensi
         fig_net = go.Figure()
-        # Menggambar beberapa kelopak/lajur kulit bola (goode's interrupted style approximation)
-        theta_lajur = np.linspace(-np.pi/2, np.pi/2, 50)
-        width_lajur = 1.0
         
-        for i in range(-2, 3):
-            shift_x = i * 1.8
-            y_curve = 3 * np.cos(theta_lajur)
-            x_left = shift_x + width_lajur * (1 - (y_curve/3)**2)
-            x_right = shift_x - width_lajur * (1 - (y_curve/3)**2)
-            
-            fig_net.add_trace(go.Scatter(
-                x=np.concatenate([x_left, x_right[::-1]]),
-                y=np.concatenate([y_curve, y_curve[::-1]]),
-                fill='toself',
-                fillcolor='rgba(13, 110, 253, 0.25)',
-                line=dict(color='#0d6efd', width=1.5),
-                showlegend=False
-            ))
-            
+        # Sisi Selimut Kerucut (Juring menghadap ke atas)
+        # Puncak di (0, 4), titik sudut kiri bawah di (-3, 0), titik sudut kanan bawah di (3, 0) dengan lengkungan busur
+        shapes_kerucut = [
+            dict(
+                type="path", 
+                path="M 0 4 L -3 0 Q 0 -0.5 3 0 Z", 
+                line=dict(color="#0d6efd", width=2), 
+                fillcolor="#0dcaf0", 
+                opacity=0.5
+            ),
+            # Lingkaran Alas di bawah juring selimut
+            dict(
+                type="circle", 
+                x0=-1.1, 
+                y0=-2.3, 
+                x1=1.1, 
+                y1=-0.1, 
+                line=dict(color="#0d6efd", width=2), 
+                fillcolor="#0dcaf0", 
+                opacity=0.6
+            )
+        ]
+        
         fig_net.update_layout(
-            title="Proyeksi Kulit Bola Menjadi Lajur-Lajur Melengkung (Goode Interrupted Projection)",
-            xaxis=dict(range=[-5, 5], showgrid=True, zeroline=False),
-            yaxis=dict(range=[-4, 4], showgrid=True, zeroline=False),
-            width=550, height=500,
+            title="Proyeksi 2D - Jaring-Jaring Kerucut",
+            xaxis=dict(range=[-4, 4], showgrid=True, zeroline=False, scaleanchor="y", scaleratio=1),
+            yaxis=dict(range=[-3, 5], showgrid=True, zeroline=False),
+            width=500, height=500,
+            shapes=shapes_kerucut
         )
         st.plotly_chart(fig_net, use_container_width=True)
 
