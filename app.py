@@ -303,7 +303,7 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         i=[0, 0, 3, 3, 0, 1],
         j=[1, 2, 4, 5, 3, 2],
         k=[2, 3, 5, 4, 5, 4],
-        color='#ffc107', opacity=0.15, flatshading=True
+        color='#ffc107', opacity=0.8, flatshading=True
     ))
     
     # 1. Segitiga Depan (Utuh Solid)
@@ -425,7 +425,7 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
         i=[0, 0, 0, 1],
         j=[1, 2, 4, 2],
         k=[2, 3, 4, 4],
-        color='#ffc107', opacity=0.15, flatshading=True
+        color='#ffc107', opacity=0.8, flatshading=True
     ))
     fig_limas.add_trace(go.Scatter3d(
         x=[0, sf, sf, sf/2, sf, 0, sf/2],
