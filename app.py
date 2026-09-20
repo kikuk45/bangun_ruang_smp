@@ -230,13 +230,12 @@ elif pilihan_menu == "Analisis Balok":
 elif pilihan_menu == "Analisis Prisma Segitiga":
     st.title("⛺ Eksplorasi Prisma Segitiga")
     
-    # 1. Bagian Penjelasan & Rumus (Full Width)
     st.markdown("""
     <div class="smp-card">
         <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
         <ul>
-            <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar di sisi depan dan belakang.</li>
-            <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang yang memanjang secara horizontal.</li>
+            <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
+            <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang.</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -249,7 +248,6 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
     
     st.markdown("---")
     
-    # 2. Bagian Input & Perhitungan
     col_input, col_solusi = st.columns([1, 1])
     
     with col_input:
@@ -275,21 +273,17 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
             st.markdown(f"* **Luas Permukaan:** $(2 \\times {luas_alas}) + ({keliling_alas} \\times {tinggi_pris}) = \\mathbf{{{lp_prisma:.2f}}}$ satuan persegi")
 
     st.markdown("---")
-    
-    # 3. Bagian Visualisasi 3D (Orientasi Horizontal Bersih Tanpa Garis Tengah)
     st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
     
     half_a = alas_tri / 2.0
-    # Segitiga Depan (Y = 0)
-    xd_l, yd_l, zd_l = -half_a, 0.0, 0.0          # Kiri bawah depan
-    xd_r, yd_r, zd_r = half_a, 0.0, 0.0           # Kanan bawah depan
-    xd_t, yd_t, zd_t = 0.0, 0.0, float(tinggi_tri) # Puncak atas depan
+    xd_l, yd_l, zd_l = -half_a, 0.0, 0.0          
+    xd_r, yd_r, zd_r = half_a, 0.0, 0.0           
+    xd_t, yd_t, zd_t = 0.0, 0.0, float(tinggi_tri) 
     
-    # Segitiga Belakang (Y = tinggi_pris)
     yd_back = float(tinggi_pris)
-    xb_l, yb_l, zb_l = -half_a, yd_back, 0.0          # Kiri bawah belakang
-    xb_r, yb_r, zb_r = half_a, yd_back, 0.0           # Kanan bawah belakang
-    xb_t, yb_t, zb_t = 0.0, yd_back, float(tinggi_tri) # Puncak atas belakang
+    xb_l, yb_l, zb_l = -half_a, yd_back, 0.0         
+    xb_r, yb_r, zb_r = half_a, yd_back, 0.0           
+    xb_t, yb_t, zb_t = 0.0, yd_back, float(tinggi_tri) 
     
     x_pts = [xd_l, xd_r, xd_t, xb_l, xb_r, xb_t]
     y_pts = [yd_l, yd_r, yd_t, yb_l, yb_r, yb_t]
@@ -297,7 +291,6 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
     
     fig_pris = go.Figure()
     
-    # Mesh transparan prisma
     fig_pris.add_trace(go.Mesh3d(
         x=x_pts, y=y_pts, z=z_pts,
         i=[0, 0, 3, 3, 0, 1],
@@ -306,7 +299,7 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         color='#ffc107', opacity=0.20, flatshading=True
     ))
     
-    # 1. Segitiga Depan (Utuh Solid)
+    # Segitiga depan
     fig_pris.add_trace(go.Scatter3d(
         x=[xd_l, xd_r, xd_t, xd_l],
         y=[yd_l, yd_r, yd_t, yd_l],
@@ -316,21 +309,12 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         showlegend=False
     ))
     
-    # 2. Rusuk Penghubung Samping yang Terlihat (Kiri-Atas dan Kanan-Atas)
-    fig_pris.add_trace(go.Scatter3d(
-        x=[xd_l, xb_l], y=[yd_l, yb_l], z=[zd_l, zb_l],
-        mode='lines', line=dict(color='#212529', width=4), showlegend=False
-    ))
-    fig_pris.add_trace(go.Scatter3d(
-        x=[xd_r, xb_r], y=[yd_r, yb_r], z=[zd_r, zb_r],
-        mode='lines', line=dict(color='#212529', width=4), showlegend=False
-    ))
-    fig_pris.add_trace(go.Scatter3d(
-        x=[xd_t, xb_t], y=[yd_t, yb_t], z=[zd_t, zb_t],
-        mode='lines', line=dict(color='#212529', width=4), showlegend=False
-    ))
+    # Rusuk penghubung
+    fig_pris.add_trace(go.Scatter3d(x=[xd_l, xb_l], y=[yd_l, yb_l], z=[zd_l, zb_l], mode='lines', line=dict(color='#212529', width=4), showlegend=False))
+    fig_pris.add_trace(go.Scatter3d(x=[xd_r, xb_r], y=[yd_r, yb_r], z=[zd_r, zb_r], mode='lines', line=dict(color='#212529', width=4), showlegend=False))
+    fig_pris.add_trace(go.Scatter3d(x=[xd_t, xb_t], y=[yd_t, yb_t], z=[zd_t, zb_t], mode='lines', line=dict(color='#212529', width=4), showlegend=False))
     
-    # 3. Sisi Belakang Atas & Kanan Belakang yang Terlihat
+    # Segitiga belakang
     fig_pris.add_trace(go.Scatter3d(
         x=[xb_l, xb_t, xb_r],
         y=[yb_l, yb_t, yb_r],
@@ -340,7 +324,7 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         showlegend=False
     ))
     
-    # 4. Rusuk Bawah Belakang (Tersembunyi -> Garis Putus-Putus)
+    # Rusuk bawah belakang (putus-putus)
     fig_pris.add_trace(go.Scatter3d(
         x=[xb_l, xb_r],
         y=[yb_l, yb_r],
@@ -365,7 +349,6 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
 elif pilihan_menu == "Analisis Limas Segi Empat":
     st.title("📐 Eksplorasi Limas Segi Empat")
     
-    # 1. Bagian Penjelasan & Rumus (Full Width)
     st.markdown("""
     <div class="smp-card">
         <h3>📋 Karakteristik Limas Segi Empat</h3>
@@ -384,7 +367,6 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
     
     st.markdown("---")
     
-    # 2. Bagian Input & Perhitungan
     col_input, col_solusi = st.columns([1, 1])
     
     with col_input:
@@ -409,12 +391,11 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
             st.markdown(f"* **Luas Permukaan:** ${luas_alas} + (4 \\times \\frac{{1}}{{2}} \\times {s_alas} \\times {sisi_tegak_t:.2f}) = \\mathbf{{{lp_limas:.2f}}}$")
 
     st.markdown("---")
-    
-    # 3. Bagian Visualisasi 3D (Full Width di Bawah)
     st.markdown("### 🌐 Visualisasi 3D Limas Segi Empat")
     sf = float(s_alas)
     tf = float(t_limas)
     
+    # Koordinat alas persegi di z=0 dan titik puncak di tengah (sf/2, sf/2, tf)
     x_limas = [0.0, sf, sf, 0.0, sf/2]
     y_limas = [0.0, 0.0, sf, sf, sf/2]
     z_limas = [0.0, 0.0, 0.0, 0.0, tf]
@@ -427,6 +408,8 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
         k=[2, 3, 4, 4],
         color='#ffc107', opacity=0.20, flatshading=True
     ))
+    
+    # Rusuk yang terlihat jelas di depan
     fig_limas.add_trace(go.Scatter3d(
         x=[0, sf, sf, sf/2, sf, 0, sf/2],
         y=[0, 0, sf, sf/2, sf, sf, sf/2],
@@ -435,6 +418,8 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
         line=dict(color='#212529', width=4),
         name='Rusuk Solid'
     ))
+    
+    # Rusuk bagian belakang (garis putus-putus)
     fig_limas.add_trace(go.Scatter3d(
         x=[0, 0, 0, sf/2],
         y=[0, sf, 0, sf/2],
@@ -443,6 +428,7 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
         line=dict(color='#6c757d', width=4, dash='dash'),
         name='Rusuk Belakang'
     ))
+    
     fig_limas.update_layout(
         scene=dict(
             xaxis=dict(range=[-1, sf+1], title='X'),
@@ -453,6 +439,7 @@ elif pilihan_menu == "Analisis Limas Segi Empat":
         height=500
     )
     st.plotly_chart(fig_limas, use_container_width=True)
+
 # --- TABUNG & KERUCUT ---
 elif pilihan_menu == "Analisis Tabung & Kerucut":
     st.title("🥫 Eksplorasi Tabung & Kerucut (Sisi Lengkung)")
@@ -704,33 +691,23 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
                 dict(type="rect", x0=0, y0=1, x1=1, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
                 dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
             ]
-        elif variasi_kubus == "Variasi 2 (Pola Huruf L / Tangga)":
-            shapes_list = [
-                dict(type="rect", x0=0, y0=0, x1=1, y1=1, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
-                dict(type="rect", x0=1, y0=0, x1=2, y1=1, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
-                dict(type="rect", x0=2, y0=0, x1=3, y1=1, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
-                dict(type="rect", x0=3, y0=0, x1=4, y1=1, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
-                dict(type="rect", x0=1, y0=1, x1=2, y1=2, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
-                dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
-            ]
         else:
-            # Pola Default/Alternatif aman untuk Kubus
+            # Pola default alternatif jika variasi lain dipilih
             shapes_list = [
-                dict(type="rect", x0=0, y0=0, x1=1, y1=1, line=dict(color="blue", width=2), fillcolor="#f8d7da", opacity=0.8),
-                dict(type="rect", x0=1, y0=0, x1=2, y1=1, line=dict(color="blue", width=2), fillcolor="#f8d7da", opacity=0.8),
-                dict(type="rect", x0=2, y0=0, x1=3, y1=1, line=dict(color="blue", width=2), fillcolor="#f8d7da", opacity=0.8),
-                dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#f8d7da", opacity=0.8),
-                dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="blue", width=2), fillcolor="#f8d7da", opacity=0.8),
-                dict(type="rect", x0=3, y0=2, x1=4, y1=3, line=dict(color="blue", width=2), fillcolor="#f8d7da", opacity=0.8),
+                dict(type="rect", x0=0, y0=0, x1=1, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
+                dict(type="rect", x0=1, y0=0, x1=2, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
+                dict(type="rect", x0=2, y0=0, x1=3, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
+                dict(type="rect", x0=3, y0=0, x1=4, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
+                dict(type="rect", x0=1, y0=1, x1=2, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
+                dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
             ]
             
         fig_net.update_layout(
-            xaxis=dict(range=[-1, 5], showgrid=True),
-            yaxis=dict(range=[-1, 5], showgrid=True),
+            xaxis=dict(range=[-1, 5], showgrid=False, zeroline=False),
+            yaxis=dict(range=[-1, 5], showgrid=False, zeroline=False),
             shapes=shapes_list,
-            width=500, height=500,
-            margin=dict(l=20, r=20, t=20, b=20)
+            height=400
         )
         st.plotly_chart(fig_net, use_container_width=True)
     else:
-        st.info("💡 Silakan pilih variasi bangun ruang lainnya untuk melihat proyeksi jaring-jaring 2D.")
+        st.info("Silakan pilih opsi jaring-jaring atau bangun ruang lainnya di atas untuk menampilkan proyeksi.")
