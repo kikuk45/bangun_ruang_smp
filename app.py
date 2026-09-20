@@ -229,216 +229,174 @@ elif pilihan_menu == "Analisis Balok":
 # --- PRISMA SEGITIGA ---
 elif pilihan_menu == "Analisis Prisma Segitiga":
     st.title("⛺ Eksplorasi Prisma Segitiga")
-    
-    st.markdown("""
-    <div class="smp-card">
-        <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
-        <ul>
-            <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
-            <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang.</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    col_r1, col_r2 = st.columns(2)
-    with col_r1:
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.markdown("""
+        <div class="smp-card">
+            <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
+            <ul>
+                <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
+                <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+        
         st.latex(r"Volume \ (V) = \text{Luas Alas} \times \text{Tinggi Prisma}")
-    with col_r2:
-        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi})")
-    
-    st.markdown("---")
-    
-    col_input, col_solusi = st.columns([1, 1])
-    
-    with col_input:
-        st.markdown("### 🎛️ Masukkan Parameter")
-        alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1.0, value=4.0, step=1.0, key="p_alas")
-        tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1.0, value=3.0, step=1.0, key="p_talas")
-        sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga:", min_value=1.0, value=5.0, step=1.0, key="p_smiring")
-        tinggi_pris = st.number_input("Panjang/Tinggi Prisma (t_prisma):", min_value=1.0, value=8.0, step=1.0, key="p_tpris")
+        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
+        
+        alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1.0, value=4.0, step=1.0)
+        tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1.0, value=3.0, step=1.0)
+        sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga / Sisi Lainnya:", min_value=1.0, value=5.0, step=1.0)
+        tinggi_pris = st.number_input("Tinggi Prisma (t_prisma):", min_value=1.0, value=6.0, step=1.0)
         
         luas_alas = 0.5 * alas_tri * tinggi_tri
-        keliling_alas = alas_tri + (2 * sisi_miring_alas)
+        keliling_alas = alas_tri + tinggi_tri + sisi_miring_alas
         v_prisma = luas_alas * tinggi_pris
         lp_prisma = (2 * luas_alas) + (keliling_alas * tinggi_pris)
-
-    with col_solusi:
-        st.markdown("### 📝 Langkah Perhitungan")
-        with st.expander("1️⃣ Detail Volume", expanded=True):
-            st.markdown(f"* **Luas Alas:** $\\frac{{1}}{{2}} \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
-            st.markdown(f"* **Volume:** ${luas_alas} \\times {tinggi_pris} = \\mathbf{{{v_prisma:.2f}}}$ satuan kubik")
+        
+        with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
+            st.markdown("* **Rumus:** $V = \\text{Luas Alas} \\times \\text{Tinggi Prisma}$")
+            st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t_{{alas}} = \\frac{{1}}{{2}} \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
+            st.markdown(f"* **Penyelesaian:** $V = {luas_alas} \\times {tinggi_pris}$")
+            st.markdown(f"* **Hasil Akhir:** {v_prisma:.2f} satuan kubik")
             
-        with st.expander("2️⃣ Detail Luas Permukaan", expanded=True):
-            st.markdown(f"* **Keliling Alas:** ${keliling_alas}$")
-            st.markdown(f"* **Luas Permukaan:** $(2 \\times {luas_alas}) + ({keliling_alas} \\times {tinggi_pris}) = \\mathbf{{{lp_prisma:.2f}}}$ satuan persegi")
+        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
+            st.markdown("* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi Prisma})$")
+            st.markdown(f"* **Hitung Keliling Alas:** ${alas_tri} + {tinggi_tri} + {sisi_miring_alas} = {keliling_alas}$")
+            st.markdown(f"* **Penyelesaian:** $L_p = (2 \\times {luas_alas}) + ({keliling_alas} \\times {tinggi_pris})$")
+            st.markdown(f"* **Hasil Akhir:** {lp_prisma:.2f} satuan persegi")
 
-    st.markdown("---")
-    st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
-    
-    half_a = alas_tri / 2.0
-    xd_l, yd_l, zd_l = -half_a, 0.0, 0.0          
-    xd_r, yd_r, zd_r = half_a, 0.0, 0.0           
-    xd_t, yd_t, zd_t = 0.0, 0.0, float(tinggi_tri) 
-    
-    yd_back = float(tinggi_pris)
-    xb_l, yb_l, zb_l = -half_a, yd_back, 0.0         
-    xb_r, yb_r, zb_r = half_a, yd_back, 0.0           
-    xb_t, yb_t, zb_t = 0.0, yd_back, float(tinggi_tri) 
-    
-    x_pts = [xd_l, xd_r, xd_t, xb_l, xb_r, xb_t]
-    y_pts = [yd_l, yd_r, yd_t, yb_l, yb_r, yb_t]
-    z_pts = [zd_l, zd_r, zd_t, zb_l, zb_r, zb_t]
-    
-    fig_pris = go.Figure()
-    
-    fig_pris.add_trace(go.Mesh3d(
-        x=x_pts, y=y_pts, z=z_pts,
-        i=[0, 0, 3, 3, 0, 1],
-        j=[1, 2, 4, 5, 3, 2],
-        k=[2, 3, 5, 4, 5, 4],
-        color='#ffc107', opacity=0.20, flatshading=True
-    ))
-    
-    # Segitiga depan
-    fig_pris.add_trace(go.Scatter3d(
-        x=[xd_l, xd_r, xd_t, xd_l],
-        y=[yd_l, yd_r, yd_t, yd_l],
-        z=[zd_l, zd_r, zd_t, zd_l],
-        mode='lines',
-        line=dict(color='#212529', width=4),
-        showlegend=False
-    ))
-    
-    # Rusuk penghubung
-    fig_pris.add_trace(go.Scatter3d(x=[xd_l, xb_l], y=[yd_l, yb_l], z=[zd_l, zb_l], mode='lines', line=dict(color='#212529', width=4), showlegend=False))
-    fig_pris.add_trace(go.Scatter3d(x=[xd_r, xb_r], y=[yd_r, yb_r], z=[zd_r, zb_r], mode='lines', line=dict(color='#212529', width=4), showlegend=False))
-    fig_pris.add_trace(go.Scatter3d(x=[xd_t, xb_t], y=[yd_t, yb_t], z=[zd_t, zb_t], mode='lines', line=dict(color='#212529', width=4), showlegend=False))
-    
-    # Segitiga belakang
-    fig_pris.add_trace(go.Scatter3d(
-        x=[xb_l, xb_t, xb_r],
-        y=[yb_l, yb_t, yb_r],
-        z=[zb_l, zb_t, zb_r],
-        mode='lines',
-        line=dict(color='#212529', width=4),
-        showlegend=False
-    ))
-    
-    # Rusuk bawah belakang (putus-putus)
-    fig_pris.add_trace(go.Scatter3d(
-        x=[xb_l, xb_r],
-        y=[yb_l, yb_r],
-        z=[zb_l, zb_r],
-        mode='lines',
-        line=dict(color='#6c757d', width=4, dash='dash'),
-        name='Rusuk Belakang'
-    ))
-    
-    fig_pris.update_layout(
-        scene=dict(
-            xaxis=dict(range=[-half_a-2, half_a+2], title='X'),
-            yaxis=dict(range=[-1, tinggi_pris+2], title='Y (Panjang)'),
-            zaxis=dict(range=[-1, tinggi_tri+2], title='Z (Tinggi)')
-        ), 
-        margin=dict(l=0, r=0, b=0, t=0),
-        height=500
-    )
-    st.plotly_chart(fig_pris, use_container_width=True)
+    with col2:
+        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
+        xa, ya, za = 0.0, 0.0, 0.0                
+        xb, yb, zb = float(alas_tri), 0.0, 0.0      
+        xc, yc, zc = 0.0, float(tinggi_tri), 0.0   
+        xd, yd, zd = 0.0, 0.0, float(tinggi_pris)                
+        xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)      
+        xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   
+        
+        x_pts = [xa, xb, xc, xd, xe, xf]
+        y_pts = [ya, yb, yc, yd, ye, yf]
+        z_pts = [za, zb, zc, zd, ze, zf]
+        
+        fig = go.Figure(data=[
+            go.Mesh3d(
+                x=x_pts, y=y_pts, z=z_pts,
+                i=[0, 0, 0, 3, 3, 1],
+                j=[1, 2, 3, 4, 5, 2],
+                k=[2, 3, 4, 5, 4, 5],
+                color='#ffc107', opacity=0.35, flatshading=True
+            ),
+            go.Scatter3d(
+                x=[xa, xb, xc, xa, xd, xe, xf, xd, xa, xd, xb, xe, xc, xf],
+                y=[ya, yb, yc, ya, yd, ye, yf, yd, ya, yd, yb, ye, yc, yf],
+                z=[za, zb, zc, za, zd, ze, zf, zd, za, zd, zb, ze, zc, zf],
+                mode='lines',
+                line=dict(color='black', width=4)
+            )
+        ])
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(range=[-1, alas_tri+2], title='X'),
+                yaxis=dict(range=[-1, tinggi_tri+2], title='Y'),
+                zaxis=dict(range=[-1, tinggi_pris+2], title='Z')
+            ), 
+            margin=dict(l=0, r=0, b=0, t=0)
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
 # --- LIMAS SEGI EMPAT ---
 elif pilihan_menu == "Analisis Limas Segi Empat":
     st.title("📐 Eksplorasi Limas Segi Empat")
-    
-    st.markdown("""
-    <div class="smp-card">
-        <h3>📋 Karakteristik Limas Segi Empat</h3>
-        <ul>
-            <li><b>Alas:</b> Berbentuk persegi / persegi panjang.</li>
-            <li><b>Sisi Tegak:</b> Berbentuk segitiga yang bertemu di satu titik puncak.</li>
-        </ul>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    col_r1, col_r2 = st.columns(2)
-    with col_r1:
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.markdown("""
+        <div class="smp-card">
+            <h3>📋 Karakteristik Limas Segi Empat</h3>
+            <ul>
+                <li><b>Alas:</b> Berbentuk persegi / persegi panjang.</li>
+                <li><b>Sisi Tegak:</b> Berbentuk segitiga yang bertemu di satu titik puncak.</li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+        
         st.latex(r"Volume \ (V) = \frac{1}{3} \times \text{Luas Alas} \times \text{Tinggi}")
-    with col_r2:
         st.latex(r"Luas \ Permukaan = \text{Luas Alas} + \text{Jumlah Luas Sisi Tegak}")
-    
-    st.markdown("---")
-    
-    col_input, col_solusi = st.columns([1, 1])
-    
-    with col_input:
-        st.markdown("### 🎛️ Masukkan Parameter")
-        s_alas = st.number_input("Sisi Alas Persegi (s):", min_value=1.0, value=4.0, step=1.0, key="l_salas")
-        t_limas = st.number_input("Tinggi Limas (t):", min_value=1.0, value=6.0, step=1.0, key="l_tlimas")
+        
+        s_alas = st.number_input("Sisi Alas Persegi (s):", min_value=1.0, value=4.0, step=1.0)
+        t_limas = st.number_input("Tinggi Limas (t):", min_value=1.0, value=6.0, step=1.0)
         
         luas_alas = s_alas ** 2
         v_limas = (1/3) * luas_alas * t_limas
         sisi_tegak_t = np.sqrt((s_alas / 2)**2 + t_limas**2)
         luas_sisi_tegak = 4 * (0.5 * s_alas * sisi_tegak_t)
         lp_limas = luas_alas + luas_sisi_tegak
-
-    with col_solusi:
-        st.markdown("### 📝 Langkah Perhitungan")
-        with st.expander("1️⃣ Detail Volume", expanded=True):
-            st.markdown(f"* **Luas Alas:** ${s_alas} \\times {s_alas} = {luas_alas}$")
-            st.markdown(f"* **Volume:** $\\frac{{1}}{{3}} \\times {luas_alas} \\times {t_limas} = \\mathbf{{{v_limas:.2f}}}$ satuan kubik")
+        
+        with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
+            st.markdown("* **Rumus:** $V = \\frac{1}{3} \\times \\text{Luas Alas} \\times \\text{Tinggi}$")
+            st.markdown(f"* **Hitung Luas Alas:** ${s_alas} \\times {s_alas} = {luas_alas}$")
+            st.markdown(f"* **Penyelesaian:** $V = \\frac{{1}}{{3}} \\times {luas_alas} \\times {t_limas}$")
+            st.markdown(f"* **Hasil Akhir:** {v_limas:.2f} satuan kubik")
             
-        with st.expander("2️⃣ Detail Luas Permukaan", expanded=True):
+        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
+            st.markdown("* **Rumus:** $L_p = \\text{Luas Alas} + (4 \\times \\text{Luas Segitiga Sisi Tegak})$")
             st.markdown(f"* **Tinggi Sisi Tegak ($t_s$):** $\\sqrt{{({s_alas}/2)^2 + {t_limas}^2}} = {sisi_tegak_t:.2f}$")
-            st.markdown(f"* **Luas Permukaan:** ${luas_alas} + (4 \\times \\frac{{1}}{{2}} \\times {s_alas} \\times {sisi_tegak_t:.2f}) = \\mathbf{{{lp_limas:.2f}}}$")
+            st.markdown(f"* **Penyelesaian:** $L_p = {luas_alas} + (4 \\times \\frac{{1}}{{2}} \\times {s_alas} \\times {sisi_tegak_t:.2f})$")
+            st.markdown(f"* **Hasil Akhir:** {lp_limas:.2f} satuan persegi")
 
-    st.markdown("---")
-    st.markdown("### 🌐 Visualisasi 3D Limas Segi Empat")
-    sf = float(s_alas)
-    tf = float(t_limas)
-    
-    # Koordinat alas persegi di z=0 dan titik puncak di tengah (sf/2, sf/2, tf)
-    x_limas = [0.0, sf, sf, 0.0, sf/2]
-    y_limas = [0.0, 0.0, sf, sf, sf/2]
-    z_limas = [0.0, 0.0, 0.0, 0.0, tf]
-    
-    fig_limas = go.Figure()
-    fig_limas.add_trace(go.Mesh3d(
-        x=x_limas, y=y_limas, z=z_limas,
-        i=[0, 0, 0, 1],
-        j=[1, 2, 4, 2],
-        k=[2, 3, 4, 4],
-        color='#ffc107', opacity=0.20, flatshading=True
-    ))
-    
-    # Rusuk yang terlihat jelas di depan
-    fig_limas.add_trace(go.Scatter3d(
-        x=[0, sf, sf, sf/2, sf, 0, sf/2],
-        y=[0, 0, sf, sf/2, sf, sf, sf/2],
-        z=[0, 0, 0, tf, 0, 0, tf],
-        mode='lines',
-        line=dict(color='#212529', width=4),
-        name='Rusuk Solid'
-    ))
-    
-    # Rusuk bagian belakang (garis putus-putus)
-    fig_limas.add_trace(go.Scatter3d(
-        x=[0, 0, 0, sf/2],
-        y=[0, sf, 0, sf/2],
-        z=[0, 0, 0, tf],
-        mode='lines',
-        line=dict(color='#6c757d', width=4, dash='dash'),
-        name='Rusuk Belakang'
-    ))
-    
-    fig_limas.update_layout(
-        scene=dict(
-            xaxis=dict(range=[-1, sf+1], title='X'),
-            yaxis=dict(range=[-1, sf+1], title='Y'),
-            zaxis=dict(range=[-1, tf+1], title='Z')
-        ), 
-        margin=dict(l=0, r=0, b=0, t=0),
-        height=500
-    )
-    st.plotly_chart(fig_limas, use_container_width=True)
+    with col2:
+        st.markdown("### 🌐 Visualisasi 3D Limas Segi Empat (Garis Putus-Putus Belakang)")
+        sf = float(s_alas)
+        tf = float(t_limas)
+        
+        # Titik alas dan puncak limas
+        # Alas: (0,0,0), (sf,0,0), (sf,sf,0), (0,sf,0), Puncak: (sf/2, sf/2, tf)
+        apex = [sf/2, sf/2, tf]
+        
+        # Mesh transparan untuk bodi limas
+        xlm = [0, sf, sf, 0, sf/2]
+        ylm = [0, 0, sf, sf, sf/2]
+        zlm = [0, 0, 0, 0, tf]
+        
+        fig = go.Figure()
+        fig.add_trace(go.Mesh3d(
+            x=xlm, y=ylm, z=zlm,
+            i=[0, 0, 0, 1, 1],
+            j=[1, 2, 4, 2, 4],
+            k=[2, 3, 4, 3, 2],
+            color='#ffc107', opacity=0.15, flatshading=True
+        ))
+        
+        # Garis Solid (Depan): Alas depan & rusuk tegak depan
+        fig.add_trace(go.Scatter3d(
+            x=[0, sf, sf, apex[0], sf, 0, apex[0]],
+            y=[0, 0, sf, apex[1], sf, sf, apex[1]],
+            z=[0, 0, 0, apex[2], 0, 0, apex[2]],
+            mode='lines',
+            line=dict(color='#212529', width=4),
+            name='Rusuk Solid'
+        ))
+        
+        # Garis Putus-Putus (Belakang): Sisi alas belakang & rusuk tegak belakang
+        fig.add_trace(go.Scatter3d(
+            x=[0, 0, 0, apex[0]],
+            y=[0, sf, 0, apex[1]],
+            z=[0, 0, 0, apex[2]],
+            mode='lines',
+            line=dict(color='#6c757d', width=4, dash='dash'),
+            name='Rusuk Belakang (Garis Tersembunyi)'
+        ))
+        
+        fig.update_layout(
+            scene=dict(
+                xaxis=dict(range=[-1, sf+1], title='X'),
+                yaxis=dict(range=[-1, sf+1], title='Y'),
+                zaxis=dict(range=[-1, tf+1], title='Z')
+            ), 
+            margin=dict(l=0, r=0, b=0, t=0)
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
 # --- TABUNG & KERUCUT ---
 elif pilihan_menu == "Analisis Tabung & Kerucut":
@@ -473,6 +431,7 @@ elif pilihan_menu == "Analisis Tabung & Kerucut":
             rf = float(r_tab)
             tf_tab = float(t_tab)
             
+            # Membuat permukaan tabung
             theta = np.linspace(0, 2 * np.pi, 50)
             z_vals = np.linspace(0, tf_tab, 30)
             Theta, Z_vals = np.meshgrid(theta, z_vals)
@@ -480,14 +439,19 @@ elif pilihan_menu == "Analisis Tabung & Kerucut":
             Y_cyl = rf * np.sin(Theta)
             
             fig_tab = go.Figure()
+            # Bodi tabung transparan
             fig_tab.add_trace(go.Surface(x=X_cyl, y=Y_cyl, z=Z_vals, colorscale='Blues', opacity=0.3, showscale=False))
             
+            # Tutup atas dan alas bawah lingkaran
             x_circle = rf * np.cos(theta)
             y_circle = rf * np.sin(theta)
             
+            # Alas bawah (z=0)
             fig_tab.add_trace(go.Scatter3d(x=x_circle, y=y_circle, z=np.zeros_like(theta), mode='lines', line=dict(color='#0d6efd', width=4)))
+            # Tutup atas (z=tf_tab)
             fig_tab.add_trace(go.Scatter3d(x=x_circle, y=y_circle, z=np.full_like(theta, tf_tab), mode='lines', line=dict(color='#0d6efd', width=4)))
             
+            # Garis pelukis tepi kiri dan kanan
             fig_tab.add_trace(go.Scatter3d(x=[-rf, -rf], y=[0, 0], z=[0, tf_tab], mode='lines', line=dict(color='#0d6efd', width=4)))
             fig_tab.add_trace(go.Scatter3d(x=[rf, rf], y=[0, 0], z=[0, tf_tab], mode='lines', line=dict(color='#0d6efd', width=4)))
             
@@ -527,10 +491,11 @@ elif pilihan_menu == "Analisis Tabung & Kerucut":
                 st.markdown(f"* **Hasil Akhir:** {lp_ker:.2f} satuan persegi")
                 
         with col2:
-            st.markdown("### 🌐 Visualisasi 3D Kerucut")
+            st.markdown("### 🌐 Visualisasi 3D Kerucut (Garis Putus-Putus Tinggi & Jari-jari)")
             rf_k = float(r_ker)
             tf_k = float(t_ker)
             
+            # Permukaan kerucut
             theta = np.linspace(0, 2 * np.pi, 50)
             h_vals = np.linspace(0, tf_k, 30)
             Theta_k, H_vals = np.meshgrid(theta, h_vals)
@@ -542,13 +507,16 @@ elif pilihan_menu == "Analisis Tabung & Kerucut":
             fig_ker = go.Figure()
             fig_ker.add_trace(go.Surface(x=X_cone, y=Y_cone, z=Z_cone, colorscale='Oranges', opacity=0.3, showscale=False))
             
+            # Alas lingkaran bawah (z=0)
             x_circ = rf_k * np.cos(theta)
             y_circ = rf_k * np.sin(theta)
             fig_ker.add_trace(go.Scatter3d(x=x_circ, y=y_circ, z=np.zeros_like(theta), mode='lines', line=dict(color='#fd7e14', width=4)))
             
+            # Garis pelukis luar (solid) dari alas ke puncak (0,0,tf_k)
             fig_ker.add_trace(go.Scatter3d(x=[-rf_k, 0], y=[0, 0], z=[0, tf_k], mode='lines', line=dict(color='#fd7e14', width=4)))
             fig_ker.add_trace(go.Scatter3d(x=[rf_k, 0], y=[0, 0], z=[0, tf_k], mode='lines', line=dict(color='#fd7e14', width=4)))
             
+            # Garis tinggi (sumbu vertikal dari pusat alas ke puncak) dan jari-jari alas dengan garis putus-putus (dash)
             fig_ker.add_trace(go.Scatter3d(
                 x=[0, 0], y=[0, 0], z=[0, tf_k],
                 mode='lines',
@@ -669,7 +637,6 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
     )
     
     fig_net = go.Figure()
-    shapes_list = []
     
     if "Kubus" in pilihan_bangun:
         variasi_kubus = st.selectbox(
@@ -691,26 +658,163 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
                 dict(type="rect", x0=0, y0=1, x1=1, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
                 dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
             ]
-        else:
-            # Pola default alternatif jika variasi lain dipilih
+        elif variasi_kubus == "Variasi 2 (Pola Huruf L / Tangga)":
             shapes_list = [
-                dict(type="rect", x0=0, y0=0, x1=1, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
-                dict(type="rect", x0=1, y0=0, x1=2, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
-                dict(type="rect", x0=2, y0=0, x1=3, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
-                dict(type="rect", x0=3, y0=0, x1=4, y1=1, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
-                dict(type="rect", x0=1, y0=1, x1=2, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
-                dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#a3cfbb", opacity=0.8),
+                dict(type="rect", x0=0, y0=0, x1=1, y1=1, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
+                dict(type="rect", x0=1, y0=0, x1=2, y1=1, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
+                dict(type="rect", x0=2, y0=0, x1=3, y1=1, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
+                dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
+                dict(type="rect", x0=2, y0=2, x1=3, y1=3, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
+                dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="blue", width=2), fillcolor="#9ec5fe", opacity=0.8),
+            ]
+        elif variasi_kubus == "Variasi 3 (Pola Zig-Zag Samping)":
+            shapes_list = [
+                dict(type="rect", x0=0, y0=2, x1=1, y1=3, line=dict(color="blue", width=2), fillcolor="#f1aeb5", opacity=0.8),
+                dict(type="rect", x0=0, y0=1, x1=1, y1=2, line=dict(color="blue", width=2), fillcolor="#f1aeb5", opacity=0.8),
+                dict(type="rect", x0=1, y0=1, x1=2, y1=2, line=dict(color="blue", width=2), fillcolor="#f1aeb5", opacity=0.8),
+                dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#f1aeb5", opacity=0.8),
+                dict(type="rect", x0=2, y0=0, x1=3, y1=1, line=dict(color="blue", width=2), fillcolor="#f1aeb5", opacity=0.8),
+                dict(type="rect", x0=3, y0=0, x1=4, y1=1, line=dict(color="blue", width=2), fillcolor="#f1aeb5", opacity=0.8),
+            ]
+        else:
+            shapes_list = [
+                dict(type="rect", x0=0, y0=0, x1=1, y1=1, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
+                dict(type="rect", x0=1, y0=0, x1=2, y1=1, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
+                dict(type="rect", x0=2, y0=0, x1=3, y1=1, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
+                dict(type="rect", x0=1, y0=1, x1=2, y1=2, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
+                dict(type="rect", x0=2, y0=1, x1=3, y1=2, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
+                dict(type="rect", x0=3, y0=1, x1=4, y1=2, line=dict(color="blue", width=2), fillcolor="#ffe69c", opacity=0.8),
             ]
             
         fig_net.update_layout(
-            xaxis=dict(range=[-1, 5], showgrid=False, zeroline=False),
-            yaxis=dict(range=[-1, 5], showgrid=False, zeroline=False),
-            shapes=shapes_list,
-            height=400
+            title=f"Proyeksi 2D - {variasi_kubus}",
+            xaxis=dict(range=[-1, 5], showgrid=True, zeroline=False, scaleanchor="y", scaleratio=1),
+            yaxis=dict(range=[-1, 5], showgrid=True, zeroline=False),
+            width=500, height=500,
+            shapes=shapes_list
         )
         st.plotly_chart(fig_net, use_container_width=True)
+        
+    elif "Balok" in pilihan_bangun:
+        variasi_balok = st.selectbox(
+            "Pilih Variasi Pola Jaring-Jaring Balok:",
+            [
+                "Variasi 1 (Pola Salib Panjang)", 
+                "Variasi 2 (Pola T-Shape / Terpusat)"
+            ]
+        )
+        
+        if variasi_balok == "Variasi 1 (Pola Salib Panjang)":
+            shapes_balok = [
+                dict(type="rect", x0=1, y0=1.5, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=1, y0=0, x1=3, y1=1.5, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=1, y0=3, x1=3, y1=4.5, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=1, y0=4.5, x1=3, y1=6, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=0, y0=1.5, x1=1, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+                dict(type="rect", x0=3, y0=1.5, x1=4, y1=3, line=dict(color="green", width=2), fillcolor="#d1e7dd", opacity=0.8), 
+            ]
+            x_range, y_range = [-1, 5], [-1, 7]
+        else:
+            shapes_balok = [
+                dict(type="rect", x0=1, y0=1.5, x1=3, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=1, y0=0, x1=3, y1=1.5, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=1, y0=3, x1=3, y1=4.5, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=3, y0=1.5, x1=5, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=5, y0=1.5, x1=7, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+                dict(type="rect", x0=-1, y0=1.5, x1=1, y1=3, line=dict(color="green", width=2), fillcolor="#cfe2ff", opacity=0.8), 
+            ]
+            x_range, y_range = [-2, 8], [-1, 5]
+            
+        fig_net.update_layout(
+            title=f"Proyeksi 2D - {variasi_balok}",
+            xaxis=dict(range=x_range, showgrid=True, zeroline=False),
+            yaxis=dict(range=y_range, showgrid=True, zeroline=False),
+            width=550, height=500,
+            shapes=shapes_balok
+        )
+        st.plotly_chart(fig_net, use_container_width=True)
+
+    elif "Prisma Segitiga" in pilihan_bangun:
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Prisma Segitiga**, terdiri dari 3 persegi panjang berdampingan sebagai selimut tegak serta 2 segitiga pada sisi atas dan bawah persegi panjang tengah.")
+        shapes_prisma = [
+            dict(type="rect", x0=0, y0=0, x1=2, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
+            dict(type="rect", x0=2, y0=0, x1=4, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
+            dict(type="rect", x0=4, y0=0, x1=6, y1=3, line=dict(color="#fd7e14", width=2), fillcolor="#ffe8d6", opacity=0.8),
+            dict(type="path", path="M 2 3 L 3 4.5 L 4 3 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
+            dict(type="path", path="M 2 0 L 3 -1.5 L 4 0 Z", line=dict(color="#fd7e14", width=2), fillcolor="#ffc785", opacity=0.8),
+        ]
+        fig_net.update_layout(
+            title="Proyeksi 2D - Jaring-Jaring Prisma Segitiga",
+            xaxis=dict(range=[-1, 7], showgrid=True, zeroline=False),
+            yaxis=dict(range=[-2.5, 5.5], showgrid=True, zeroline=False),
+            width=500, height=500,
+            shapes=shapes_prisma
+        )
+        st.plotly_chart(fig_net, use_container_width=True)
+
+    elif "Limas Segi Empat" in pilihan_bangun:
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Limas Segi Empat**, terdiri dari 1 persegi di bagian tengah sebagai alas dan 4 segitiga sama kaki di setiap sisi luarnya.")
+        shapes_limas = [
+            dict(type="rect", x0=1, y0=1, x1=3, y1=3, line=dict(color="#d63384", width=2), fillcolor="#f8d7da", opacity=0.8),
+            dict(type="path", path="M 1 3 L 3 3 L 2 5.5 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+            dict(type="path", path="M 1 1 L 3 1 L 2 -1.5 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+            dict(type="path", path="M 1 1 L 1 3 L -1.5 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+            dict(type="path", path="M 3 1 L 3 3 L 5.5 2 Z", line=dict(color="#d63384", width=2), fillcolor="#f5c2c7", opacity=0.8),
+        ]
+        fig_net.update_layout(
+            title="Proyeksi 2D - Jaring-Jaring Limas Segi Empat",
+            xaxis=dict(range=[-2.5, 6.5], showgrid=True, zeroline=False),
+            yaxis=dict(range=[-2.5, 6.5], showgrid=True, zeroline=False),
+            width=500, height=500,
+            shapes=shapes_limas
+        )
+        st.plotly_chart(fig_net, use_container_width=True)
+
+    elif "Tabung" in pilihan_bangun:
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Tabung**, yang terdiri dari 1 buah persegi panjang besar sebagai selimut tabung serta 2 buah lingkaran sebagai tutup dan alas.")
+        shapes_tabung = [
+            dict(type="rect", x0=0, y0=0, x1=6, y1=3, line=dict(color="#0dcaf0", width=2), fillcolor="#cff4fc", opacity=0.8),
+            dict(type="circle", x0=1.5, y0=3, x1=3.5, y1=4.5, line=dict(color="#0dcaf0", width=2), fillcolor="#9eeaf9", opacity=0.8),
+            dict(type="circle", x0=1.5, y0=-1.5, x1=3.5, y1=0, line=dict(color="#0dcaf0", width=2), fillcolor="#9eeaf9", opacity=0.8),
+        ]
+        fig_net.update_layout(
+            title="Proyeksi 2D - Jaring-Jaring Tabung",
+            xaxis=dict(range=[-1, 7], showgrid=True, zeroline=False),
+            yaxis=dict(range=[-2, 5.5], showgrid=True, zeroline=False),
+            width=500, height=500,
+            shapes=shapes_tabung
+        )
+        st.plotly_chart(fig_net, use_container_width=True)
+
     else:
-        st.info("Silakan pilih opsi jaring-jaring atau bangun ruang lainnya di atas untuk menampilkan proyeksi.")
+        st.markdown("Berikut adalah proyeksi jaring-jaring **Kerucut** (terdiri dari juring selimut besar menghadap ke atas dan lingkaran alas tepat di bawahnya, menyerupai pola peraga kertas).")
+        shapes_kerucut = [
+            dict(
+                type="path", 
+                path="M 0 4 L -3 0 Q 0 -0.5 3 0 Z", 
+                line=dict(color="#0d6efd", width=2), 
+                fillcolor="#0dcaf0", 
+                opacity=0.5
+            ),
+            dict(
+                type="circle", 
+                x0=-1.1, 
+                y0=-2.3, 
+                x1=1.1, 
+                y1=-0.1, 
+                line=dict(color="#0d6efd", width=2), 
+                fillcolor="#0dcaf0", 
+                opacity=0.6
+            )
+        ]
+        fig_net.update_layout(
+            title="Proyeksi 2D - Jaring-Jaring Kerucut",
+            xaxis=dict(range=[-4, 4], showgrid=True, zeroline=False, scaleanchor="y", scaleratio=1),
+            yaxis=dict(range=[-3, 5], showgrid=True, zeroline=False),
+            width=500, height=500,
+            shapes=shapes_kerucut
+        )
+        st.plotly_chart(fig_net, use_container_width=True)
 
 # --- FOOTER SIDEBAR ---
 st.sidebar.markdown("---")
