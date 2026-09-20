@@ -711,3 +711,7 @@ elif pilihan_menu == "Proyeksi Jaring-Jaring":
         st.plotly_chart(fig_net, use_container_width=True)
     else:
         st.info("Silakan pilih opsi jaring-jaring atau bangun ruang lainnya di atas untuk menampilkan proyeksi.")
+
+# --- FOOTER SIDEBAR ---
+st.sidebar.markdown("---")
+st.sidebar.caption("Pengembang: Mochammad Rifqi Al Khadziq")
