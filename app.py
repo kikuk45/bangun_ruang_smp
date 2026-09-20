@@ -260,7 +260,7 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         tinggi_pris = st.number_input("Panjang/Tinggi Prisma (t_prisma):", min_value=1.0, value=8.0, step=1.0, key="p_tpris")
         
         luas_alas = 0.5 * alas_tri * tinggi_tri
-        keliling_alas = alas_tri + (2 * sisi_miring_alas) # Mengikuti bentuk segitiga sama kaki/umum
+        keliling_alas = alas_tri + (2 * sisi_miring_alas)
         v_prisma = luas_alas * tinggi_pris
         lp_prisma = (2 * luas_alas) + (keliling_alas * tinggi_pris)
 
@@ -276,16 +276,11 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
 
     st.markdown("---")
     
-    # 3. Bagian Visualisasi 3D (Orientasi Horizontal / Berbaring)
+    # 3. Bagian Visualisasi 3D (Orientasi Horizontal Bersih Tanpa Garis Tengah)
     st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
     
-    # Titik segitiga depan (Y = 0)
-    # Titik tengah alas di (0, 0, 0), melebar ke kiri-kanan pada sumbu X atau Z
-    # Mari kita posisikan segitiga di bidang XZ (lebar di X, tinggi di Z), dan panjang prisma merentang pada sumbu Y.
-    
-    # Segitiga Depan (Y = 0)
-    # Titik 0: Kiri bawah, Titik 1: Kanan bawah, Titik 2: Puncak atas
     half_a = alas_tri / 2.0
+    # Segitiga Depan (Y = 0)
     xd_l, yd_l, zd_l = -half_a, 0.0, 0.0          # Kiri bawah depan
     xd_r, yd_r, zd_r = half_a, 0.0, 0.0           # Kanan bawah depan
     xd_t, yd_t, zd_t = 0.0, 0.0, float(tinggi_tri) # Puncak atas depan
@@ -297,7 +292,6 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
     xb_t, yb_t, zb_t = 0.0, yd_back, float(tinggi_tri) # Puncak atas belakang
     
     x_pts = [xd_l, xd_r, xd_t, xb_l, xb_r, xb_t]
-    y_pts = [yd_l, yd_r, yd_t, yb_l, yb_l, yb_t] # (diperbaiki indeks y)
     y_pts = [yd_l, yd_r, yd_t, yb_l, yb_r, yb_t]
     z_pts = [zd_l, zd_r, zd_t, zb_l, zb_r, zb_t]
     
@@ -312,17 +306,41 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         color='#ffc107', opacity=0.25, flatshading=True
     ))
     
-    # Rusuk Solid (Bagian Depan & Sisi Luar yang Terlihat)
+    # 1. Segitiga Depan (Utuh Solid)
     fig_pris.add_trace(go.Scatter3d(
-        x=[xd_l, xd_r, xd_t, xd_l,  xd_l, xb_l,  xd_r, xb_r,  xd_t, xb_t],
-        y=[yd_l, yd_r, yd_t, yd_l,  yd_l, yb_l,  yd_r, yb_r,  yd_t, yb_t],
-        z=[zd_l, zd_r, zd_t, zd_l,  zd_l, zb_l,  zd_r, zb_r,  zd_t, zb_t],
+        x=[xd_l, xd_r, xd_t, xd_l],
+        y=[yd_l, yd_r, yd_t, yd_l],
+        z=[zd_l, zd_r, zd_t, zd_l],
         mode='lines',
         line=dict(color='#212529', width=4),
-        name='Rusuk Solid'
+        showlegend=False
     ))
     
-    # Rusuk Putus-Putus (Sisi Bawah Belakang yang Tersembunyi)
+    # 2. Rusuk Penghubung Samping yang Terlihat (Kiri-Atas dan Kanan-Atas)
+    fig_pris.add_trace(go.Scatter3d(
+        x=[xd_l, xb_l], y=[yd_l, yb_l], z=[zd_l, zb_l],
+        mode='lines', line=dict(color='#212529', width=4), showlegend=False
+    ))
+    fig_pris.add_trace(go.Scatter3d(
+        x=[xd_r, xb_r], y=[yd_r, yb_r], z=[zd_r, zb_r],
+        mode='lines', line=dict(color='#212529', width=4), showlegend=False
+    ))
+    fig_pris.add_trace(go.Scatter3d(
+        x=[xd_t, xb_t], y=[yd_t, yb_t], z=[zd_t, zb_t],
+        mode='lines', line=dict(color='#212529', width=4), showlegend=False
+    ))
+    
+    # 3. Sisi Belakang Atas & Kanan Belakang yang Terlihat
+    fig_pris.add_trace(go.Scatter3d(
+        x=[xb_l, xb_t, xb_r],
+        y=[yb_l, yb_t, yb_r],
+        z=[zb_l, zb_t, zb_r],
+        mode='lines',
+        line=dict(color='#212529', width=4),
+        showlegend=False
+    ))
+    
+    # 4. Rusuk Bawah Belakang (Tersembunyi -> Garis Putus-Putus)
     fig_pris.add_trace(go.Scatter3d(
         x=[xb_l, xb_r],
         y=[yb_l, yb_r],
@@ -342,7 +360,6 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         height=500
     )
     st.plotly_chart(fig_pris, use_container_width=True)
-
 
 # --- LIMAS SEGI EMPAT ---
 elif pilihan_menu == "Analisis Limas Segi Empat":
