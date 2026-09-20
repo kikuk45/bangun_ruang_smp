@@ -229,180 +229,185 @@ elif pilihan_menu == "Analisis Balok":
 # --- PRISMA SEGITIGA ---
 elif pilihan_menu == "Analisis Prisma Segitiga":
     st.title("⛺ Eksplorasi Prisma Segitiga")
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.markdown("""
-        <div class="smp-card">
-            <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
-            <ul>
-                <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
-                <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang.</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-        
+    
+    # 1. Bagian Penjelasan & Rumus (Full Width)
+    st.markdown("""
+    <div class="smp-card">
+        <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
+        <ul>
+            <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
+            <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col_r1, col_r2 = st.columns(2)
+    with col_r1:
         st.latex(r"Volume \ (V) = \text{Luas Alas} \times \text{Tinggi Prisma}")
-        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi Prisma})")
-        
-        alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1.0, value=4.0, step=1.0)
-        tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1.0, value=3.0, step=1.0)
-        sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga / Sisi Lainnya:", min_value=1.0, value=5.0, step=1.0)
-        tinggi_pris = st.number_input("Tinggi Prisma (t_prisma):", min_value=1.0, value=6.0, step=1.0)
+    with col_r2:
+        st.latex(r"Luas \ Permukaan \ (L_p) = (2 \times \text{Luas Alas}) + (\text{Keliling Alas} \times \text{Tinggi})")
+    
+    st.markdown("---")
+    
+    # 2. Bagian Input & Perhitungan (Dibagi 2 Kolom: Input vs Langkah Solusi)
+    col_input, col_solusi = st.columns([1, 1])
+    
+    with col_input:
+        st.markdown("### 🎛️ Masukkan Parameter")
+        alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1.0, value=4.0, step=1.0, key="p_alas")
+        tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1.0, value=3.0, step=1.0, key="p_talas")
+        sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga:", min_value=1.0, value=5.0, step=1.0, key="p_smiring")
+        tinggi_pris = st.number_input("Tinggi Prisma (t_prisma):", min_value=1.0, value=6.0, step=1.0, key="p_tpris")
         
         luas_alas = 0.5 * alas_tri * tinggi_tri
         keliling_alas = alas_tri + tinggi_tri + sisi_miring_alas
         v_prisma = luas_alas * tinggi_pris
         lp_prisma = (2 * luas_alas) + (keliling_alas * tinggi_pris)
-        
-        with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
-            st.markdown("* **Rumus:** $V = \\text{Luas Alas} \\times \\text{Tinggi Prisma}$")
-            st.markdown(f"* **Hitung Luas Alas:** $\\frac{{1}}{{2}} \\times a \\times t_{{alas}} = \\frac{{1}}{{2}} \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
-            st.markdown(f"* **Penyelesaian:** $V = {luas_alas} \\times {tinggi_pris}$")
-            st.markdown(f"* **Hasil Akhir:** {v_prisma:.2f} satuan kubik")
-            
-        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown("* **Rumus:** $L_p = (2 \\times \\text{Luas Alas}) + (\\text{Keliling Alas} \\times \\text{Tinggi Prisma})$")
-            st.markdown(f"* **Hitung Keliling Alas:** ${alas_tri} + {tinggi_tri} + {sisi_miring_alas} = {keliling_alas}$")
-            st.markdown(f"* **Penyelesaian:** $L_p = (2 \\times {luas_alas}) + ({keliling_alas} \\times {tinggi_pris})$")
-            st.markdown(f"* **Hasil Akhir:** {lp_prisma:.2f} satuan persegi")
 
-    with col2:
-        st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
-        # Titik-titik alas bawah (z=0) dan atap atas (z=tinggi_pris)
-        # Segitiga alas di bidang XY dengan sudut siku-siku di (0,0,0)
-        xa, ya, za = 0.0, 0.0, 0.0          # Titik 0 (Siku-siku alas)
-        xb, yb, zb = float(alas_tri), 0.0, 0.0     # Titik 1 (Panjang alas)
-        xc, yc, zc = 0.0, float(tinggi_tri), 0.0   # Titik 2 (Tinggi alas)
-        
-        xd, yd, zd = 0.0, 0.0, float(tinggi_pris)          # Titik 3 (Siku-siku atas)
-        xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)     # Titik 4 (Panjang atas)
-        xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   # Titik 5 (Tinggi atas)
-        
-        x_pts = [xa, xb, xc, xd, xe, xf]
-        y_pts = [ya, yb, yc, yd, ye, yf]
-        z_pts = [za, zb, zc, zd, ze, zf]
-        
-        fig = go.Figure()
-        
-        # Mesh 3D Prisma Segitiga dengan indeks yang diperbaiki agar solid dan transparan sempurna
-        fig.add_trace(go.Mesh3d(
-            x=x_pts, y=y_pts, z=z_pts,
-            i=[0, 0, 3, 3, 0, 1],
-            j=[1, 2, 4, 5, 3, 2],
-            k=[2, 3, 5, 4, 5, 4],
-            color='#ffc107', opacity=0.30, flatshading=True
-        ))
-        
-        # Garis kerangka solid untuk prisma segitiga
-        fig.add_trace(go.Scatter3d(
-            x=[xa, xb, xc, xa,  xd, xe, xf, xd,  xa, xd,  xb, xe,  xc, xf],
-            y=[ya, yb, yc, ya,  yd, ye, yf, yd,  ya, yd,  yb, ye,  yc, yf],
-            z=[za, zb, zc, za,  zd, ze, zf, zd,  za, zd,  zb, ze,  zc, zf],
-            mode='lines',
-            line=dict(color='#212529', width=4)
-        ))
-        
-        fig.update_layout(
-            scene=dict(
-                xaxis=dict(range=[-1, alas_tri+2], title='X'),
-                yaxis=dict(range=[-1, tinggi_tri+2], title='Y'),
-                zaxis=dict(range=[-1, tinggi_pris+2], title='Z')
-            ), 
-            margin=dict(l=0, r=0, b=0, t=0)
-        )
-        st.plotly_chart(fig, use_container_width=True)
+    with col_solusi:
+        st.markdown("### 📝 Langkah Perhitungan")
+        with st.expander("1️⃣ Detail Volume", expanded=True):
+            st.markdown(f"* **Luas Alas:** $\\frac{{1}}{{2}} \\times {alas_tri} \\times {tinggi_tri} = {luas_alas}$")
+            st.markdown(f"* **Volume:** ${luas_alas} \\times {tinggi_pris} = \\mathbf{{{v_prisma:.2f}}}$ satuan kubik")
+            
+        with st.expander("2️⃣ Detail Luas Permukaan", expanded=True):
+            st.markdown(f"* **Keliling Alas:** ${alas_tri} + {tinggi_tri} + {sisi_miring_alas} = {keliling_alas}$")
+            st.markdown(f"* **Luas Permukaan:** $(2 \\times {luas_alas}) + ({keliling_alas} \\times {tinggi_pris}) = \\mathbf{{{lp_prisma:.2f}}}$ satuan persegi")
+
+    st.markdown("---")
+    
+    # 3. Bagian Visualisasi 3D (Full Width / Lebar Penuh di Bawah)
+    st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
+    xa, ya, za = 0.0, 0.0, 0.0          
+    xb, yb, zb = float(alas_tri), 0.0, 0.0     
+    xc, yc, zc = 0.0, float(tinggi_tri), 0.0   
+    xd, yd, zd = 0.0, 0.0, float(tinggi_pris)          
+    xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)     
+    xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   
+    
+    x_pts = [xa, xb, xc, xd, xe, xf]
+    y_pts = [ya, yb, yc, yd, ye, yf]
+    z_pts = [za, zb, zc, zd, ze, zf]
+    
+    fig_pris = go.Figure()
+    fig_pris.add_trace(go.Mesh3d(
+        x=x_pts, y=y_pts, z=z_pts,
+        i=[0, 0, 3, 3, 0, 1],
+        j=[1, 2, 4, 5, 3, 2],
+        k=[2, 3, 5, 4, 5, 4],
+        color='#ffc107', opacity=0.30, flatshading=True
+    ))
+    fig_pris.add_trace(go.Scatter3d(
+        x=[xa, xb, xc, xa,  xd, xe, xf, xd,  xa, xd,  xb, xe,  xc, xf],
+        y=[ya, yb, yc, ya,  yd, ye, yf, yd,  ya, yd,  yb, ye,  yc, yf],
+        z=[za, zb, zc, za,  zd, ze, zf, zd,  za, zd,  zb, ze,  zc, zf],
+        mode='lines',
+        line=dict(color='#212529', width=4)
+    ))
+    fig_pris.update_layout(
+        scene=dict(
+            xaxis=dict(range=[-1, alas_tri+2], title='X'),
+            yaxis=dict(range=[-1, tinggi_tri+2], title='Y'),
+            zaxis=dict(range=[-1, tinggi_pris+2], title='Z')
+        ), 
+        margin=dict(l=0, r=0, b=0, t=0),
+        height=500
+    )
+    st.plotly_chart(fig_pris, use_container_width=True)
+
 
 # --- LIMAS SEGI EMPAT ---
 elif pilihan_menu == "Analisis Limas Segi Empat":
     st.title("📐 Eksplorasi Limas Segi Empat")
-    col1, col2 = st.columns([1, 1])
-    with col1:
-        st.markdown("""
-        <div class="smp-card">
-            <h3>📋 Karakteristik Limas Segi Empat</h3>
-            <ul>
-                <li><b>Alas:</b> Berbentuk persegi / persegi panjang.</li>
-                <li><b>Sisi Tegak:</b> Berbentuk segitiga yang bertemu di satu titik puncak.</li>
-            </ul>
-        </div>
-        """, unsafe_allow_html=True)
-        
+    
+    # 1. Bagian Penjelasan & Rumus (Full Width)
+    st.markdown("""
+    <div class="smp-card">
+        <h3>📋 Karakteristik Limas Segi Empat</h3>
+        <ul>
+            <li><b>Alas:</b> Berbentuk persegi / persegi panjang.</li>
+            <li><b>Sisi Tegak:</b> Berbentuk segitiga yang bertemu di satu titik puncak.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col_r1, col_r2 = st.columns(2)
+    with col_r1:
         st.latex(r"Volume \ (V) = \frac{1}{3} \times \text{Luas Alas} \times \text{Tinggi}")
+    with col_r2:
         st.latex(r"Luas \ Permukaan = \text{Luas Alas} + \text{Jumlah Luas Sisi Tegak}")
-        
-        s_alas = st.number_input("Sisi Alas Persegi (s):", min_value=1.0, value=4.0, step=1.0)
-        t_limas = st.number_input("Tinggi Limas (t):", min_value=1.0, value=6.0, step=1.0)
+    
+    st.markdown("---")
+    
+    # 2. Bagian Input & Perhitungan
+    col_input, col_solusi = st.columns([1, 1])
+    
+    with col_input:
+        st.markdown("### 🎛️ Masukkan Parameter")
+        s_alas = st.number_input("Sisi Alas Persegi (s):", min_value=1.0, value=4.0, step=1.0, key="l_salas")
+        t_limas = st.number_input("Tinggi Limas (t):", min_value=1.0, value=6.0, step=1.0, key="l_tlimas")
         
         luas_alas = s_alas ** 2
         v_limas = (1/3) * luas_alas * t_limas
         sisi_tegak_t = np.sqrt((s_alas / 2)**2 + t_limas**2)
         luas_sisi_tegak = 4 * (0.5 * s_alas * sisi_tegak_t)
         lp_limas = luas_alas + luas_sisi_tegak
-        
-        with st.expander("1️⃣ Langkah Menghitung Volume", expanded=True):
-            st.markdown("* **Rumus:** $V = \\frac{1}{3} \\times \\text{Luas Alas} \\times \\text{Tinggi}$")
-            st.markdown(f"* **Hitung Luas Alas:** ${s_alas} \\times {s_alas} = {luas_alas}$")
-            st.markdown(f"* **Penyelesaian:** $V = \\frac{{1}}{{3}} \\times {luas_alas} \\times {t_limas}$")
-            st.markdown(f"* **Hasil Akhir:** {v_limas:.2f} satuan kubik")
+
+    with col_solusi:
+        st.markdown("### 📝 Langkah Perhitungan")
+        with st.expander("1️⃣ Detail Volume", expanded=True):
+            st.markdown(f"* **Luas Alas:** ${s_alas} \\times {s_alas} = {luas_alas}$")
+            st.markdown(f"* **Volume:** $\\frac{{1}}{{3}} \\times {luas_alas} \\times {t_limas} = \\mathbf{{{v_limas:.2f}}}$ satuan kubik")
             
-        with st.expander("2️⃣ Langkah Menghitung Luas Permukaan", expanded=True):
-            st.markdown("* **Rumus:** $L_p = \\text{Luas Alas} + (4 \\times \\text{Luas Segitiga Sisi Tegak})$")
+        with st.expander("2️⃣ Detail Luas Permukaan", expanded=True):
             st.markdown(f"* **Tinggi Sisi Tegak ($t_s$):** $\\sqrt{{({s_alas}/2)^2 + {t_limas}^2}} = {sisi_tegak_t:.2f}$")
-            st.markdown(f"* **Penyelesaian:** $L_p = {luas_alas} + (4 \\times \\frac{{1}}{{2}} \\times {s_alas} \\times {sisi_tegak_t:.2f})$")
-            st.markdown(f"* **Hasil Akhir:** {lp_limas:.2f} satuan persegi")
+            st.markdown(f"* **Luas Permukaan:** ${luas_alas} + (4 \\times \\frac{{1}}{{2}} \\times {s_alas} \\times {sisi_tegak_t:.2f}) = \\mathbf{{{lp_limas:.2f}}}$")
 
-    with col2:
-        st.markdown("### 🌐 Visualisasi 3D Limas Segi Empat")
-        sf = float(s_alas)
-        tf = float(t_limas)
-        
-        # Koordinat titik alas dan puncak limas
-        # Alas 0: (0,0,0), 1: (sf,0,0), 2: (sf,sf,0), 3: (0,sf,0), Puncak 4: (sf/2, sf/2, tf)
-        x_limas = [0.0, sf, sf, 0.0, sf/2]
-        y_limas = [0.0, 0.0, sf, sf, sf/2]
-        z_limas = [0.0, 0.0, 0.0, 0.0, tf]
-        
-        fig = go.Figure()
-        
-        # Mesh bodi limas segiempat
-        fig.add_trace(go.Mesh3d(
-            x=x_limas, y=y_limas, z=z_limas,
-            i=[0, 0, 0, 1],
-            j=[1, 2, 4, 2],
-            k=[2, 3, 4, 4],
-            color='#ffc107', opacity=0.25, flatshading=True
-        ))
-        
-        # Rusuk Solid (Bagian Depan & Alas Depan)
-        fig.add_trace(go.Scatter3d(
-            x=[0, sf, sf, sf/2, sf, 0, sf/2],
-            y=[0, 0, sf, sf/2, sf, sf, sf/2],
-            z=[0, 0, 0, tf, 0, 0, tf],
-            mode='lines',
-            line=dict(color='#212529', width=4),
-            name='Rusuk Solid'
-        ))
-        
-        # Rusuk Putus-Putus (Sisi Belakang yang Tersembunyi)
-        fig.add_trace(go.Scatter3d(
-            x=[0, 0, 0, sf/2],
-            y=[0, sf, 0, sf/2],
-            z=[0, 0, 0, tf],
-            mode='lines',
-            line=dict(color='#6c757d', width=4, dash='dash'),
-            name='Rusuk Belakang'
-        ))
-        
-        fig.update_layout(
-            scene=dict(
-                xaxis=dict(range=[-1, sf+1], title='X'),
-                yaxis=dict(range=[-1, sf+1], title='Y'),
-                zaxis=dict(range=[-1, tf+1], title='Z')
-            ), 
-            margin=dict(l=0, r=0, b=0, t=0)
-        )
-        st.plotly_chart(fig, use_container_width=True)
-
+    st.markdown("---")
+    
+    # 3. Bagian Visualisasi 3D (Full Width di Bawah)
+    st.markdown("### 🌐 Visualisasi 3D Limas Segi Empat")
+    sf = float(s_alas)
+    tf = float(t_limas)
+    
+    x_limas = [0.0, sf, sf, 0.0, sf/2]
+    y_limas = [0.0, 0.0, sf, sf, sf/2]
+    z_limas = [0.0, 0.0, 0.0, 0.0, tf]
+    
+    fig_limas = go.Figure()
+    fig_limas.add_trace(go.Mesh3d(
+        x=x_limas, y=y_limas, z=z_limas,
+        i=[0, 0, 0, 1],
+        j=[1, 2, 4, 2],
+        k=[2, 3, 4, 4],
+        color='#ffc107', opacity=0.25, flatshading=True
+    ))
+    fig_limas.add_trace(go.Scatter3d(
+        x=[0, sf, sf, sf/2, sf, 0, sf/2],
+        y=[0, 0, sf, sf/2, sf, sf, sf/2],
+        z=[0, 0, 0, tf, 0, 0, tf],
+        mode='lines',
+        line=dict(color='#212529', width=4),
+        name='Rusuk Solid'
+    ))
+    fig_limas.add_trace(go.Scatter3d(
+        x=[0, 0, 0, sf/2],
+        y=[0, sf, 0, sf/2],
+        z=[0, 0, 0, tf],
+        mode='lines',
+        line=dict(color='#6c757d', width=4, dash='dash'),
+        name='Rusuk Belakang'
+    ))
+    fig_limas.update_layout(
+        scene=dict(
+            xaxis=dict(range=[-1, sf+1], title='X'),
+            yaxis=dict(range=[-1, sf+1], title='Y'),
+            zaxis=dict(range=[-1, tf+1], title='Z')
+        ), 
+        margin=dict(l=0, r=0, b=0, t=0),
+        height=500
+    )
+    st.plotly_chart(fig_limas, use_container_width=True)
 # --- TABUNG & KERUCUT ---
 elif pilihan_menu == "Analisis Tabung & Kerucut":
     st.title("🥫 Eksplorasi Tabung & Kerucut (Sisi Lengkung)")
