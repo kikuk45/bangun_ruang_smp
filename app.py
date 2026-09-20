@@ -235,8 +235,8 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
     <div class="smp-card">
         <h3>📋 Karakteristik & Unsur Prisma Segitiga</h3>
         <ul>
-            <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar.</li>
-            <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang.</li>
+            <li><b>Alas & Atap:</b> Berbentuk segitiga yang kongruen dan sejajar di sisi depan dan belakang.</li>
+            <li><b>Sisi Tegak:</b> Berbentuk 3 buah bidang persegi panjang yang memanjang secara horizontal.</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -249,7 +249,7 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
     
     st.markdown("---")
     
-    # 2. Bagian Input & Perhitungan (Dibagi 2 Kolom: Input vs Langkah Solusi)
+    # 2. Bagian Input & Perhitungan
     col_input, col_solusi = st.columns([1, 1])
     
     with col_input:
@@ -257,10 +257,10 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
         alas_tri = st.number_input("Panjang Alas Segitiga (a):", min_value=1.0, value=4.0, step=1.0, key="p_alas")
         tinggi_tri = st.number_input("Tinggi Alas Segitiga (t_alas):", min_value=1.0, value=3.0, step=1.0, key="p_talas")
         sisi_miring_alas = st.number_input("Sisi Miring Alas Segitiga:", min_value=1.0, value=5.0, step=1.0, key="p_smiring")
-        tinggi_pris = st.number_input("Tinggi Prisma (t_prisma):", min_value=1.0, value=6.0, step=1.0, key="p_tpris")
+        tinggi_pris = st.number_input("Panjang/Tinggi Prisma (t_prisma):", min_value=1.0, value=8.0, step=1.0, key="p_tpris")
         
         luas_alas = 0.5 * alas_tri * tinggi_tri
-        keliling_alas = alas_tri + tinggi_tri + sisi_miring_alas
+        keliling_alas = alas_tri + (2 * sisi_miring_alas) # Mengikuti bentuk segitiga sama kaki/umum
         v_prisma = luas_alas * tinggi_pris
         lp_prisma = (2 * luas_alas) + (keliling_alas * tinggi_pris)
 
@@ -271,44 +271,72 @@ elif pilihan_menu == "Analisis Prisma Segitiga":
             st.markdown(f"* **Volume:** ${luas_alas} \\times {tinggi_pris} = \\mathbf{{{v_prisma:.2f}}}$ satuan kubik")
             
         with st.expander("2️⃣ Detail Luas Permukaan", expanded=True):
-            st.markdown(f"* **Keliling Alas:** ${alas_tri} + {tinggi_tri} + {sisi_miring_alas} = {keliling_alas}$")
+            st.markdown(f"* **Keliling Alas:** ${keliling_alas}$")
             st.markdown(f"* **Luas Permukaan:** $(2 \\times {luas_alas}) + ({keliling_alas} \\times {tinggi_pris}) = \\mathbf{{{lp_prisma:.2f}}}$ satuan persegi")
 
     st.markdown("---")
     
-    # 3. Bagian Visualisasi 3D (Full Width / Lebar Penuh di Bawah)
+    # 3. Bagian Visualisasi 3D (Orientasi Horizontal / Berbaring)
     st.markdown("### 🌐 Visualisasi 3D Prisma Segitiga")
-    xa, ya, za = 0.0, 0.0, 0.0          
-    xb, yb, zb = float(alas_tri), 0.0, 0.0     
-    xc, yc, zc = 0.0, float(tinggi_tri), 0.0   
-    xd, yd, zd = 0.0, 0.0, float(tinggi_pris)          
-    xe, ye, ze = float(alas_tri), 0.0, float(tinggi_pris)     
-    xf, yf, zf = 0.0, float(tinggi_tri), float(tinggi_pris)   
     
-    x_pts = [xa, xb, xc, xd, xe, xf]
-    y_pts = [ya, yb, yc, yd, ye, yf]
-    z_pts = [za, zb, zc, zd, ze, zf]
+    # Titik segitiga depan (Y = 0)
+    # Titik tengah alas di (0, 0, 0), melebar ke kiri-kanan pada sumbu X atau Z
+    # Mari kita posisikan segitiga di bidang XZ (lebar di X, tinggi di Z), dan panjang prisma merentang pada sumbu Y.
+    
+    # Segitiga Depan (Y = 0)
+    # Titik 0: Kiri bawah, Titik 1: Kanan bawah, Titik 2: Puncak atas
+    half_a = alas_tri / 2.0
+    xd_l, yd_l, zd_l = -half_a, 0.0, 0.0          # Kiri bawah depan
+    xd_r, yd_r, zd_r = half_a, 0.0, 0.0           # Kanan bawah depan
+    xd_t, yd_t, zd_t = 0.0, 0.0, float(tinggi_tri) # Puncak atas depan
+    
+    # Segitiga Belakang (Y = tinggi_pris)
+    yd_back = float(tinggi_pris)
+    xb_l, yb_l, zb_l = -half_a, yd_back, 0.0          # Kiri bawah belakang
+    xb_r, yb_r, zb_r = half_a, yd_back, 0.0           # Kanan bawah belakang
+    xb_t, yb_t, zb_t = 0.0, yd_back, float(tinggi_tri) # Puncak atas belakang
+    
+    x_pts = [xd_l, xd_r, xd_t, xb_l, xb_r, xb_t]
+    y_pts = [yd_l, yd_r, yd_t, yb_l, yb_l, yb_t] # (diperbaiki indeks y)
+    y_pts = [yd_l, yd_r, yd_t, yb_l, yb_r, yb_t]
+    z_pts = [zd_l, zd_r, zd_t, zb_l, zb_r, zb_t]
     
     fig_pris = go.Figure()
+    
+    # Mesh transparan prisma
     fig_pris.add_trace(go.Mesh3d(
         x=x_pts, y=y_pts, z=z_pts,
         i=[0, 0, 3, 3, 0, 1],
         j=[1, 2, 4, 5, 3, 2],
         k=[2, 3, 5, 4, 5, 4],
-        color='#ffc107', opacity=0.30, flatshading=True
+        color='#ffc107', opacity=0.25, flatshading=True
     ))
+    
+    # Rusuk Solid (Bagian Depan & Sisi Luar yang Terlihat)
     fig_pris.add_trace(go.Scatter3d(
-        x=[xa, xb, xc, xa,  xd, xe, xf, xd,  xa, xd,  xb, xe,  xc, xf],
-        y=[ya, yb, yc, ya,  yd, ye, yf, yd,  ya, yd,  yb, ye,  yc, yf],
-        z=[za, zb, zc, za,  zd, ze, zf, zd,  za, zd,  zb, ze,  zc, zf],
+        x=[xd_l, xd_r, xd_t, xd_l,  xd_l, xb_l,  xd_r, xb_r,  xd_t, xb_t],
+        y=[yd_l, yd_r, yd_t, yd_l,  yd_l, yb_l,  yd_r, yb_r,  yd_t, yb_t],
+        z=[zd_l, zd_r, zd_t, zd_l,  zd_l, zb_l,  zd_r, zb_r,  zd_t, zb_t],
         mode='lines',
-        line=dict(color='#212529', width=4)
+        line=dict(color='#212529', width=4),
+        name='Rusuk Solid'
     ))
+    
+    # Rusuk Putus-Putus (Sisi Bawah Belakang yang Tersembunyi)
+    fig_pris.add_trace(go.Scatter3d(
+        x=[xb_l, xb_r],
+        y=[yb_l, yb_r],
+        z=[zb_l, zb_r],
+        mode='lines',
+        line=dict(color='#6c757d', width=4, dash='dash'),
+        name='Rusuk Belakang'
+    ))
+    
     fig_pris.update_layout(
         scene=dict(
-            xaxis=dict(range=[-1, alas_tri+2], title='X'),
-            yaxis=dict(range=[-1, tinggi_tri+2], title='Y'),
-            zaxis=dict(range=[-1, tinggi_pris+2], title='Z')
+            xaxis=dict(range=[-half_a-2, half_a+2], title='X'),
+            yaxis=dict(range=[-1, tinggi_pris+2], title='Y (Panjang)'),
+            zaxis=dict(range=[-1, tinggi_tri+2], title='Z (Tinggi)')
         ), 
         margin=dict(l=0, r=0, b=0, t=0),
         height=500
