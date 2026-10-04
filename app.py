@@ -85,7 +85,7 @@ if pilihan_menu == "Beranda Analisis":
     col_text, col_img = st.columns([3, 2])
     with col_text:
         st.title("Modul Interaktif Bangun Ruang 🖥️")
-        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Mata Pelajaran Matematika SMP Kelas 8 (Fase D)</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-style: italic; color: #6c757d; margin-top: -15px;'>Mata Pelajaran Matematika SMP Kelas 9 (Fase D)</p>", unsafe_allow_html=True)
         st.markdown("### Selamat Datang di Lab-Go 😉")
         st.markdown("Aplikasi pembelajaran interaktif lengkap untuk memahami unsur, jaring-jaring, luas permukaan, volume, hingga analisis perubahan ukuran bangun ruang sisi datar dan sisi lengkung.")
         st.info("👉 Silakan pilih menu di sidebar sebelah kiri untuk mulai mengeksplorasi.")
