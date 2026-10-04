@@ -4,7 +4,7 @@ import numpy as np
 
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(
-    page_title="Modul Bangun Ruang Kelas 8 SMP", 
+    page_title="Modul Bangun Ruang Kelas 9 SMP", 
     page_icon="📐",
     layout="wide",
     initial_sidebar_state="expanded"
