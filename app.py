@@ -44,7 +44,7 @@ st.markdown(style_css, unsafe_allow_html=True)
 sidebar_html = """
 <div style='text-align: center;'>
     <h2 style='margin-bottom: 0;'>📐 Lab Bangun Ruang</h2>
-    <p style='color: #6c757d; font-size: 14px;'>Kurikulum Merdeka / K-13 Kelas 8 SMP</p>
+    <p style='color: #6c757d; font-size: 14px;'>Kurikulum Merdeka / K-13 Kelas 9 SMP</p>
 </div>
 """
 st.sidebar.markdown(sidebar_html, unsafe_allow_html=True)
