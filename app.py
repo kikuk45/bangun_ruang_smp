@@ -96,7 +96,7 @@ if pilihan_menu == "Beranda Analisis":
         except Exception:
             pass
     st.markdown("---")
-    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Matematika Kelas 8 SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: #6c757d; font-size: 13px;'>© 2026 Modul Matematika Kelas 9 SMP | Dibuat oleh Mochammad Rifqi Al Khadziq</p>", unsafe_allow_html=True)
 
 # --- CAPAIAN & ALUR TUJUAN (CP & ATP) ---
 elif pilihan_menu == "Capaian & Alur (CP & ATP)":
